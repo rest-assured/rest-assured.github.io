@@ -11,3 +11,7 @@ The REST Assured website. Based on [SinglePaged](https://github.com/t413/SingleP
 ### Adding a new page
 
 Add a new markdown file in the `_posts` directory
+
+### Setting up DNS name
+
+See docs [here](https://help.github.com/articles/setting-up-your-pages-site-repository/).
