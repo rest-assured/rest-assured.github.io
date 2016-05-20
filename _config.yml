@@ -7,7 +7,7 @@ safe: false
 
 ### site serving configuration ###
 exclude: [CNAME, README.md, .gitignore]
-permalink: / ## disables post output
+permalink: /:title ## disables post output
 timezone: null
 lsi: false
 markdown: kramdown
@@ -18,11 +18,12 @@ highlighter: rouge
 title:       "REST Assured"
 keywords:    "rest assured, rest-assured, java, dsl, library, testing"
 description: "REST Assured Website"
-source_link: "https://github.com/t413/SinglePaged"
+source_link: "https://github.com/rest-assured/rest-assured"
 favicon:     #put a path like: "img/favicon.ico"
 touch_icon:  #put a path like: "img/apple-touch-icon.png"
 google_analytics_key: ## put YOUR key here to enable tracking! (blank to disable)
-
+name-image: "img/name-transparent.png"
+logo: "img/logo-transparent.png"
 
 ### template colors, used site-wide via css ###
 colors:
@@ -33,4 +34,6 @@ colors:
   purple:    '#c869bf'
   orange:    '#fab125'
   turquoise: '#0fbfcf'
+  dark:      '#acacac'
+  light:     '#d2d2d2'
   
