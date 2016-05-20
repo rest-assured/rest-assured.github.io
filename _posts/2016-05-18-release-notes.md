@@ -1,6 +1,6 @@
 ---
-bg: dark
-color: white
+bg: white
+color: black
 fa-icon: file-text
 style: center
 ---
