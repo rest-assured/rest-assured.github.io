@@ -21,7 +21,7 @@ description: "REST Assured Website"
 source_link: "https://github.com/rest-assured/rest-assured"
 favicon:     #put a path like: "img/favicon.ico"
 touch_icon:  #put a path like: "img/apple-touch-icon.png"
-google_analytics_key: ## put YOUR key here to enable tracking! (blank to disable)
+google_analytics_key: "UA-20399334-3"
 name-image: "img/name-transparent.png"
 logo: "img/logo-transparent.png"
 
