@@ -16,7 +16,9 @@ kramdown:
   input: GFM
   hard_wrap: false
   syntax_highlighter: rouge
-  
+  syntax_highlighter_opts:
+    disable: true
+
 ### content configuration ###
 title:       "REST Assured"
 keywords:    "rest assured, rest-assured, java, dsl, library, testing"
