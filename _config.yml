@@ -11,13 +11,13 @@ permalink: /:title ## disables post output
 timezone: null
 lsi: false
 markdown: kramdown
-highlighter: rouge
+# highlighter: rouge
 kramdown:
   input: GFM
   hard_wrap: false
   syntax_highlighter: rouge
-  syntax_highlighter_opts:
-    disable: true
+  # syntax_highlighter_opts:
+    # disable: true
 
 ### content configuration ###
 title:       "REST Assured"
