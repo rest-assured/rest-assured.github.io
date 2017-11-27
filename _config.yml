@@ -16,7 +16,7 @@ kramdown:
   input: GFM
   hard_wrap: false
   syntax_highlighter: rouge
-  # syntax_highlighter_opts:
+  syntax_highlighter_opts:
     # disable: true
 
 ### content configuration ###
