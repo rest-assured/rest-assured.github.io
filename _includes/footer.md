@@ -1,4 +1,4 @@
-REST Assuerd is [open source]({{ site.source_link }})
+REST Assured is [open source]({{ site.source_link }})
 &mdash;
 Issue [tracker](https://github.com/rest-assured/rest-assured/issues)
 &mdash;
