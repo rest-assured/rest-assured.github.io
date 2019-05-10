@@ -6,6 +6,7 @@ style: center
 ---
 ## Release Notes
 
+[4.0.0](https://github.com/rest-assured/rest-assured/wiki/ReleaseNotes40)<br>
 [3.3.0](https://github.com/rest-assured/rest-assured/wiki/ReleaseNotes33)<br>
 [3.2.0](https://github.com/rest-assured/rest-assured/wiki/ReleaseNotes32)<br>
 [3.1.0](https://github.com/rest-assured/rest-assured/wiki/ReleaseNotes31)<br>
