@@ -21,9 +21,9 @@ const summary = (body: string | undefined) => (body ?? "").replace(/\[([^\]]+)\]
 
 // The modules a reader can tick. The first two are ticked to start with, since most tests use paths.
 const modules = [
-    ["json-path-gpath", "JSON paths", true],
-    ["xml-path-gpath", "XML paths", true],
-    ["json-path-jayway", "JSONPath (Jayway)", false],
+    ["json-path-gpath", "JsonPath (Groovy)", true],
+    ["xml-path-gpath", "XmlPath (Groovy)", true],
+    ["json-path-jayway", "JsonPath (Jayway)", false],
     ["json-schema-validator", "JSON Schema", false],
     ["spring-mock-mvc", "Spring MockMvc", false],
     ["spring-web-test-client", "Spring WebTestClient", false],
