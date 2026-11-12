@@ -1,0 +1,22 @@
+{
+  "name": "rest-assured-site",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test 'scripts/*.test.mjs'",
+    "inventory": "node scripts/inventory.mjs",
+    "old-addresses": "node scripts/old-addresses.mjs",
+    "verify": "node scripts/verify.mjs"
+  },
+  "dependencies": {
+    "github-slugger": "^2.0.0",
+    "mdast-util-to-string": "^4.0.0",
+    "remark-gfm": "^4.0.1",
+    "remark-parse": "^11.0.0",
+    "unified": "^11.0.5",
+    "unist-util-visit": "^5.2.0"
+  }
+}
