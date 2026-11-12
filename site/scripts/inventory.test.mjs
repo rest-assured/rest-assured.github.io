@@ -73,3 +73,8 @@ test("the current version is listed by where it is written: code, URL, HTML or t
     const kinds = inventoryPage(markdown, "7.0.0-RC1").versionHits.map(({ kind }) => kind);
     assert.deepEqual(kinds.sort(), ["code", "code", "html", "text", "url"]);
 });
+
+test("data-name, data-id and anchors in HTML comments are not link targets", () => {
+    const { anchors } = inventoryPage('<a href="#x" data-id="foo">x</a>\n\n<!-- <a name="old"></a> -->\n\n<a class="c" id="kept"></a>');
+    assert.deepEqual(anchors.map(({ id }) => id), ["kept"]);
+});

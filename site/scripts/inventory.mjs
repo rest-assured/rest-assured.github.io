@@ -22,7 +22,7 @@ import { visit } from "unist-util-visit";
 const parser = unified().use(remarkParse).use(remarkGfm);
 
 // <a name="specifications"></a> or <a id="x"> in the page's HTML. GitHub keeps both as link targets.
-const explicitAnchor = /<a\s[^>]*\b(?:name|id)\s*=\s*["']([^"']+)["']/gi;
+const explicitAnchor = /<a\s(?:[^>]*\s)?(?:name|id)\s*=\s*["']([^"']+)["']/gi;
 
 export const codeBlockHash = (code) => createHash("sha256").update(code.trim()).digest("hex").slice(0, 16);
 
@@ -52,7 +52,7 @@ export function inventoryPage(markdown, version) {
         if (node.type === "heading") {
             const text = toString(node, { includeHtml: false }).trim();
             anchors.push({ id: slugger.slug(text), text, depth: node.depth, line: node.position.start.line });
-        } else if (node.type === "html") {
+        } else if (node.type === "html" && !node.value.trimStart().startsWith("<!--")) {
             for (const [, id] of node.value.matchAll(explicitAnchor)) {
                 anchors.push({ id, text: null, depth: null, line: node.position.start.line });
             }
@@ -64,6 +64,9 @@ export function inventoryPage(markdown, version) {
 }
 
 export function inventory(wikiDir, version) {
+    // GitHub wikis also take other markups and folders. This wiki uses neither, and the inventory would miss them.
+    const others = readdirSync(wikiDir).filter((name) => name !== ".git" && !name.endsWith(".md"));
+    if (others.length > 0) throw new Error(`The inventory only reads Markdown pages, and the wiki also has ${others.join(", ")}`);
     const pages = {};
     for (const file of readdirSync(wikiDir).filter((name) => name.endsWith(".md")).sort()) {
         pages[file.slice(0, -".md".length)] = inventoryPage(readFileSync(join(wikiDir, file), "utf8"), version);

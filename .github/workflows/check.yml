@@ -6,6 +6,9 @@ name: Check
 
 on:
   pull_request:
+  # The live site publishes straight from master, so pushes there get the same check.
+  push:
+    branches: [master]
 
 jobs:
   jekyll:
@@ -19,6 +22,10 @@ jobs:
         with:
           ruby-version: "3.3"
           bundler-cache: true
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
 
       - name: Build the live site
         run: bundle exec jekyll build

@@ -10,7 +10,7 @@
 //   npm run verify                 (from site/)
 //   npm run verify -- --strict
 
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, statSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -42,28 +42,32 @@ export function checkMap(inventory, moveMap) {
 
 const isAddress = (value) => typeof value === "string" && (value.startsWith("/") || value.startsWith("https://"));
 
-// "/docs/x/#y" -> dist/docs/x/index.html, and the page must have id="y".
+// "/docs/x/#y" -> dist/docs/x/index.html, and the page must have an element with id="y".
 export function checkSite(siteDir, moveMap) {
     const problems = [];
     const pages = new Map();
     const read = (path) => {
-        const file = path.endsWith("/") ? join(siteDir, path, "index.html") : join(siteDir, `${path}.html`);
-        if (!pages.has(file)) pages.set(file, existsSync(file) ? readFileSync(file, "utf8") : null);
+        const candidates = path.endsWith("/") ? [join(path, "index.html")] : [path, `${path}.html`, join(path, "index.html")];
+        const file = candidates.map((candidate) => join(siteDir, candidate)).find((file) => existsSync(file) && statSync(file).isFile());
+        if (file === undefined) return null;
+        if (!pages.has(file)) pages.set(file, readFileSync(file, "utf8"));
         return pages.get(file);
     };
     for (const [page, entry] of Object.entries(moveMap.pages)) {
         if (entry.skip) continue;
         for (const [id, address] of [["", entry.address], ...Object.entries(entry.anchors ?? {})]) {
-            if (!address.startsWith("/")) continue;
+            if (typeof address !== "string" || !address.startsWith("/")) continue;
             const [path, anchor] = address.split("#");
             const html = read(path);
             const from = id ? `${page}#${id}` : page;
             if (html === null) problems.push(`${from} moves to ${address}, which isn't built`);
-            else if (anchor && !html.includes(`id="${anchor}"`)) problems.push(`${from} moves to ${address}, which has no #${anchor}`);
+            else if (anchor && !hasId(html, decodeURIComponent(anchor))) problems.push(`${from} moves to ${address}, which has no #${anchor}`);
         }
     }
     return [...new Set(problems)];
 }
+
+const hasId = (html, id) => new RegExp(`\\sid=["']?${id.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}["'\\s>]`).test(html);
 
 const isMain = process.argv[1] === fileURLToPath(import.meta.url);
 if (isMain) {
@@ -78,9 +82,9 @@ if (isMain) {
     const siteProblems = existsSync(dist) ? checkSite(dist, moveMap) : [];
     for (const problem of siteProblems) (strict ? console.error : console.log)(problem);
 
-    if (!existsSync(dist)) console.log("No built site in dist/ yet, so only the move map was checked.");
+    if (!existsSync(dist)) (strict ? console.error : console.log)("No built site in dist/ yet, so only the move map was checked.");
     if (mapProblems.length === 0) console.log("Every wiki page and anchor has a new address.");
     if (existsSync(dist) && siteProblems.length === 0) console.log("Every new address exists on the built site.");
     if (siteProblems.length > 0) console.log(`${siteProblems.length} new addresses don't exist on the built site yet.`);
-    if (mapProblems.length > 0 || (strict && siteProblems.length > 0)) process.exitCode = 1;
+    if (mapProblems.length > 0 || (strict && (siteProblems.length > 0 || !existsSync(dist)))) process.exitCode = 1;
 }

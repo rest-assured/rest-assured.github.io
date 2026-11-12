@@ -81,12 +81,22 @@ test("a built page without the anchor is a problem", () => {
         "docs/usage": "",
         "docs/usage/ssl": "",
         "docs/usage/request-data": '<h2 id="cookies">Cookies</h2>',
-        "docs/usage/verifying-responses": '<h2 id="cookies-from-response">Cookies</h2>',
+        "docs/usage/verifying-responses": '<h2 id="cookies-from-response" data-id="cookies">Cookies</h2>',
     });
     assert.deepEqual(checkSite(dir, moveMap()), ["Usage#cookies-1 moves to /docs/usage/verifying-responses/#cookies, which has no #cookies"]);
 });
 
 test("addresses outside the site are not checked against it", () => {
     const map = { pages: { How_to_release: { sha: "abc", address: "https://github.com/rest-assured/rest-assured/blob/master/doc/how-to-release.md", anchors: {} } } };
+    assert.deepEqual(checkSite(builtSite({}), map), []);
+});
+
+test("an address without a trailing slash finds the page built as a directory", () => {
+    const map = { pages: { FAQ: { sha: "abc", address: "/docs/faq", anchors: { q: "/docs/faq#q" } } } };
+    assert.deepEqual(checkSite(builtSite({ "docs/faq": "<h2 id='q'>Q</h2>" }), map), []);
+});
+
+test("an entry without an address is left to the map check instead of stopping the site check", () => {
+    const map = { pages: { FAQ: { sha: "abc", anchors: { q: null } } } };
     assert.deepEqual(checkSite(builtSite({}), map), []);
 });
