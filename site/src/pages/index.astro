@@ -1,0 +1,787 @@
+---
+// The landing page. It sits outside the Starlight shell so it can have its own layout, and uses the same colours and
+// fonts as the docs. The ids intro, news, release-notes, docs, documentation and who are the sections of the old
+// one-page site, so links such as rest-assured.io/#news still land on the right section.
+import "@fontsource-variable/bricolage-grotesque";
+import "@fontsource/ibm-plex-sans/400.css";
+import "@fontsource/ibm-plex-sans/500.css";
+import "@fontsource/ibm-plex-sans/600.css";
+import "@fontsource-variable/jetbrains-mono";
+import { getCollection } from "astro:content";
+import logo from "../assets/logo.png";
+import { REST_ASSURED_VERSION as version } from "../version.mjs";
+
+const news = (await getCollection("news")).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 3);
+const releaseNotes = (await getCollection("docs"))
+    .filter(({ id }) => id.startsWith("release-notes/") && id !== "release-notes")
+    .sort((a, b) => (a.data.sidebar.order ?? 0) - (b.data.sidebar.order ?? 0))
+    .slice(0, 6);
+const day = (date: Date) => date.toISOString().slice(0, 10);
+const summary = (body: string | undefined) => (body ?? "").replace(/\[([^\]]+)\]\([^)]+\)/g, "$1").replace(/`/g, "").split(/(?<=\.)\s/).slice(1, 3).join(" ");
+
+// The modules a reader can tick. The first two are ticked to start with, since most tests use paths.
+const modules = [
+    ["json-path-gpath", "JSON paths", true],
+    ["xml-path-gpath", "XML paths", true],
+    ["json-path-jayway", "JSONPath (Jayway)", false],
+    ["json-schema-validator", "JSON Schema", false],
+    ["spring-mock-mvc", "Spring MockMvc", false],
+    ["spring-web-test-client", "Spring WebTestClient", false],
+    ["kotlin-extensions", "Kotlin", false],
+    ["http-client-apache5", "Apache HttpClient 5", false],
+] as const;
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>REST Assured</title>
+        <meta name="description" content="REST Assured is a Java DSL for testing REST services. Send a request and check the response in one readable chain." />
+        <link rel="icon" href="/favicon.ico" />
+        <script is:inline>
+            // Follows the theme the reader picked on the docs pages, which Starlight keeps in localStorage.
+            try {
+                const theme = localStorage.getItem("starlight-theme");
+                if (theme === "light" || theme === "dark") document.documentElement.dataset.theme = theme;
+            } catch {}
+        </script>
+    </head>
+    <body>
+        <header class="bar">
+            <div class="wrap bar-inner">
+                <a class="brand" href="/"><img src={logo.src} width="28" height="28" alt="" />REST Assured</a>
+                <nav class="nav" aria-label="Main">
+                    <a href="/docs/">Docs</a>
+                    <a href="/docs/modules/">Modules</a>
+                    <a href="/release-notes/">Release notes</a>
+                    <a href="/news/">News</a>
+                </nav>
+                <div class="bar-end">
+                    <a class="pill" href={`/release-notes/`} title="The version these docs describe">200 · {version}</a>
+                    <a href="https://github.com/rest-assured/rest-assured">GitHub</a>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section id="intro" class="hero">
+                <div class="wrap hero-grid">
+                    <div class="hero-text">
+                        <p class="eyebrow">given · when · then</p>
+                        <h1>Test REST services in Java the way you would describe them.</h1>
+                        <p class="lede">
+                            REST Assured sends the request and checks the response in one readable chain. JSON and XML paths, status, headers, cookies,
+                            authentication and Spring MockMvc, with no HTTP plumbing in your tests.
+                        </p>
+                        <div class="actions">
+                            <a class="button primary" href="/docs/getting-started/">Get started</a>
+                            <a class="button" href="/docs/modules/">Which module do I need?</a>
+                        </div>
+                    </div>
+
+                    <figure class="exchange" aria-label="A REST Assured test and the response it checks">
+                        <div class="panel-head"><span class="file">LottoTest.java</span><span>test</span></div>
+                        <pre class="code"><span class="k">when</span>().
+        get(<span class="s">"/lotto/&#123;id&#125;"</span>, 5).
+<span class="k">then</span>().
+        statusCode(<span class="ok">200</span>).
+        body(<span class="hit s">"lotto.lottoId"</span>, equalTo(5),
+             <span class="hit s">"lotto.winners.winnerId"</span>, hasItems(23, 54));</pre>
+                        <div class="panel-mid"><span>GET /lotto/5</span><span class="status">200 OK</span></div>
+                        <pre class="code response">&#123;
+  "lotto": &#123;
+    <span class="hit">"lottoId": 5</span>,  <span class="tick">✓</span>
+    "winning-numbers": [2, 45, 34, 23, 7, 5, 3],
+    "winners": [
+      &#123; <span class="hit">"winnerId": 23</span>, "numbers": [2, 45, 34, 23, 3, 5] &#125;,  <span class="tick">✓</span>
+      &#123; <span class="hit">"winnerId": 54</span>, "numbers": [52, 3, 12, 11, 18, 22] &#125;  <span class="tick">✓</span>
+    ]
+  &#125;
+&#125;</pre>
+                    </figure>
+                </div>
+            </section>
+
+            <section id="docs" class="band alt">
+                <div class="wrap">
+                    <h2 id="documentation" class="visually-hidden">Documentation</h2>
+                    <div class="features">
+                        <a class="feature" href="/docs/usage/request-data/">
+                            <span class="eyebrow">given</span>
+                            <h3>Build the request</h3>
+                            <p>Parameters, headers, cookies, bodies from your own objects, multi-part uploads, and basic, digest, form, OAuth or CSRF authentication.</p>
+                        </a>
+                        <a class="feature" href="/docs/usage/verifying-responses/">
+                            <span class="eyebrow">then</span>
+                            <h3>Check what came back</h3>
+                            <p>GPath or Jayway JSONPath on JSON, GPath and XPath on XML, JSON Schema validation, response time, and logging when a check fails.</p>
+                        </a>
+                        <a class="feature" href="/docs/spring/mock-mvc/">
+                            <span class="eyebrow">with</span>
+                            <h3>Your stack</h3>
+                            <p>Spring MockMvc and WebTestClient without a server, Kotlin and Scala extensions, the JDK HTTP client or Apache HttpClient 5.</p>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="band" aria-labelledby="build-heading">
+                <div class="wrap split">
+                    <div class="split-text">
+                        <h2 id="build-heading">Add it to your build</h2>
+                        <p>Pick what your tests do and copy the dependencies. The BOM keeps every REST Assured module on the same version.</p>
+                        <div class="chips" role="group" aria-label="What your tests do">
+                            {
+                                modules.map(([artifact, label, on]) => (
+                                    <button type="button" class="chip" data-artifact={artifact} aria-pressed={on ? "true" : "false"}>
+                                        {label}
+                                    </button>
+                                ))
+                            }
+                        </div>
+                        <p class="small"><a href="/docs/modules/">Which module do I need</a> explains each one.</p>
+                    </div>
+                    <div class="snippet">
+                        <div class="tabs" role="tablist">
+                            <button type="button" role="tab" class="tab" data-tool="gradle" aria-selected="true">Gradle (Kotlin)</button>
+                            <button type="button" role="tab" class="tab" data-tool="maven" aria-selected="false">Maven</button>
+                        </div>
+                        <pre class="code" id="snippet" data-version={version}></pre>
+                        <button type="button" class="copy" id="copy">Copy</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="news" class="band alt">
+                <div class="wrap">
+                    <div class="heading-row">
+                        <h2>News</h2>
+                        <a href="/news/">All news</a>
+                    </div>
+                    <ol class="news">
+                        {
+                            news.map((item) => (
+                                <li>
+                                    <time datetime={day(item.data.date)}>{day(item.data.date)}</time>
+                                    <div>
+                                        <strong>{item.data.title}</strong>
+                                        <p>{summary(item.body)}</p>
+                                    </div>
+                                </li>
+                            ))
+                        }
+                    </ol>
+                </div>
+            </section>
+
+            <section id="release-notes" class="band">
+                <div class="wrap">
+                    <div class="heading-row">
+                        <h2>Release notes</h2>
+                        <a href="/release-notes/">All releases</a>
+                    </div>
+                    <ul class="releases">
+                        {releaseNotes.map((page) => <li><a href={`/${page.id}/`}>{page.data.title.replace("REST Assured ", "")}</a></li>)}
+                    </ul>
+                    <p class="small">Smaller changes are in the <a href="https://github.com/rest-assured/rest-assured/blob/master/changelog.txt">change log</a>.</p>
+                </div>
+            </section>
+
+            <section id="who" class="band alt">
+                <div class="wrap who">
+                    <h2>Who</h2>
+                    <p>
+                        REST Assured is developed and maintained by <a href="https://github.com/johanhaleby">Johan Haleby</a> with the help of many{" "}
+                        <a href="https://github.com/rest-assured/rest-assured/graphs/contributors">contributors</a>. Johan started the project at Jayway in
+                        December 2010. It is now sponsored by <a href="https://www.parkster.se">Parkster</a>.
+                    </p>
+                    <p>Want to help? Open a <a href="https://github.com/rest-assured/rest-assured/pulls">pull request</a> or an <a href="https://github.com/rest-assured/rest-assured/issues">issue</a>.</p>
+                </div>
+            </section>
+        </main>
+
+        <footer class="foot">
+            <div class="wrap foot-inner">
+                <span>REST Assured is open source under the Apache 2.0 license.</span>
+                <span class="foot-links">
+                    <a href="https://github.com/rest-assured/rest-assured">GitHub</a>
+                    <a href="https://github.com/rest-assured/rest-assured/issues">Issues</a>
+                    <a href="https://groups.google.com/forum/#!forum/rest-assured">Mailing list</a>
+                </span>
+            </div>
+        </footer>
+
+        <script>
+            // The "add it to your build" snippet: the BOM, rest-assured, and the modules the reader ticks.
+            const snippet = document.getElementById("snippet")!;
+            const version = snippet.dataset.version!;
+            const chips = [...document.querySelectorAll<HTMLButtonElement>(".chip")];
+            const tabs = [...document.querySelectorAll<HTMLButtonElement>(".tab")];
+            let tool = "gradle";
+
+            function render() {
+                const artifacts = ["rest-assured", ...chips.filter((chip) => chip.getAttribute("aria-pressed") === "true").map((chip) => chip.dataset.artifact!)];
+                snippet.textContent =
+                    tool === "gradle"
+                        ? [`testImplementation(platform("io.rest-assured:rest-assured-bom:${version}"))`, ...artifacts.map((a) => `testImplementation("io.rest-assured:${a}")`)].join("\n")
+                        : [
+                              "<dependencyManagement>\n  <dependencies>\n    <dependency>\n      <groupId>io.rest-assured</groupId>\n      <artifactId>rest-assured-bom</artifactId>",
+                              `      <version>${version}</version>\n      <type>pom</type>\n      <scope>import</scope>\n    </dependency>\n  </dependencies>\n</dependencyManagement>\n`,
+                              "<dependencies>",
+                              ...artifacts.map((a) => `  <dependency>\n    <groupId>io.rest-assured</groupId>\n    <artifactId>${a}</artifactId>\n    <scope>test</scope>\n  </dependency>`),
+                              "</dependencies>",
+                          ].join("\n");
+            }
+
+            for (const chip of chips) {
+                chip.addEventListener("click", () => {
+                    chip.setAttribute("aria-pressed", chip.getAttribute("aria-pressed") === "true" ? "false" : "true");
+                    render();
+                });
+            }
+            for (const tab of tabs) {
+                tab.addEventListener("click", () => {
+                    tool = tab.dataset.tool!;
+                    for (const other of tabs) other.setAttribute("aria-selected", String(other === tab));
+                    render();
+                });
+            }
+            document.getElementById("copy")!.addEventListener("click", async (event) => {
+                const button = event.currentTarget as HTMLButtonElement;
+                try {
+                    await navigator.clipboard.writeText(snippet.textContent ?? "");
+                    button.textContent = "Copied";
+                } catch {
+                    getSelection()?.selectAllChildren(snippet);
+                    button.textContent = "Press Ctrl+C";
+                }
+                setTimeout(() => (button.textContent = "Copy"), 2000);
+            });
+            render();
+        </script>
+    </body>
+</html>
+
+<style is:global>
+    :root {
+        --paper: #f5f6f1;
+        --paper-2: #ffffff;
+        --ink: #121a14;
+        --ink-2: #39443b;
+        --ink-3: #5c6a5e;
+        --line: #dfe3d9;
+        --green: #1f6f2b;
+        --green-bright: #2e8b3a;
+        --green-soft: #dff0dc;
+        --code-bg: #e9eee6;
+        --code-bg-2: #f1f4ef;
+        --code-mid: #dfe7dc;
+        --code-line: #d5ddd0;
+        --code-ink: #2a352b;
+        --code-quiet: #5a675b;
+        --code-key: #2f6e3a;
+        --code-str: #8a5a14;
+        --code-hit: #cfe3c9;
+        --code-hit-ink: #1d3d23;
+        --font-display: "Bricolage Grotesque Variable", "IBM Plex Sans", system-ui, sans-serif;
+        --font-body: "IBM Plex Sans", system-ui, sans-serif;
+        --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+        color-scheme: light;
+    }
+    @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+            --paper: #121a14;
+            --paper-2: #172119;
+            --ink: #f2f5ef;
+            --ink-2: #c4cec0;
+            --ink-3: #94a291;
+            --line: #263127;
+            --green: #6fcf78;
+            --green-bright: #2e8b3a;
+            --green-soft: #1d3a22;
+            --code-bg: #141d16;
+            --code-bg-2: #101712;
+            --code-mid: #1a251c;
+            --code-line: #263127;
+            --code-ink: #d7e3d5;
+            --code-quiet: #9fb09f;
+            --code-key: #8fd18a;
+            --code-str: #e2c27a;
+            --code-hit: #2b4a2e;
+            --code-hit-ink: #e9f3e7;
+            color-scheme: dark;
+        }
+    }
+    :root[data-theme="dark"] {
+        --paper: #121a14;
+        --paper-2: #172119;
+        --ink: #f2f5ef;
+        --ink-2: #c4cec0;
+        --ink-3: #94a291;
+        --line: #263127;
+        --green: #6fcf78;
+        --green-bright: #2e8b3a;
+        --green-soft: #1d3a22;
+        --code-bg: #141d16;
+        --code-bg-2: #101712;
+        --code-mid: #1a251c;
+        --code-line: #263127;
+        --code-ink: #d7e3d5;
+        --code-quiet: #9fb09f;
+        --code-key: #8fd18a;
+        --code-str: #e2c27a;
+        --code-hit: #2b4a2e;
+        --code-hit-ink: #e9f3e7;
+        color-scheme: dark;
+    }
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+    body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--font-body);
+        font-size: 17px;
+        line-height: 1.55;
+    }
+    a {
+        color: var(--green);
+    }
+    a:focus-visible,
+    button:focus-visible {
+        outline: 2px solid var(--green);
+        outline-offset: 2px;
+    }
+    h1,
+    h2,
+    h3 {
+        font-family: var(--font-display);
+        letter-spacing: -0.015em;
+        text-wrap: balance;
+        margin: 0;
+    }
+    .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+    }
+    .wrap {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding-left: max(16px, env(safe-area-inset-left, 0px));
+        padding-right: max(16px, env(safe-area-inset-right, 0px));
+    }
+    @media (min-width: 760px) {
+        .wrap {
+            padding-left: 32px;
+            padding-right: 32px;
+        }
+    }
+
+    .bar {
+        border-bottom: 1px solid var(--line);
+    }
+    .bar-inner {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px 24px;
+        min-height: 64px;
+        padding-block: 10px;
+    }
+    .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--ink);
+        text-decoration: none;
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-size: 20px;
+    }
+    .nav,
+    .bar-end {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 20px;
+        font-size: 15px;
+    }
+    .nav a,
+    .bar-end a {
+        color: var(--ink-2);
+        text-decoration: none;
+    }
+    .nav a:hover,
+    .bar-end a:hover {
+        color: var(--green);
+    }
+    .bar-end {
+        margin-left: auto;
+        align-items: center;
+    }
+    .pill,
+    .bar-end .pill {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        font-weight: 600;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: var(--green-soft);
+        color: var(--green);
+    }
+
+    .hero {
+        padding-block: 64px;
+    }
+    .hero-grid {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 40px;
+    }
+    .hero-text {
+        flex: 1 1 400px;
+        min-width: 0;
+    }
+    .eyebrow {
+        margin: 0 0 14px;
+        font-family: var(--font-mono);
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--green);
+    }
+    .hero h1 {
+        font-size: clamp(38px, 5vw, 60px);
+        line-height: 1.03;
+        font-weight: 800;
+    }
+    .lede {
+        margin: 20px 0 0;
+        font-size: 19px;
+        color: var(--ink-2);
+        max-width: 34em;
+    }
+    .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 28px;
+    }
+    .button {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+        padding: 0 20px;
+        border-radius: 8px;
+        border: 1px solid var(--line);
+        color: var(--ink);
+        text-decoration: none;
+        font-weight: 500;
+    }
+    .button.primary {
+        background: var(--green-bright);
+        border-color: var(--green-bright);
+        color: #ffffff;
+        font-weight: 600;
+    }
+
+    .exchange {
+        flex: 1 1 520px;
+        min-width: 0;
+        margin: 0;
+        border-radius: 16px;
+        overflow: hidden;
+        background: var(--code-bg);
+        border: 1px solid var(--code-line);
+    }
+    .panel-head,
+    .panel-mid {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 18px;
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--code-quiet);
+    }
+    .panel-head span:last-child,
+    .panel-mid .status {
+        margin-left: auto;
+    }
+    .panel-head {
+        border-bottom: 1px solid var(--code-line);
+    }
+    .file {
+        color: var(--code-ink);
+        font-weight: 600;
+    }
+    .panel-mid {
+        border-block: 1px solid var(--code-line);
+        background: var(--code-mid);
+    }
+    .status {
+        padding: 2px 8px;
+        border-radius: 999px;
+        background: var(--green-bright);
+        color: #ffffff;
+        font-weight: 600;
+    }
+    .code {
+        margin: 0;
+        padding: 18px 20px;
+        overflow-x: auto;
+        font-family: var(--font-mono);
+        font-size: 14px;
+        line-height: 1.65;
+        color: var(--code-ink);
+    }
+    .response {
+        background: var(--code-bg-2);
+        color: var(--code-quiet);
+    }
+    .k {
+        color: var(--code-key);
+        font-weight: 600;
+    }
+    .s {
+        color: var(--code-str);
+    }
+    .hit {
+        background: var(--code-hit);
+        color: var(--code-hit-ink);
+        border-radius: 4px;
+        padding: 0 4px;
+    }
+    .hit.s {
+        color: var(--code-str);
+    }
+    .ok {
+        background: var(--green-bright);
+        color: #ffffff;
+        border-radius: 4px;
+        padding: 0 4px;
+    }
+    .tick {
+        color: var(--green-bright);
+        font-weight: 700;
+    }
+
+    .band {
+        padding-block: 56px;
+        border-top: 1px solid var(--line);
+    }
+    .band.alt {
+        background: var(--paper-2);
+    }
+    .features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 32px;
+    }
+    .feature {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        color: inherit;
+        text-decoration: none;
+    }
+    .feature .eyebrow {
+        margin: 0;
+        font-size: 12px;
+    }
+    .feature h3 {
+        font-size: 24px;
+    }
+    .feature:hover h3 {
+        color: var(--green);
+    }
+    .feature p {
+        margin: 0;
+        color: var(--ink-2);
+    }
+
+    .split {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        align-items: flex-start;
+    }
+    .split-text {
+        flex: 1 1 340px;
+        min-width: 0;
+    }
+    .split-text h2,
+    .heading-row h2,
+    .who h2 {
+        font-size: 32px;
+    }
+    .split-text > p {
+        color: var(--ink-2);
+        max-width: 30em;
+    }
+    .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 20px;
+    }
+    .chip {
+        min-height: 40px;
+        padding: 0 14px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: transparent;
+        color: var(--ink);
+        font: inherit;
+        font-size: 15px;
+        cursor: pointer;
+    }
+    .chip[aria-pressed="true"] {
+        background: var(--green-bright);
+        border-color: var(--green-bright);
+        color: #ffffff;
+    }
+    .small {
+        font-size: 15px;
+        color: var(--ink-3);
+    }
+    .snippet {
+        position: relative;
+        flex: 1 1 520px;
+        min-width: 0;
+        border-radius: 16px;
+        background: var(--code-bg);
+        border: 1px solid var(--code-line);
+        overflow: hidden;
+    }
+    .tabs {
+        display: flex;
+        gap: 4px;
+        padding: 8px 10px;
+        border-bottom: 1px solid var(--code-line);
+    }
+    .tab,
+    .copy {
+        min-height: 36px;
+        padding: 0 12px;
+        border-radius: 8px;
+        border: 0;
+        background: transparent;
+        color: var(--code-quiet);
+        font: inherit;
+        font-size: 14px;
+        cursor: pointer;
+    }
+    .tab[aria-selected="true"] {
+        background: var(--paper-2);
+        color: var(--code-ink);
+        font-weight: 500;
+    }
+    .copy {
+        position: absolute;
+        top: 8px;
+        right: 10px;
+    }
+    .copy:hover {
+        color: var(--code-ink);
+    }
+
+    .heading-row {
+        display: flex;
+        align-items: baseline;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+    .news {
+        list-style: none;
+        margin: 20px 0 0;
+        padding: 0;
+    }
+    .news li {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px 24px;
+        padding-block: 18px;
+        border-top: 1px solid var(--line);
+    }
+    .news time {
+        width: 110px;
+        font-family: var(--font-mono);
+        font-size: 13px;
+        color: var(--ink-3);
+        padding-top: 3px;
+    }
+    .news div {
+        flex: 1 1 400px;
+        min-width: 0;
+    }
+    .news p {
+        margin: 6px 0 0;
+        color: var(--ink-2);
+    }
+    .releases {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        list-style: none;
+        margin: 20px 0 0;
+        padding: 0;
+    }
+    .releases a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 40px;
+        padding: 0 14px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        font-family: var(--font-mono);
+        font-size: 14px;
+        text-decoration: none;
+        color: var(--ink);
+    }
+    .releases a:hover {
+        border-color: var(--green);
+        color: var(--green);
+    }
+    .who p {
+        max-width: 40em;
+        color: var(--ink-2);
+    }
+    .foot {
+        padding-block: 32px;
+        border-top: 1px solid var(--line);
+        font-size: 14px;
+        color: var(--ink-3);
+    }
+    .foot-inner {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 24px;
+    }
+    .foot-links {
+        display: flex;
+        gap: 16px;
+        margin-left: auto;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+        .chip,
+        .button,
+        .releases a {
+            transition:
+                background-color 0.15s,
+                color 0.15s,
+                border-color 0.15s;
+        }
+    }
+</style>

@@ -1,15 +1,41 @@
 # The new rest-assured.io
 
-This folder will hold the new rest-assured.io, an Astro Starlight site, and the docs that move here from the [GitHub wiki](https://github.com/rest-assured/rest-assured/wiki). It isn't live. The live site is still the Jekyll site in the repository root, and `_config.yml` keeps this folder out of it.
+This folder holds the new rest-assured.io, an Astro Starlight site, and the docs that move here from the [GitHub wiki](https://github.com/rest-assured/rest-assured/wiki). It isn't live. The live site is still the Jekyll site in the repository root, and `_config.yml` keeps this folder out of it.
 
-For now it holds the checks that make sure nothing is lost in the move. You need Node 22 or later.
+## Run it locally
+
+You need Node 22.23.4 or later.
 
 ```bash
 cd site
 npm install
-npm test
-npm run verify
+npm run dev       # http://localhost:4321, reloads as you edit
 ```
+
+To check the whole site the way it will be deployed:
+
+```bash
+npm run check     # tests the scripts, builds the site into dist/ and checks every wiki address
+npm run preview   # serves dist/ at http://localhost:4321
+```
+
+The build fails on a broken internal link. `check` also lists every wiki anchor whose new address doesn't exist yet. Until the docs have moved, that list is long and doesn't fail the run.
+
+## Where things are
+
+* `src/pages/index.astro` is the landing page. Its sections keep the ids of the old one-page site (`#intro`, `#news`, `#release-notes`, `#docs`, `#documentation`, `#who`), so old links still land on the right section.
+* `src/content/docs/` holds the docs and release notes, one Markdown or MDX file per page. The sidebar is in `astro.config.mjs`.
+* `src/content/news/` holds one file per news item. `/news/` lists them all and the landing page shows the latest three.
+* `src/version.mjs` holds the current version. Write `%REST_ASSURED_VERSION%` in a docs page and the build puts the version in.
+* `src/styles/theme.css` and the `expressiveCode` settings in `astro.config.mjs` give the docs the same colours as the landing page.
+
+## After a release
+
+1. Set the new version in `src/version.mjs`.
+2. Add a news file to `src/content/news/`, named `YYYY-MM-DD-<version>.md` with a `title` and `date`.
+3. For a major or minor release, add its release notes page to `src/content/docs/release-notes/`.
+
+## The move from the wiki
 
 ## What's here
 

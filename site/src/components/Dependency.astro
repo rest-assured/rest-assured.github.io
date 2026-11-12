@@ -1,0 +1,27 @@
+---
+// The dependency snippet for one REST Assured module, for Gradle and Maven, at the version the docs describe.
+// The chosen build tool is remembered across pages.
+import { Code, TabItem, Tabs } from "@astrojs/starlight/components";
+import { REST_ASSURED_VERSION as version } from "../version.mjs";
+
+interface Props {
+    artifact: string;
+}
+
+const { artifact } = Astro.props;
+const snippets = [
+    ["Gradle (Kotlin)", "kotlin", `testImplementation("io.rest-assured:${artifact}:${version}")`],
+    ["Gradle (Groovy)", "groovy", `testImplementation 'io.rest-assured:${artifact}:${version}'`],
+    ["Maven", "xml", `<dependency>\n    <groupId>io.rest-assured</groupId>\n    <artifactId>${artifact}</artifactId>\n    <version>${version}</version>\n    <scope>test</scope>\n</dependency>`],
+];
+---
+
+<Tabs syncKey="build-tool">
+    {
+        snippets.map(([label, lang, code]) => (
+            <TabItem label={label}>
+                <Code code={code} lang={lang} />
+            </TabItem>
+        ))
+    }
+</Tabs>

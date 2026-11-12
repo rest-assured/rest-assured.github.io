@@ -1,0 +1,66 @@
+/* REST Assured's look for the docs pages. Green from the logo on paper and pine neutrals. Code sits on light sage in
+   light mode and deep green in dark mode. The landing page (src/pages/index.astro) uses the same colours. */
+
+:root {
+    --sl-font: "IBM Plex Sans", system-ui, sans-serif;
+    --sl-font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+    --ra-font-display: "Bricolage Grotesque Variable", "IBM Plex Sans", system-ui, sans-serif;
+
+    /* Dark, Starlight's default. */
+    --sl-color-accent-low: #15301a;
+    --sl-color-accent: #5fbf68;
+    --sl-color-accent-high: #c9ecc8;
+    --sl-color-white: #f2f5ef;
+    --sl-color-gray-1: #dfe5db;
+    --sl-color-gray-2: #b9c4b5;
+    --sl-color-gray-3: #8d9a8b;
+    --sl-color-gray-4: #5c6a5e;
+    --sl-color-gray-5: #39443b;
+    --sl-color-gray-6: #1d2620;
+    --sl-color-black: #121a14;
+
+    /* Notes use the sage of the code panels rather than Starlight's blue. */
+    --sl-color-blue-low: #18261b;
+    --sl-color-blue: #7fb98a;
+    --sl-color-blue-high: #d3ead2;
+}
+
+:root[data-theme="light"] {
+    --sl-color-accent-low: #dff0dc;
+    --sl-color-accent: #1f6f2b;
+    --sl-color-accent-high: #12441a;
+    --sl-color-white: #121a14;
+    --sl-color-gray-1: #1d2620;
+    --sl-color-gray-2: #39443b;
+    --sl-color-gray-3: #5c6a5e;
+    --sl-color-gray-4: #8d9a8b;
+    --sl-color-gray-5: #c7d0c3;
+    --sl-color-gray-6: #e9eee6;
+    --sl-color-gray-7: #f5f6f1;
+    --sl-color-black: #fbfcf9;
+
+    --sl-color-blue-low: #e9eee6;
+    --sl-color-blue: #3f7d4c;
+    --sl-color-blue-high: #1d3a23;
+}
+
+h1,
+h2,
+h3,
+.site-title {
+    font-family: var(--ra-font-display);
+    letter-spacing: -0.01em;
+}
+
+/* Inline code gets the same sage as code blocks. */
+.sl-markdown-content :not(pre) > code {
+    background: var(--sl-color-gray-6);
+    border-radius: 4px;
+    padding: 0.1em 0.35em;
+}
+
+/* "Added in 7.0" and similar badges look like an HTTP status. */
+.sl-badge {
+    font-family: var(--sl-font-mono);
+    border-radius: 999px;
+}

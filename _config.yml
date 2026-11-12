@@ -6,7 +6,7 @@ safe: false
 
 
 ### site serving configuration ###
-exclude: [CNAME, README.md, .gitignore, site/, node_modules/, vendor/]
+exclude: [CNAME, README.md, AGENTS.md, .gitignore, site/, node_modules/, vendor/]
 permalink: /:title ## disables post output
 timezone: null
 lsi: false

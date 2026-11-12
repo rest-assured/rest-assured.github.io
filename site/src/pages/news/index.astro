@@ -1,0 +1,35 @@
+---
+// Every news item, newest first, inside the docs layout. The landing page shows the latest three.
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+import { getCollection, render } from "astro:content";
+
+const items = (await getCollection("news")).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const rendered = await Promise.all(items.map(async (item) => ({ item, Content: (await render(item)).Content })));
+const day = (date: Date) => date.toISOString().slice(0, 10);
+---
+
+<StarlightPage
+    frontmatter={{ title: "News", description: "Releases and other news about REST Assured." }}
+    headings={items.map((item) => ({ depth: 2, slug: item.id, text: item.data.title }))}
+>
+    {
+        rendered.map(({ item, Content }) => (
+            <section class="news-item">
+                <h2 id={item.id}>{item.data.title}</h2>
+                <p class="news-date">
+                    <time datetime={day(item.data.date)}>{day(item.data.date)}</time>
+                </p>
+                <Content />
+            </section>
+        ))
+    }
+</StarlightPage>
+
+<style>
+    .news-date {
+        font-family: var(--sl-font-mono);
+        font-size: var(--sl-text-sm);
+        color: var(--sl-color-gray-3);
+        margin-top: 0.25rem;
+    }
+</style>

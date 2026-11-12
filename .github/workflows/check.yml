@@ -1,6 +1,7 @@
 # Runs on every pull request. The live site is still built by classic GitHub Pages from master, so the jekyll job
 # builds it the same way and fails if it no longer serves exactly the files it did, for example because site/ leaked
-# in. The site job tests the migration scripts in site/ and checks that every wiki page and anchor has a new address in
+# in. The site job runs the same check as you do locally: it tests the migration scripts in site/, builds the new site
+# (which fails on a broken internal link), and checks that every wiki page and anchor has a new address in
 # site/data/move-map.json.
 name: Check
 
@@ -49,8 +50,5 @@ jobs:
 
       - run: npm ci
 
-      - name: Test the scripts
-        run: npm test
-
-      - name: Check that every wiki page and anchor has a new address
-        run: npm run verify
+      - name: Test the scripts, build the site and check every wiki address
+        run: npm run check
