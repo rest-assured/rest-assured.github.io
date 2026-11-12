@@ -3,6 +3,23 @@ title: "Documentation"
 description: "Everything about writing tests with REST Assured."
 ---
 
-:::note[Moving here]
-This page is moving here from the wiki. Until then, read it at [Home](https://github.com/rest-assured/rest-assured/wiki/Home).
-:::
+import { LinkCard, CardGrid } from "@astrojs/starlight/components";
+
+REST Assured is a Java DSL for testing REST services. You describe the request, send it, and check the response in one chain. These pages describe REST Assured %REST_ASSURED_VERSION%.
+
+<CardGrid>
+    <LinkCard title="Getting started" description="Add REST Assured to your build and write your first test." href="/docs/getting-started/" />
+    <LinkCard title="Which module do I need" description="Pick the path engine, HTTP client and integrations your tests use." href="/docs/modules/" />
+    <LinkCard title="Writing tests" description="Requests, responses, authentication, logging and configuration, topic by topic." href="/docs/usage/" />
+    <LinkCard title="Spring" description="Test Spring MVC and WebFlux controllers without a running server." href="/docs/spring/mock-mvc/" />
+    <LinkCard title="Kotlin and Scala" description="Extensions that make REST Assured read naturally in Kotlin and Scala." href="/docs/kotlin/" />
+    <LinkCard title="Preparing for 7.0" description="What changes in REST Assured 7.0 and how to move your code over." href="/docs/upgrading/preparing-for-7-0/" />
+</CardGrid>
+
+## More
+
+- [Release notes](/release-notes/) for each major and minor release, and the [change log](https://github.com/rest-assured/rest-assured/blob/master/changelog.txt) for every change.
+- [Snapshot builds](/docs/snapshots/) of the next version.
+- [FAQ](/docs/faq/) and [support](/docs/support/), including the [mailing list](https://groups.google.com/group/rest-assured).
+- The [Javadoc](https://www.javadoc.io/doc/io.rest-assured/rest-assured/latest/index.html).
+- The [legacy documentation](/docs/legacy/usage/) for REST Assured 1.9.0 and earlier.

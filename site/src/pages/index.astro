@@ -9,6 +9,7 @@ import "@fontsource/ibm-plex-sans/600.css";
 import "@fontsource-variable/jetbrains-mono";
 import { getCollection } from "astro:content";
 import logo from "../assets/logo.png";
+import logoDark from "../assets/logo-dark.png";
 import { REST_ASSURED_VERSION as version } from "../version.mjs";
 
 const news = (await getCollection("news")).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 3);
@@ -51,7 +52,7 @@ const modules = [
     <body>
         <header class="bar">
             <div class="wrap bar-inner">
-                <a class="brand" href="/"><img src={logo.src} width="28" height="28" alt="" />REST Assured</a>
+                <a class="brand" href="/"><img class="on-light" src={logo.src} width="28" height="28" alt="" /><img class="on-dark" src={logoDark.src} width="28" height="28" alt="" />REST Assured</a>
                 <nav class="nav" aria-label="Main">
                     <a href="/docs/">Docs</a>
                     <a href="/docs/modules/">Modules</a>
@@ -288,10 +289,14 @@ const modules = [
         --font-display: "Bricolage Grotesque Variable", "IBM Plex Sans", system-ui, sans-serif;
         --font-body: "IBM Plex Sans", system-ui, sans-serif;
         --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+        --on-light: block;
+        --on-dark: none;
         color-scheme: light;
     }
     @media (prefers-color-scheme: dark) {
         :root:not([data-theme="light"]) {
+            --on-light: none;
+            --on-dark: block;
             --paper: #121a14;
             --paper-2: #172119;
             --ink: #f2f5ef;
@@ -315,6 +320,8 @@ const modules = [
         }
     }
     :root[data-theme="dark"] {
+        --on-light: none;
+        --on-dark: block;
         --paper: #121a14;
         --paper-2: #172119;
         --ink: #f2f5ef;
@@ -397,6 +404,12 @@ const modules = [
         gap: 12px 24px;
         min-height: 64px;
         padding-block: 10px;
+    }
+    .on-light {
+        display: var(--on-light);
+    }
+    .on-dark {
+        display: var(--on-dark);
     }
     .brand {
         display: flex;

@@ -1,0 +1,211 @@
+---
+title: "Which module do I need"
+description: "The REST Assured modules and when you need each one."
+sidebar:
+  order: 2
+---
+
+REST Assured is split into modules. Every test project needs `rest-assured`. What else you add depends on what your tests do. All modules have the group id `io.rest-assured`, and they must all have the same version, so [keep the versions in line](/docs/modules/#keep-the-versions-in-line).
+
+## Always
+
+`rest-assured` is the DSL: `given()`, `when()` and `then()`, status codes, headers, cookies, object mapping, authentication, logging and specifications. It brings `rest-assured-common`, which the other modules share, and `http-client-jdk`, the default HTTP client.
+
+Maven:
+
+```xml
+<dependency>
+    <groupId>io.rest-assured</groupId>
+    <artifactId>rest-assured</artifactId>
+    <version>%REST_ASSURED_VERSION%</version>
+    <scope>test</scope>
+</dependency>
+```
+
+Gradle:
+
+```kotlin
+testImplementation("io.rest-assured:rest-assured:%REST_ASSURED_VERSION%")
+```
+
+## Paths
+
+`rest-assured` has no path engine. Add one if your tests use paths:
+
+| You use | You need |
+|---|---|
+| A GPath path on a JSON body, such as `body("lotto.lottoId", ..)`, `path(..)`, `extract().path(..)` and `rootPath(..)`, or `jsonPath()` and `JsonPath` | `json-path-gpath` |
+| A path on an XML or HTML body, or `xmlPath()`, `htmlPath()` and `XmlPath` | `xml-path-gpath` |
+| A JSONPath path on a JSON body, such as `body("$.store.book[?(@.price < 10)].title", ..)` | `json-path-jayway` |
+| Anything else, such as `statusCode(..)`, headers, cookies, `body(containsString(..))`, `hasXPath(..)`, JSON Schema validation or `as(Greeting.class)` | Nothing |
+
+GPath is the path syntax REST Assured has always used, and the one on the [usage](/docs/usage/) pages. `json-path-gpath` and `xml-path-gpath` depend on Groovy. `json-path-jayway` evaluates [JSONPath](https://www.rfc-editor.org/rfc/rfc9535) with Jayway JsonPath, for JSON only, and doesn't need Groovy. With both `json-path-gpath` and `json-path-jayway` on the classpath, REST Assured uses GPath unless you pick Jayway. See [Path engines](/docs/usage/setup/#path-engines) in the usage guide and in the [release notes](/release-notes/7-0/#path-engines).
+
+Before 7.0.0, `json-path-gpath` and `xml-path-gpath` were called `json-path` and `xml-path`, and `rest-assured` included them.
+
+## HTTP client
+
+| Module | When |
+|---|---|
+| `http-client-jdk` | The default. It sends the requests with the JDK's `java.net.http.HttpClient` and needs nothing else. `rest-assured` depends on it, so you don't add it yourself |
+| `http-client-apache5` | When you need what the JDK client can't do: the `Host`, `Connection` or `Upgrade` headers, NTLM authentication, TLS to the proxy or a Basic proxy login for an HTTPS request. Or when your tests depend on how Apache HttpClient 4 behaved in REST Assured 6, such as the response headers in the order and case the server sent them. It brings Apache HttpClient 5 |
+
+With `http-client-apache5` on the classpath, REST Assured uses it. See [Picking the client](/release-notes/7-0/#picking-the-client) for how to choose, and [The HTTP client](/release-notes/7-0/#the-http-client) for how the two clients differ.
+
+## Frameworks and languages
+
+| Module | For |
+|---|---|
+| `spring-mock-mvc` | Testing Spring MVC controllers with `RestAssuredMockMvc`, see [Spring](/docs/spring/mock-mvc/) |
+| `spring-web-test-client` | Testing Spring WebFlux controllers with `RestAssuredWebTestClient`, see [Spring](/docs/spring/web-test-client/) |
+| `spring-mock-mvc-kotlin-extensions` and `spring-web-test-client-kotlin-extensions` | `Given { }`, `When { }` and `Then { }` for the Spring modules in Kotlin, see [Kotlin](/docs/kotlin/#kotlin-extension-module-for-spring-mockmvc) |
+| `kotlin-extensions` | `Given { }`, `When { }` and `Then { }` in Kotlin 2.2 or later, see [Kotlin](/docs/kotlin/#kotlin-extension-module) |
+| `scala-extensions` | `Given(..)`, `When(..)` and `Then(..)` in Scala 3, see [Scala](/docs/scala/#scala-extension-module) |
+| `scala-support` | `Then()` instead of `then()` in Scala 2.13, see [Scala](/docs/scala/#scala-support-module) |
+| `json-schema-validator` | Validating a JSON body against a JSON Schema, see [JSON Schema validation](/docs/usage/examples/#json-schema-validation). It brings Jackson 3. For draft-03 schemas, also add `com.github.java-json-tools:json-schema-validator`, see [The java-json-tools validator](/docs/usage/examples/#the-java-json-tools-validator) |
+
+The Spring modules are built and tested on Spring Framework 7, and also tested on Spring Framework 6.2 (Spring Boot 3.5).
+
+The Spring modules don't bring Spring itself, so add `spring-test` and `spring-webmvc` or `spring-webflux` yourself. A Spring Boot project usually has them already. Like `rest-assured`, the Spring, Kotlin and Scala modules have no path engine, so add one of the [path engines](/docs/modules/#paths) if your tests use paths.
+
+## Others
+
+| Module | What it is |
+|---|---|
+| `rest-assured-bom` | A BOM that manages the versions of all modules, see [Keep the versions in line](/docs/modules/#keep-the-versions-in-line) |
+| `rest-assured-all` | `rest-assured-common`, `json-path-gpath` and `xml-path-gpath` in one jar, for use next to `rest-assured`. Use it instead of `json-path-gpath` and `xml-path-gpath` if they give you [split package](https://www.logicbig.com/tutorials/core-java-tutorial/modules/split-packages.html) problems with the Java module system. It depends on Groovy |
+| `rest-assured-openrewrite` | The OpenRewrite recipes that move your code to 7.0. Give it to the OpenRewrite plugin, never add it as a dependency, see [Let OpenRewrite do it](/release-notes/7-0/#let-openrewrite-do-it) |
+| `json-path` and `xml-path` | Relocations to `json-path-gpath` and `xml-path-gpath`, so a build that uses the old names keeps working. They're removed in REST Assured 8.0.0 |
+| `spring-commons` | Code that the Spring modules share. They bring it, so you don't add it yourself |
+
+## Keep the versions in line
+
+Every REST Assured module must have the same version as `rest-assured`. Import `rest-assured-bom`, and then leave the versions out of the REST Assured dependencies.
+
+Maven:
+
+```xml
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured-bom</artifactId>
+            <version>%REST_ASSURED_VERSION%</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+
+<dependencies>
+    <dependency>
+        <groupId>io.rest-assured</groupId>
+        <artifactId>rest-assured</artifactId>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>io.rest-assured</groupId>
+        <artifactId>json-path-gpath</artifactId>
+        <scope>test</scope>
+    </dependency>
+</dependencies>
+```
+
+Gradle (Kotlin DSL):
+
+```kotlin
+dependencies {
+    testImplementation(platform("io.rest-assured:rest-assured-bom:%REST_ASSURED_VERSION%"))
+    testImplementation("io.rest-assured:rest-assured")
+    testImplementation("io.rest-assured:json-path-gpath")
+}
+```
+
+Gradle (Groovy DSL):
+
+```groovy
+dependencies {
+    testImplementation platform('io.rest-assured:rest-assured-bom:%REST_ASSURED_VERSION%')
+    testImplementation 'io.rest-assured:rest-assured'
+    testImplementation 'io.rest-assured:json-path-gpath'
+}
+```
+
+REST Assured checks that `rest-assured-common`, the path engines and the HTTP client modules have the same major and minor version as `rest-assured`, and fails with a message such as:
+
+```
+java.lang.IllegalStateException: io.rest-assured:json-path-gpath 7.0.0 doesn't match REST Assured 7.1.0. Use one version for all REST Assured artifacts, for example by importing io.rest-assured:rest-assured-bom.
+```
+
+A different patch version only logs that message as a warning.
+
+## Spring Boot
+
+Spring Boot 3 manages REST Assured. Set the `rest-assured.version` property. Spring Boot 3.5 imports `rest-assured-bom` at that version, so it applies to every REST Assured module:
+
+```xml
+<properties>
+    <rest-assured.version>%REST_ASSURED_VERSION%</rest-assured.version>
+</properties>
+```
+
+With Gradle and the Spring dependency management plugin: `ext["rest-assured.version"] = "%REST_ASSURED_VERSION%"` in `build.gradle.kts`. Don't set a version on the REST Assured dependencies themselves, or Spring Boot keeps the other modules on its own version. See [Spring Boot 3](/release-notes/7-0/#spring-boot-3).
+
+Spring Boot 4 doesn't manage REST Assured. Import `rest-assured-bom` as [above](/docs/modules/#keep-the-versions-in-line), or set the version on each REST Assured dependency. See [Spring Boot 4](/release-notes/7-0/#spring-boot-4).
+
+## Typical setups
+
+Tests of a JSON API, with Maven:
+
+```xml
+<dependency>
+    <groupId>io.rest-assured</groupId>
+    <artifactId>rest-assured</artifactId>
+    <version>%REST_ASSURED_VERSION%</version>
+    <scope>test</scope>
+</dependency>
+<dependency>
+    <groupId>io.rest-assured</groupId>
+    <artifactId>json-path-gpath</artifactId>
+    <version>%REST_ASSURED_VERSION%</version>
+    <scope>test</scope>
+</dependency>
+```
+
+Tests of an API that answers in JSON and XML, with Gradle:
+
+```kotlin
+dependencies {
+    testImplementation(platform("io.rest-assured:rest-assured-bom:%REST_ASSURED_VERSION%"))
+    testImplementation("io.rest-assured:rest-assured")
+    testImplementation("io.rest-assured:json-path-gpath")
+    testImplementation("io.rest-assured:xml-path-gpath")
+}
+```
+
+Spring Boot 4 with MockMvc, with Maven. Import `rest-assured-bom` as [above](/docs/modules/#keep-the-versions-in-line), then:
+
+```xml
+<dependency>
+    <groupId>io.rest-assured</groupId>
+    <artifactId>spring-mock-mvc</artifactId>
+    <scope>test</scope>
+</dependency>
+<dependency>
+    <groupId>io.rest-assured</groupId>
+    <artifactId>json-path-gpath</artifactId>
+    <scope>test</scope>
+</dependency>
+```
+
+Kotlin, with Gradle:
+
+```kotlin
+dependencies {
+    testImplementation(platform("io.rest-assured:rest-assured-bom:%REST_ASSURED_VERSION%"))
+    testImplementation("io.rest-assured:kotlin-extensions")
+    testImplementation("io.rest-assured:json-path-gpath")
+}
+```
+
+`spring-mock-mvc` and `kotlin-extensions` bring `rest-assured`, so you don't add it yourself.
