@@ -44,7 +44,8 @@ export default defineConfig({
         starlight({
             title: "REST Assured",
             description: "Java DSL for easy testing of REST services.",
-            logo: { src: "./src/assets/logo.png", alt: "REST Assured" },
+            // The logo's black lines turn light on a dark page.
+            logo: { light: "./src/assets/logo.png", dark: "./src/assets/logo-dark.png", alt: "REST Assured" },
             favicon: "/favicon.ico",
             social: [{ icon: "github", label: "GitHub", href: "https://github.com/rest-assured/rest-assured" }],
             editLink: { baseUrl: "https://github.com/rest-assured/rest-assured.github.io/edit/master/site/" },
@@ -77,7 +78,8 @@ export default defineConfig({
             plugins: [
                 // The news pages and the landing page are Astro pages rather than Starlight content, so the validator
                 // can't see them.
-                starlightLinksValidator({ exclude: ["/", "/news/", "/news/**/*"] }),
+                // The docs show example URLs such as http://localhost:8080/lotto in the text.
+                starlightLinksValidator({ exclude: ["/", "/news/", "/news/**/*"], errorOnLocalLinks: false }),
                 starlightLlmActions({ renderMarkdown: "simple", linkAlternate: true }),
             ],
         }),

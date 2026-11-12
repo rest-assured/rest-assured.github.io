@@ -19,12 +19,12 @@ npm run check     # tests the scripts, builds the site into dist/ and checks eve
 npm run preview   # serves dist/ at http://localhost:4321
 ```
 
-The build fails on a broken internal link. `check` also lists every wiki anchor whose new address doesn't exist yet. Until the docs have moved, that list is long and doesn't fail the run.
+The build fails on a broken internal link. `check` also fails if a wiki page, anchor or code block has no place on the site.
 
 ## Where things are
 
 * `src/pages/index.astro` is the landing page. Its sections keep the ids of the old one-page site (`#intro`, `#news`, `#release-notes`, `#docs`, `#documentation`, `#who`), so old links still land on the right section.
-* `src/content/docs/` holds the docs and release notes, one Markdown or MDX file per page. The sidebar is in `astro.config.mjs`.
+* `src/content/docs/` holds the docs and release notes, one Markdown or MDX file per page. The sidebar is in `astro.config.mjs`. Most pages are converted from the wiki (see below), so change those on the wiki until the wiki pages are replaced by links. `/docs/`, `/docs/usage/` and `/release-notes/` are written for the site.
 * `src/content/news/` holds one file per news item. `/news/` lists them all and the landing page shows the latest three.
 * `src/version.mjs` holds the current version. Write `%REST_ASSURED_VERSION%` in a docs page and the build puts the version in.
 * `src/styles/theme.css` and the `expressiveCode` settings in `astro.config.mjs` give the docs the same colours as the landing page.
@@ -37,12 +37,24 @@ The build fails on a broken internal link. `check` also lists every wiki anchor 
 
 ## The move from the wiki
 
+`scripts/convert.mjs` writes the docs pages from a clone of the wiki. It cuts each wiki page at its headings, puts each part on the page that `data/move-map.json` names, points wiki links to the new addresses and writes the current version as `%REST_ASSURED_VERSION%` in code and link URLs. The text is otherwise copied as it is. To pick up wiki edits:
+
+```bash
+git clone https://github.com/rest-assured/rest-assured.wiki.git /tmp/wiki
+npm run sync-check -- /tmp/wiki   # lists wiki pages and old-site news changed since the move
+npm run convert -- /tmp/wiki
+npm run check
+```
+
+After converting, set the wiki commit in `data/move-map.json` (each page's `sha`) to the one you converted from, so `sync-check` starts from there.
+
 ## What's here
 
 * `data/wiki-inventory.json` lists every wiki page, every anchor a link can point to (each heading, with the id GitHub gives it, and each `<a name>`), every code block, and every place the current version is written out. `scripts/inventory.mjs` writes it from a clone of the wiki.
 * `data/move-map.json` gives every wiki page and anchor its new address. It also records the wiki commit each page was moved from, so edits made on the wiki after that can be found and moved over too.
 * `data/old-addresses.json` lists every address the Jekyll site serves today, and the anchors on its front page. `scripts/old-addresses.mjs` writes it from a build of the Jekyll site. The new site must serve all of them before it replaces the old one.
-* `scripts/verify.mjs` fails if a wiki page or anchor has no new address. Once the site is built, it also reports every new address that doesn't exist yet. With `--strict` it fails on those too.
+* `scripts/verify.mjs` fails if a wiki page or anchor has no new address. It also reports wiki code blocks that aren't on any page, and, once the site is built, new addresses that don't exist. With `--strict`, which `npm run check` passes, it fails on those too.
+* `scripts/sync-check.mjs` lists what changed on the wiki and in the old site's news since the move.
 
 ## Update the inventory
 

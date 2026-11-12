@@ -9,11 +9,13 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "npm test && astro build && node scripts/verify.mjs",
+    "check": "npm test && astro build && node scripts/verify.mjs --strict",
     "test": "node --test 'scripts/*.test.mjs'",
     "inventory": "node scripts/inventory.mjs",
     "old-addresses": "node scripts/old-addresses.mjs",
-    "verify": "node scripts/verify.mjs"
+    "verify": "node scripts/verify.mjs",
+    "convert": "node scripts/convert.mjs",
+    "sync-check": "node scripts/sync-check.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^7.3.8",

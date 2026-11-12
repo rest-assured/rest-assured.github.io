@@ -100,3 +100,18 @@ test("an entry without an address is left to the map check instead of stopping t
     const map = { pages: { FAQ: { sha: "abc", anchors: { q: null } } } };
     assert.deepEqual(checkSite(builtSite({}), map), []);
 });
+
+test("a wiki code block missing from the site's pages is reported, with the version written as the placeholder", async () => {
+    const { checkCode } = await import("./verify.mjs");
+    const { codeBlockHash } = await import("./inventory.mjs");
+    const inventory = {
+        version: "7.0.0",
+        pages: {
+            Usage: { codeBlocks: [{ line: 3, hash: codeBlockHash("<version>7.0.0</version>") }, { line: 9, hash: codeBlockHash("given();") }] },
+            _Sidebar: { codeBlocks: [{ line: 1, hash: codeBlockHash("skipped") }] },
+        },
+    };
+    const map = { pages: { Usage: { address: "/docs/usage/" }, _Sidebar: { skip: "navigation" } } };
+    const sources = ["```xml\n<version>%REST_ASSURED_VERSION%</version>\n```\n"];
+    assert.deepEqual(checkCode(inventory, map, sources), ["the code block at Usage.md:9 isn't on any page of the site"]);
+});

@@ -4,15 +4,27 @@
 // (data/wiki-inventory.json) a new address, and must not name pages or anchors the inventory doesn't have. That check
 // always fails the run.
 //
-// Once the site is built (dist/), every address in the map must also exist there, page and anchor. While the content is
-// still moving, that check only reports. With --strict it fails the run too.
+// Every code block on the moved wiki pages must also be in some page of the site, as written, apart from the version,
+// which the site writes as %REST_ASSURED_VERSION%.
+//
+// Once the site is built (dist/), every address in the map must also exist there, page and anchor.
+//
+// The last two checks only report, unless you pass --strict. npm run check passes it.
 //
 //   npm run verify                 (from site/)
 //   npm run verify -- --strict
 
-import { existsSync, readFileSync, statSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import remarkGfm from "remark-gfm";
+import remarkParse from "remark-parse";
+import { unified } from "unified";
+import { visit } from "unist-util-visit";
+import { VERSION_TOKEN } from "./convert.mjs";
+import { codeBlockHash } from "./inventory.mjs";
+
+const parser = unified().use(remarkParse).use(remarkGfm);
 
 export function checkMap(inventory, moveMap) {
     const problems = [];
@@ -67,6 +79,39 @@ export function checkSite(siteDir, moveMap) {
     return [...new Set(problems)];
 }
 
+// `sources` are the Markdown texts of the site's pages.
+export function checkCode(inventory, moveMap, sources) {
+    const onSite = new Set();
+    for (const source of sources) {
+        visit(parser.parse(source), "code", (node) => {
+            onSite.add(codeBlockHash(node.value.replaceAll(VERSION_TOKEN, inventory.version)));
+        });
+    }
+    const problems = [];
+    for (const [page, { codeBlocks }] of Object.entries(inventory.pages)) {
+        const entry = moveMap.pages[page];
+        if (!entry || entry.skip || !entry.address?.startsWith("/")) continue;
+        for (const { line, hash } of codeBlocks) {
+            if (!onSite.has(hash)) problems.push(`the code block at ${page}.md:${line} isn't on any page of the site`);
+        }
+    }
+    return problems;
+}
+
+export function siteSources(siteDir) {
+    const files = [];
+    const walk = (dir) => {
+        for (const entry of readdirSync(dir, { withFileTypes: true })) {
+            const path = join(dir, entry.name);
+            if (entry.isDirectory()) walk(path);
+            else if (/\.mdx?$/.test(entry.name)) files.push(path);
+        }
+    };
+    walk(join(siteDir, "src/content"));
+    walk(join(siteDir, "src/pages"));
+    return files.map((file) => readFileSync(file, "utf8"));
+}
+
 const hasId = (html, id) => new RegExp(`\\sid=["']?${id.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}["'\\s>]`).test(html);
 
 const isMain = process.argv[1] === fileURLToPath(import.meta.url);
@@ -74,17 +119,24 @@ if (isMain) {
     const site = join(dirname(fileURLToPath(import.meta.url)), "..");
     const json = (path) => JSON.parse(readFileSync(join(site, path), "utf8"));
     const moveMap = json("data/move-map.json");
-    const mapProblems = checkMap(json("data/wiki-inventory.json"), moveMap);
+    const inventory = json("data/wiki-inventory.json");
+    const strict = process.argv.includes("--strict");
+    const report = strict ? console.error : console.log;
+
+    const mapProblems = checkMap(inventory, moveMap);
     for (const problem of mapProblems) console.error(problem);
 
-    const strict = process.argv.includes("--strict");
+    const codeProblems = checkCode(inventory, moveMap, siteSources(site));
+    for (const problem of codeProblems) report(problem);
+
     const dist = join(site, "dist");
     const siteProblems = existsSync(dist) ? checkSite(dist, moveMap) : [];
-    for (const problem of siteProblems) (strict ? console.error : console.log)(problem);
+    for (const problem of siteProblems) report(problem);
 
-    if (!existsSync(dist)) (strict ? console.error : console.log)("No built site in dist/ yet, so only the move map was checked.");
+    if (!existsSync(dist)) report("No built site in dist/ yet, so the new addresses weren't checked.");
     if (mapProblems.length === 0) console.log("Every wiki page and anchor has a new address.");
-    if (existsSync(dist) && siteProblems.length === 0) console.log("Every new address exists on the built site.");
-    if (siteProblems.length > 0) console.log(`${siteProblems.length} new addresses don't exist on the built site yet.`);
-    if (mapProblems.length > 0 || (strict && (siteProblems.length > 0 || !existsSync(dist)))) process.exitCode = 1;
+    console.log(codeProblems.length === 0 ? "Every wiki code block is on the site." : `${codeProblems.length} wiki code blocks aren't on the site yet.`);
+    if (existsSync(dist)) console.log(siteProblems.length === 0 ? "Every new address exists on the built site." : `${siteProblems.length} new addresses don't exist on the built site yet.`);
+    const unfinished = codeProblems.length > 0 || siteProblems.length > 0 || !existsSync(dist);
+    if (mapProblems.length > 0 || (strict && unfinished)) process.exitCode = 1;
 }
