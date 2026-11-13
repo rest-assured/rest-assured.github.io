@@ -44,7 +44,7 @@ when().
         post("/upload");
 ```
 
-For more advanced use cases you can make use of the [MultiPartSpecBuilder](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/builder/MultiPartSpecBuilder.html). For example:
+For more advanced use cases you can make use of the [MultiPartSpecBuilder](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/builder/MultiPartSpecBuilder.html). For example:
 
 ```java
 Greeting greeting = new Greeting();
@@ -62,7 +62,7 @@ then().
         statusCode(200);
 ```
 
-You can specify, among other things, the default `control name` and filename using the [MultiPartConfig](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/MultiPartConfig.html). For example:
+You can specify, among other things, the default `control name` and filename using the [MultiPartConfig](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/MultiPartConfig.html). For example:
 
 ```java
 given().config(config().multiPartConfig(multiPartConfig().defaultControlName("something-else"))). ..

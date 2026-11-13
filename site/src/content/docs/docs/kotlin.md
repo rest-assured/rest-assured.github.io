@@ -5,7 +5,7 @@ sidebar:
   order: 3
 ---
 
-## Avoid Escaping "when" Keyword
+## Avoid escaping "when" keyword
 
 Kotlin is a language developed by [JetBrains](https://www.jetbrains.com/) and it integrates very well with Java and REST Assured. When using it with REST Assured there's one thing that can be a bit annoying. That is you have to escape `when` since it's a reserved keyword in Kotlin. You can do this either by using [Kotlin Extension Module](/docs/kotlin/#kotlin-extension-module) (recommended) or you can simply create your own extension method (the approach shown below). For example:
 
@@ -51,9 +51,9 @@ fun `kotlin rest assured example`() {
 
 Notice that we don't need any escaping anymore. For more details refer to [this](http://code.haleby.se/2015/11/06/rest-assured-with-kotlin/) blog post.
 
-## Kotlin Extension Module
+## Kotlin extension module
 
-REST Assured 4.1.0 introduced a new module called "kotlin-extensions". This module provides some useful extension functions when working with REST Assured from Kotlin. First, you need to add the module to the project:
+The `kotlin-extensions` module provides some useful extension functions when working with REST Assured from Kotlin. First, you need to add the module to the project:
 
 ```xml
 <dependency>
@@ -103,9 +103,9 @@ Given(orders) {
 
 Note that the names of the extension functions are subject to change in the future (although it's probably not likely). You can read more about the rationale and benefits of the Kotlin API in [this](http://code.haleby.se/2019/09/06/rest-assured-in-kotlin/) blog post.
 
-## Kotlin Extension Module for Spring MockMvc
+## Kotlin extension module for Spring MockMvc
 
-REST Assured 4.1.0 introduced Kotlin extension support for the [Spring MockMvc](/docs/spring/mock-mvc/) module. This allows one to write tests like this:
+There are Kotlin extensions for the [Spring MockMvc](/docs/spring/mock-mvc/) module too, so you can write tests like this:
 
 ```kotlin
 class RestAssuredMockMvcKotlinExtensionsTest {
@@ -162,7 +162,7 @@ Given(client) {
 }
 ```
 
-## Kotlin Extension Module for Spring WebTest
+## Kotlin extension module for Spring WebTest
 
 REST Assured 5.4.0 introduced Kotlin extension support for the [Spring WebTest](/docs/spring/web-test-client/) module. This allows one to write tests like this:
 

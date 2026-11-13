@@ -75,13 +75,13 @@ RestAssured.authentication = certificate("/pathToJksInClassPath", <password>);
 
 `RestAssured.certificate(certURL, password)` takes the other SSL settings, such as the key store type, relaxed HTTPS validation and the host name verifier, from the `SSLConfig` of the request when the request is sent: that of `given().config(..)` if the request has one, else that of the [client](/docs/usage/parallel-tests/#restassuredclient) of the request, else that of `RestAssured.config`. Before REST Assured 7.0.0, it took those of `RestAssured.config` when `certificate(..)` was called, so a config set afterwards didn't apply. `given().auth().certificate(certURL, password)`, and the `certificate(..)` methods that take a `CertificateAuthSettings`, work as before.
 
-You can find a working example [here](https://github.com/rest-assured/rest-assured/blob/master/examples/rest-assured-itest-java/src/test/java/io/restassured/itest/java/SSLTest.java).
+There's a working example in [SSLTest](https://github.com/rest-assured/rest-assured/blob/master/examples/rest-assured-itest-java/src/test/java/io/restassured/itest/java/SSLTest.java).
 
 For more advanced SSL Configuration refer to the [SSL Configuration](/docs/usage/configuration/#ssl-config) section.
 
 ## SSL invalid hostname
 
-If the certificate is specifying an invalid hostname you don't need to create and import a keystore. As of version `2.2.0` you can do:
+If the certificate is specifying an invalid hostname you don't need to create and import a keystore. You can do:
 
 ```java
 RestAssured.config = RestAssured.config().sslConfig(sslConfig().allowAllHostnames());

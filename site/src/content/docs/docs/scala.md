@@ -5,7 +5,7 @@ sidebar:
   order: 4
 ---
 
-## Scala Extension Module
+## Scala extension module
 
 REST Assured 5.5.0 introduced a new module called "scala-extensions" for Scala 3. This module provides some useful extension functions when working with REST Assured from Scala 3. First, you need to add the module to the project:
 
@@ -59,11 +59,11 @@ Given(orders)(_.queryParam("status", "open"))
   .Then(_.statusCode(200))
 ```
 
-You can find examples [here](https://github.com/rest-assured/rest-assured/blob/rest-assured-%REST_ASSURED_VERSION%/modules/scala-extensions/src/test/scala/io/restassured/module/scala/extensions/RestAssuredScalaExtensionsTest.scala).
+There are examples in [RestAssuredScalaExtensionsTest](https://github.com/rest-assured/rest-assured/blob/rest-assured-%REST_ASSURED_VERSION%/modules/scala-extensions/src/test/scala/io/restassured/module/scala/extensions/RestAssuredScalaExtensionsTest.scala).
 
-## Scala Support Module
+## Scala support module
 
-REST Assured 2.6.0 introduced the `scala-support` module that adds an alias to the "then" method defined in the [Response](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/response/Response.html) or [MockMvcResponse](http://static.javadoc.io/io.restassured/spring-mock-mvc/%REST_ASSURED_VERSION%/io/restassured/module/mockmvc/response/MockMvcResponse.html) called "Then". The reason for this is that `then` might be a reserved keyword in Scala in the future and the compiler issues a warning when using a method with this name. To enable the use of `Then` simply import the `io.restassured.module.scala.RestAssuredSupport.AddThenToResponse` class from the `scala-support` module. For example:
+The `scala-support` module adds an alias to the "then" method defined in the [Response](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/response/Response.html) or [MockMvcResponse](https://static.javadoc.io/io.rest-assured/spring-mock-mvc/%REST_ASSURED_VERSION%/io/restassured/module/mockmvc/response/MockMvcResponse.html) called "Then". The reason for this is that `then` might be a reserved keyword in Scala in the future and the compiler issues a warning when using a method with this name. To enable the use of `Then` simply import the `io.restassured.module.scala.RestAssuredSupport.AddThenToResponse` class from the `scala-support` module. For example:
 
 ```java
 import io.restassured.RestAssured.when

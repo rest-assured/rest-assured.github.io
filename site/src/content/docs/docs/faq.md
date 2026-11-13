@@ -106,7 +106,7 @@ sidebar:
 
 ## 4. Logging REST Assured logs to disk
 
-By default when invoking `log().all()` (or any of the equivalents) in REST Assured logs are written to the console. To change this you can supply a custom [java.io.PrintStream](https://docs.oracle.com/javase/8/docs/api/java/io/PrintStream.html) instance to the [LogConfig](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/LogConfig.html). For example:
+By default when invoking `log().all()` (or any of the equivalents) in REST Assured logs are written to the console. To change this you can supply a custom [java.io.PrintStream](https://docs.oracle.com/javase/8/docs/api/java/io/PrintStream.html) instance to the [LogConfig](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/LogConfig.html). For example:
 
 ```java
 try (FileWriter fileWriter = new FileWriter("/tmp/logging.txt");
@@ -127,7 +127,7 @@ try (FileWriter fileWriter = new FileWriter("/tmp/logging.txt");
 }
 ```
 
-Typically you don't want to do this for every test but rather create something like a [JUnit Rule](https://github.com/junit-team/junit4/wiki/rules). An example JUnit Rule can be found [here](https://github.com/rest-assured/rest-assured/blob/master/examples/rest-assured-itest-java/src/test/java/io/restassured/itest/java/support/WriteLogsToDisk.java). Also have a look at [this blog post](http://code.haleby.se/2018/10/05/logging-to-disk-with-rest-assured/) for more details.
+Typically you don't want to do this for every test but rather create something like a [JUnit Rule](https://github.com/junit-team/junit4/wiki/rules). There's an example JUnit rule in [WriteLogsToDisk](https://github.com/rest-assured/rest-assured/blob/master/examples/rest-assured-itest-java/src/test/java/io/restassured/itest/java/support/WriteLogsToDisk.java). Also have a look at [this blog post](http://code.haleby.se/2018/10/05/logging-to-disk-with-rest-assured/) for more details.
 
 ## 5. Split Packages in Java 9+
 

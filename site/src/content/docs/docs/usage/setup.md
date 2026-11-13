@@ -101,7 +101,7 @@ io.restassured.module.jsv.JsonSchemaValidator.*
 
 Refer to [Json Schema Validation](/docs/usage/examples/#json-schema-validation) section for more info.
 
-If you're using Spring MVC you can use the [spring-mock-mvc](/docs/spring/mock-mvc/) module to unit test your Spring Controllers using the Rest Assured DSL. To do this statically import the methods from [RestAssuredMockMvc](http://static.javadoc.io/io.restassured/spring-mock-mvc/%REST_ASSURED_VERSION%/io/restassured/module/mockmvc/RestAssuredMockMvc.html) _instead_ of importing the methods from `io.restassured.RestAssured`:
+If you're using Spring MVC you can use the [spring-mock-mvc](/docs/spring/mock-mvc/) module to unit test your Spring Controllers using the Rest Assured DSL. To do this statically import the methods from [RestAssuredMockMvc](https://static.javadoc.io/io.rest-assured/spring-mock-mvc/%REST_ASSURED_VERSION%/io/restassured/module/mockmvc/RestAssuredMockMvc.html) _instead_ of importing the methods from `io.restassured.RestAssured`:
 
 ```java
 io.restassured.module.mockmvc.RestAssuredMockMvc.*

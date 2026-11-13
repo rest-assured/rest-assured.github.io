@@ -28,7 +28,7 @@ Jakarta XML Binding 3.x works too.
 
 ## JAXB
 
-JAXB can be used to serialize/deserialize XML with REST Assured. From version 4.5.0 it is not included by default, so if you're using a newer version of Java, such as Java 17, you need to add these two dependencies or use [Jakarta EE](/docs/usage/object-mapping/#jakarta-ee):
+JAXB can be used to serialize/deserialize XML with REST Assured. It isn't included by default, so you need to add these two dependencies or use [Jakarta EE](/docs/usage/object-mapping/#jakarta-ee):
 
 ```xml
 <dependency>
@@ -63,7 +63,7 @@ public class Message {
 
 and you want to serialize this object to JSON and send it with the request. There are several ways to do this, e.g:
 
-### Content-Type based Serialization
+### Content-Type based serialization
 
 ```java
 Message message = new Message();
@@ -141,7 +141,7 @@ This will provide a JSON payload as:
 { "firstName" : "John", "lastName" : "Doe" }
 ```
 
-### Using an Explicit Serializer
+### Using an explicit serializer
 
 If you have multiple object mappers in the classpath at the same time or don't care about setting the content-type you can specify a serializer explicity. E.g.
 
@@ -176,7 +176,7 @@ public class Message {
 
 and we want the response body to be deserialized into a Message object.
 
-### Content-Type based Deserialization
+### Content-Type based deserialization
 
 Let's assume then that the server returns a JSON body like this:
 
@@ -205,7 +205,7 @@ and a content-type of "application/xml" you wouldn't have to change the code at 
 Message message = get("/message").as(Message.class);
 ```
 
-#### Custom Content-Type Deserialization
+#### Custom Content-Type deserialization
 
 If the server returns a custom content-type, let's say "application/something", and you still want to use the object mapping in REST Assured there are a couple of different ways to go about. You can either use the [explicit](http://code.google.com/p/rest-assured/wiki/Usage#Using_an_Explicit_Deserializer) approach or register a parser for the custom content-type:
 
@@ -221,7 +221,7 @@ Message message = expect().defaultParser(Parser.XML).when().get("/message").as(M
 
 You can also register a default or custom parser [statically](/docs/usage/parsers-and-defaults/#default-values) or using [specifications](/docs/usage/specification-reuse/).
 
-### Using an Explicit Deserializer
+### Using an explicit deserializer
 
 If you have multiple object mappers in the classpath at the same time  or don't care about the response content-type you can specify a deserializer explicitly. E.g.
 
@@ -231,7 +231,7 @@ Message message = get("/message").as(Message.class, ObjectMapperType.GSON);
 
 ## Configuration
 
-You can configure the pre-defined object mappers by using a [ObjectMapperConfig](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/ObjectMapperConfig.html) and pass it to [detailed configuration](/docs/usage/configuration/). For example to change GSON to use lower case with underscores as field naming policy you can do like this:
+You can configure the pre-defined object mappers by using a [ObjectMapperConfig](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/ObjectMapperConfig.html) and pass it to [detailed configuration](/docs/usage/configuration/). For example to change GSON to use lower case with underscores as field naming policy you can do like this:
 
 ```java
 RestAssured.config = RestAssuredConfig.config().objectMapperConfig(objectMapperConfig().gsonObjectMapperFactory(
@@ -248,7 +248,7 @@ There are pre-defined object mapper factories for GSON, JAXB, Jakarta EE (JAXB),
 ## Custom
 
 By default REST Assured will scan the classpath to find various object mappers. If you want to integrate an object mapper that is not supported by default or if you've rolled your own you can implement the
-[io.restassured.mapper.ObjectMapper](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/mapper/ObjectMapper.html) interface. You tell REST Assured to use your object mapper either by passing it as a second parameter to the body:
+[io.restassured.mapper.ObjectMapper](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/mapper/ObjectMapper.html) interface. You tell REST Assured to use your object mapper either by passing it as a second parameter to the body:
 
 ```java
 given().body(myJavaObject, myObjectMapper).when().post("..")
@@ -260,4 +260,4 @@ or you can define it statically once and for all:
 RestAssured.config = RestAssuredConfig.config().objectMapperConfig(new ObjectMapperConfig(myObjectMapper));
 ```
 
-For an example see [here](https://github.com/rest-assured/rest-assured/blob/master/examples/rest-assured-itest-java/src/test/java/io/restassured/itest/java/CustomObjectMappingITest.java).
+For an example, see [CustomObjectMappingITest](https://github.com/rest-assured/rest-assured/blob/master/examples/rest-assured-itest-java/src/test/java/io/restassured/itest/java/CustomObjectMappingITest.java).

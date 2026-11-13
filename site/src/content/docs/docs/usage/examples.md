@@ -72,7 +72,7 @@ then().
 
 ### JSON Schema validation
 
-From version `2.1.0` REST Assured has support for [Json Schema](http://json-schema.org/) validation. For example given the following schema located in the classpath as `products-schema.json`:
+REST Assured can validate a response against a [JSON Schema](https://json-schema.org/). For example given the following schema located in the classpath as `products-schema.json`:
 
 ```javascript
 {
@@ -161,7 +161,7 @@ testImplementation 'com.github.java-json-tools:json-schema-validator:2.2.14'
 
 It brings Jackson 2 and Guava. Without it, a draft-03 schema fails with a `JsonSchemaValidationException` whose message says which dependency to add.
 
-### JSON Schema Validation Settings
+### JSON Schema validation settings
 
 The java-json-tools json-schema-validator, which continues Francis Galiegue's `fge` library (its packages still start with `com.github.fge`), can be configured with a `JsonSchemaFactory`. This needs it on the classpath (see [The java-json-tools validator](/docs/usage/examples/#the-java-json-tools-validator)), and applies only to the schemas that it validates. For example:
 
@@ -175,13 +175,13 @@ get("/products").then().assertThat().body(matchesJsonSchemaInClasspath("products
 
 The `using` method allows you to pass in a `jsonSchemaFactory` instance that REST Assured will use during validation. This allows fine-grained configuration for the validation.
 
-The java-json-tools json-schema-validator also allows the validation to be `checked` or `unchecked`, which the networknt json-schema-validator ignores. By default REST Assured uses `checked` validation but if you want to change this you can supply an instance of [JsonSchemaValidatorSettings](http://static.javadoc.io/io.restassured/json-schema-validator/%REST_ASSURED_VERSION%/io/restassured/module/jsv/JsonSchemaValidatorSettings.html) to the matcher. For example:
+The java-json-tools json-schema-validator also allows the validation to be `checked` or `unchecked`, which the networknt json-schema-validator ignores. By default REST Assured uses `checked` validation but if you want to change this you can supply an instance of [JsonSchemaValidatorSettings](https://static.javadoc.io/io.rest-assured/json-schema-validator/%REST_ASSURED_VERSION%/io/restassured/module/jsv/JsonSchemaValidatorSettings.html) to the matcher. For example:
 
 ```java
 get("/products").then().assertThat().body(matchesJsonSchemaInClasspath("products-schema.json").using(settings().with().checkedValidation(false)));
 ```
 
-Where the `settings` method is statically imported from the [JsonSchemaValidatorSettings](http://static.javadoc.io/io.restassured/json-schema-validator/%REST_ASSURED_VERSION%/io/restassured/module/jsv/JsonSchemaValidatorSettings.html) class.
+Where the `settings` method is statically imported from the [JsonSchemaValidatorSettings](https://static.javadoc.io/io.rest-assured/json-schema-validator/%REST_ASSURED_VERSION%/io/restassured/module/jsv/JsonSchemaValidatorSettings.html) class.
 
 ### Choosing the JSON Schema version
 
@@ -224,7 +224,7 @@ A few things to know:
 * In 2019-09 and 2020-12, `format` (for example `"format": "email"`) is an annotation and isn't validated, as those specifications require.
 * Relative `$ref`s work for schemas loaded from the classpath, a `File`, a URL or a URI. A schema passed as a String, InputStream or Reader has no location to resolve them against.
 
-### Json Schema Validation with static configuration
+### JSON Schema validation with static configuration
 
 Now imagine that you always want to use `unchecked` validation as well as setting the default json schema version to version 3. Instead of supplying this to all matchers throughout your code you can define it statically. For example:
 
@@ -236,7 +236,7 @@ JsonSchemaValidator.settings = settings().with().jsonSchemaFactory(
 get("/products").then().assertThat().body(matchesJsonSchemaInClasspath("products-schema.json"));
 ```
 
-Now any `matcher` method imported from [JsonSchemaValidator](http://static.javadoc.io/io.restassured/json-schema-validator/%REST_ASSURED_VERSION%/io/restassured/module/jsv/JsonSchemaValidatorSettings.html) will use `DRAFTV3` as default version and unchecked validation. Both settings need the [java-json-tools json-schema-validator](/docs/usage/examples/#the-java-json-tools-validator).
+Now any `matcher` method imported from [JsonSchemaValidator](https://static.javadoc.io/io.rest-assured/json-schema-validator/%REST_ASSURED_VERSION%/io/restassured/module/jsv/JsonSchemaValidatorSettings.html) will use `DRAFTV3` as default version and unchecked validation. Both settings need the [java-json-tools json-schema-validator](/docs/usage/examples/#the-java-json-tools-validator).
 
 `JsonSchemaValidator.settings` is a standalone setting, shared by all threads. Neither the config of a request nor a [RestAssuredClient](/docs/usage/parallel-tests/#restassuredclient) changes it. To use other settings for one matcher, use `using(..)`, as in [JSON Schema Validation Settings](/docs/usage/examples/#json-schema-validation-settings).
 
@@ -246,7 +246,7 @@ To reset the `JsonSchemaValidator` to its default settings simply call the `rese
 JsonSchemaValidator.reset();
 ```
 
-### Json Schema Validation without REST Assured
+### JSON Schema validation without REST Assured
 
 You can also use the `json-schema-validator` module without depending on REST Assured. As long as you have a JSON document represented as a `String` you can do like this:
 
@@ -332,7 +332,7 @@ See [this](http://groovy-lang.org/processing-xml.html#_gpath) link for more info
 
 ### XML namespaces
 
-To make body expectations take namespaces into account you need to declare the namespaces using the [io.restassured.config.XmlConfig](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/XmlConfig.html). For example let's say that a resource called `namespace-example` located at `http://localhost:8080` returns the following XML:
+To make body expectations take namespaces into account you need to declare the namespaces using the [io.restassured.config.XmlConfig](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/XmlConfig.html). For example let's say that a resource called `namespace-example` located at `http://localhost:8080` returns the following XML:
 
 ```xml
 <foo xmlns:ns="http://localhost/">
@@ -354,7 +354,7 @@ then().
          body("foo.test:bar.text()", equalTo("make me a sandwich!"));
 ```
 
-The path syntax follows Groovy's XmlSlurper syntax. Note that in versions prior to 2.6.0 the path syntax was *not* following Groovy's XmlSlurper syntax. Please see [release notes](/release-notes/2-6/#non-backward-compatible-changes) for versin 2.6.0 to see how the previous syntax looked like.
+The path syntax follows Groovy's XmlSlurper syntax.
 
 ### XPath
 
@@ -399,7 +399,7 @@ get("/carRecords").then().assertThat().body(matchesXsd(xsd));
 get("/videos").then().assertThat().body(matchesDtd(dtd));
 ```
 
-The <code>matchesXsd</code> and <code>matchesDtd</code> methods are Hamcrest matchers which you can import from <a href="http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/matcher/RestAssuredMatchers.html">io.restassured.matcher.RestAssuredMatchers</a>.<br>
+The <code>matchesXsd</code> and <code>matchesDtd</code> methods are Hamcrest matchers which you can import from <a href="https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/matcher/RestAssuredMatchers.html">io.restassured.matcher.RestAssuredMatchers</a>.<br>
 
 </p>
 
@@ -426,7 +426,7 @@ There are other interesting methods that we can use on collections in Groovy as 
 
 So how do we take advantage of this when validating our XML or JSON responses with REST Assured?
 
-### XML Example
+### XML example
 
 Let’s say we have a resource at `http://localhost:8080/shopping` that returns the following XML:
 
@@ -460,7 +460,7 @@ On this list we invoke a function, `find`, to return the single category that ha
 On this category we then continue by getting all the items associated with this category. 
 Since there are more than one item associated with the groceries category a list will be returned and we verify this list against the `hasItems` Hamcrest matcher.
 
-But what if you want to get the items and not validate them against a Hamcrest matcher? For this purpose you can use [XmlPath](http://static.javadoc.io/io.rest-assured/xml-path-gpath/%REST_ASSURED_VERSION%/io/restassured/path/xml/XmlPath.html):
+But what if you want to get the items and not validate them against a Hamcrest matcher? For this purpose you can use [XmlPath](https://static.javadoc.io/io.rest-assured/xml-path-gpath/%REST_ASSURED_VERSION%/io/restassured/path/xml/XmlPath.html):
 
 ```java
 // Get the response body as a String
@@ -491,7 +491,7 @@ then().
 We search for the first node that has an attribute named `type` equal to "groceries". Notice also that we don't end the XML path with "item". 
 The reason is that `toString()` is called automatically on the category node which returns a list of the item values.
 
-### JSON Example
+### JSON example
 
 Let's say we have a resource at `http://localhost:8080/store` that returns the following JSON document:
 
@@ -542,7 +542,7 @@ then().
 ```
 
 Just as in the XML examples above we use a closure to find all books with a price less than 10 and then return the titles of all the books. 
-We then use the `hasItems` matcher to assert that the titles are the ones we expect. Using [JsonPath](http://static.javadoc.io/io.rest-assured/json-path-gpath/%REST_ASSURED_VERSION%/io/restassured/path/json/JsonPath.html) we can return the titles instead:
+We then use the `hasItems` matcher to assert that the titles are the ones we expect. Using [JsonPath](https://static.javadoc.io/io.rest-assured/json-path-gpath/%REST_ASSURED_VERSION%/io/restassured/path/json/JsonPath.html) we can return the titles instead:
 
 ```java
 // Get the response body as a String
@@ -590,7 +590,7 @@ then().
        body("store.book.author*.length().sum()", greaterThan(50)).
 ```
 
-And of course we can use [JsonPath](http://static.javadoc.io/io.rest-assured/json-path-gpath/%REST_ASSURED_VERSION%/io/restassured/path/json/JsonPath.html) to actually return the result:
+And of course we can use [JsonPath](https://static.javadoc.io/io.rest-assured/json-path-gpath/%REST_ASSURED_VERSION%/io/restassured/path/json/JsonPath.html) to actually return the result:
 
 ```java
 // Get the response body as a string
@@ -601,9 +601,9 @@ int sumOfAllAuthorLengths = from(response).getInt("store.book.author*.length().s
 assertThat(sumOfAllAuthorLengths, is(53));
 ```
 
-## Deserialization with Generics
+## Deserialization with generics
 
-REST Assured 3.3.0 introduced the `io.restassured.mapper.TypeRef` class that allows you to de-serialize the response to a container with a generic type. For example let's say that you have a service that returns the following JSON for a GET request to `/products`:
+The `io.restassured.mapper.TypeRef` class lets you deserialize the response to a container with a generic type. For example let's say that you have a service that returns the following JSON for a GET request to `/products`:
 
 ```json
 [
@@ -657,13 +657,13 @@ assertThat(products.get(1).get("price"), equalTo(25.5));```
 
 Note that currently this only works for JSON responses.
 
-## Additional Examples
+## Additional examples
 
-Micha Kops has written a really good blog with several examples (including code examples that you can checkout). You can read it [here](https://www.hascode.com/testing-restful-web-services-made-easy-using-the-rest-assured-framework/).
+Micha Kops has written [a blog post with several examples](https://www.hascode.com/testing-restful-web-services-made-easy-using-the-rest-assured-framework/), including code you can check out.
 
-Also [Bas Dijkstra](https://www.linkedin.com/in/basdijkstra) has been generous enough to open source his REST Assured workshop. You can read more about this [here](http://www.ontestautomation.com/open-sourcing-my-workshop-an-experiment/) and you can try out, and contribute to, the exercises available in [his](https://github.com/basdijkstra/workshops/) github repository.
+[Bas Dijkstra](https://www.linkedin.com/in/basdijkstra) has [open sourced his REST Assured workshop](http://www.ontestautomation.com/open-sourcing-my-workshop-an-experiment/). You can try out, and contribute to, the exercises in [his workshops repository](https://github.com/basdijkstra/workshops/) on GitHub.
 
-Bas has also made a nice introductory screencast to REST Assured, you can find it [here](https://testautomationu.applitools.com/automating-your-api-tests-with-rest-assured/). 
+Bas has also made [an introductory course on REST Assured](https://testautomationu.applitools.com/automating-your-api-tests-with-rest-assured/) at Test Automation University. 
 
 ## Note on floats and doubles
 
@@ -702,7 +702,7 @@ when().
         get("/lotto");
 ```
 
-This is the so called "legacy syntax" which was the de facto way of writing tests in REST Assured 1.x. While this works fine it turned out to be quite confusing and annoying for many users. The reason for not using "given / when / then" in the first place was mainly technical. So prior to REST Assured 2.0 there was no support "given / when / then" which is more or less the standard approach when you're doing some kind of BDD-like testing. The "given / expect / when" approach still works fine in 2.0 and above but "given / when / then" reads better and is easier to understand for most people and is thus recommended in most cases. There's however one benefit of using the "given / expect / when" approach and that is that ALL expectation errors can be displayed at the same time which is not possible with the new syntax (since the expectations are defined last). This means that if you would have had multiple expectations in the previous example such as
+This is the "legacy syntax" from REST Assured 1.x. It still works, but "given / when / then" reads better and is recommended in most cases. The legacy syntax has one benefit: it can report ALL failed expectations at the same time, which the newer syntax can't, since the expectations come last. This means that if you would have had multiple expectations in the previous example such as
 
 ```java
 given().
@@ -728,7 +728,7 @@ then().
 
 will only report an error at the first failed expectation / assertion (that status code was expected to be 400 but it was actually 200). You would have to re-run the test in order to catch the second error.
 
-### Syntactic Sugar
+### Syntactic sugar
 
 Another thing worth mentioning is that REST Assured contains some methods that are only there for syntactic sugar. For example the "and" method which can add readability if you're writing everything in a one-liner, for example:
 

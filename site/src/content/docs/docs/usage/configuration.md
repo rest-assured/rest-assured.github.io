@@ -5,7 +5,7 @@ sidebar:
   order: 20
 ---
 
-Detailed configuration is provided by the [RestAssuredConfig](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/RestAssuredConfig.html) instance with which you can configure the parameters of [HTTP Client](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/HttpClientConfig.html) as well as [Redirect](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/RedirectConfig.html), [Log](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/LogConfig.html), [Encoder](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/EncoderConfig.html), [Decoder](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/DecoderConfig.html), [Session](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/SessionConfig.html), [ObjectMapper](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/ObjectMapperConfig.html), [Connection](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/ConnectionConfig.html), [SSL](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/SSLConfig.html) and [ParamConfig](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/ParamConfig.html) settings. Examples:
+Detailed configuration is provided by the [RestAssuredConfig](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/RestAssuredConfig.html) instance with which you can configure the parameters of [HTTP Client](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/HttpClientConfig.html) as well as [Redirect](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/RedirectConfig.html), [Log](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/LogConfig.html), [Encoder](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/EncoderConfig.html), [Decoder](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/DecoderConfig.html), [Session](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/SessionConfig.html), [ObjectMapper](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/ObjectMapperConfig.html), [Connection](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/ConnectionConfig.html), [SSL](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/SSLConfig.html) and [ParamConfig](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/ParamConfig.html) settings. Examples:
 
 For a specific request:
 
@@ -27,15 +27,15 @@ RestAssured.config = config().redirect(redirectConfig().followRedirects(true).an
 
 `config()` and `newConfig()` can be statically imported from `io.restassured.config.RestAssuredConfig`.
 
-## Encoder Config
+## Encoder config
 
-With the [EncoderConfig](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/EncoderConfig.html) you can specify the default content encoding charset (if it's not specified in the content-type header) and query parameter charset for all requests. If no content charset is specified then ISO-8859-1 is used and if no query parameter charset is specified then UTF-8 is used. Usage example:
+With the [EncoderConfig](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/EncoderConfig.html) you can specify the default content encoding charset (if it's not specified in the content-type header) and query parameter charset for all requests. If no content charset is specified then ISO-8859-1 is used and if no query parameter charset is specified then UTF-8 is used. Usage example:
 
 ```java
 RestAssured.config = RestAssured.config().encoderConfig(encoderConfig().defaultContentCharset("US-ASCII"));
 ```
 
-You can also specify which encoder charset to use for a specific content-type if no charset is defined explicitly for this content-type by using the `defaultCharsetForContentType` method in the [EncoderConfig](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/EncoderConfig.html). For example:
+You can also specify which encoder charset to use for a specific content-type if no charset is defined explicitly for this content-type by using the `defaultCharsetForContentType` method in the [EncoderConfig](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/EncoderConfig.html). For example:
 
 ```java
 RestAssured.config = RestAssured.config(config().encoderConfig(encoderConfig().defaultCharsetForContentType("UTF-16", "application/xml")));
@@ -51,9 +51,9 @@ By default REST Assured adds the charset header automatically. To disable this c
 RestAssured.config = RestAssured.config(config().encoderConfig(encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));
 ```
 
-## Decoder Config
+## Decoder config
 
-With the [DecoderConfig](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/DecoderConfig.html) you can set the default response content decoding charset for all responses. This is useful if you expect a different content charset than ISO-8859-1 (which is the default charset) and the response doesn't define the charset in the content-type header. Usage example:
+With the [DecoderConfig](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/DecoderConfig.html) you can set the default response content decoding charset for all responses. This is useful if you expect a different content charset than ISO-8859-1 (which is the default charset) and the response doesn't define the charset in the content-type header. Usage example:
 
 ```java
 RestAssured.config = RestAssured.config().decoderConfig(decoderConfig().defaultContentCharset("UTF-8"));
@@ -65,7 +65,7 @@ You can also use the `DecoderConfig` to specify which content decoders to apply.
 given().config(RestAssured.config().decoderConfig(decoderConfig().contentDecoders(DEFLATE))). ..
 ```
 
-You can also specify which decoder charset to use for a specific content-type if no charset is defined explicitly for this content-type by using the "defaultCharsetForContentType" method in the [DecoderConfig](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/DecoderConfig.html). For example:
+You can also specify which decoder charset to use for a specific content-type if no charset is defined explicitly for this content-type by using the "defaultCharsetForContentType" method in the [DecoderConfig](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/DecoderConfig.html). For example:
 
 ```java
 RestAssured.config = config(config().decoderConfig(decoderConfig().defaultCharsetForContentType("UTF-16", "application/xml")));
@@ -73,7 +73,7 @@ RestAssured.config = config(config().decoderConfig(decoderConfig().defaultCharse
 
 This will assume UTF-16 encoding for "application/xml" content-types that does explicitly specify a charset. By default all JSON content-types use UTF-8 when the response doesn't specify a charset, as [RFC 8259](https://www.rfc-editor.org/rfc/rfc8259) requires. This covers `application/json`, `text/json`, `application/json` with extra parameters (such as `application/json; version=1`), and since REST Assured 6.1.0 every `+json` type, such as `application/problem+json` or `application/hal+json`. A charset you configure with `defaultCharsetForContentType` takes precedence. Before REST Assured 6.2.0 `defaultCharsetForContentType` also changed the default content charset for every other content type. Call `defaultContentCharset(..)` too if you relied on that.
 
-## Session Config
+## Session config
 
 With the session config you can configure the default session id name that's used by REST Assured. The default session id name is `JSESSIONID` and you only need to change it if the name in your application is different and you want to make use of REST Assured's [session support](/docs/usage/sessions/). Usage:
 
@@ -91,7 +91,7 @@ given().redirects().max(12).and().redirects().follow(true).when(). ..
 
 See [Redirects](/docs/usage/redirects/) for which redirects REST Assured follows, how to test the redirect itself, and every redirect setting.
 
-## Connection Config
+## Connection config
 
 Lets you configure connection settings for REST Assured. For example if you want to close the connections of the HTTP client after each response, so that each request gets a new client. You may want to do this if a server, or a proxy in between, doesn't cope with connections that are reused. By default connections are _not_ closed after each response, and the JDK HTTP client, the default, reuses them for the requests that follow.
 
@@ -101,9 +101,9 @@ RestAssured.config = RestAssured.config().connectionConfig(connectionConfig().cl
 
 `closeIdleConnectionsAfterEachResponseAfter(idleTime, timeUnit)` closes, after each response, only the connections that have been idle for longer than the idle time. It works with Apache HttpClient 5 (`http-client-apache5`) and `httpClientConfig().reuseHttpClientInstance()`. The JDK client closes idle connections after a time that it decides itself, so there it has no effect, and REST Assured logs a warning once.
 
-## Json Config
+## JSON config
 
-[JsonPathConfig](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/path/json/config/JsonPathConfig.html) allows you to configure the Json settings either when used by REST Assured or by [JsonPath](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/path/json/JsonPath.html). It let's you configure how JSON numbers should be treated.
+[JsonPathConfig](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/path/json/config/JsonPathConfig.html) allows you to configure the Json settings either when used by REST Assured or by [JsonPath](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/path/json/JsonPath.html). It let's you configure how JSON numbers should be treated.
 
 ```java
 RestAssured.config = RestAssured.config().jsonConfig(jsonConfig().numberReturnType(NumberReturnType.BIG_DECIMAL))
@@ -119,7 +119,7 @@ RestAssured.config = RestAssured.config().jsonConfig(jsonConfig().numberLengthLi
 
 `JsonPathConfig` has the same setting, for when you use `JsonPath` on its own.
 
-## HTTP Client Config
+## HTTP client config
 
 Lets you configure the HTTP client that REST Assured sends the requests with. Since REST Assured 7.0.0 that's the JDK's `java.net.http.HttpClient` by default, from the `http-client-jdk` module that `rest-assured` depends on.
 
@@ -279,9 +279,9 @@ RestAssured.config = RestAssured.config().httpClient(httpClientConfig().client("
 
 `client(MyHttpClientProvider.class)` and `-Drestassured.http.client=my-client` work too. In OSGi, REST Assured finds the provider with `ServiceLoader`, which needs a ServiceLoader Mediator such as Apache Aries SPI Fly. For complete examples, look at [http-client-jdk](https://github.com/rest-assured/rest-assured/tree/master/modules/http-client-jdk) and [http-client-apache5](https://github.com/rest-assured/rest-assured/tree/master/modules/http-client-apache5).
 
-## SSL Config
+## SSL config
 
-The [SSLConfig](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/SSLConfig.html) allows you to specify more advanced SSL configuration such as truststore, keystore type and host name verifier. For example:
+The [SSLConfig](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/SSLConfig.html) allows you to specify more advanced SSL configuration such as truststore, keystore type and host name verifier. For example:
 
 ```java
 RestAssured.config = RestAssured.config().sslConfig(sslConfig().with().keystoreType(<type>).and().strictHostnames());
@@ -295,9 +295,9 @@ RestAssured.config = RestAssured.config().sslConfig(sslConfig().sslContext(sslCo
 
 Host names are still verified strictly by default when you set an `SSLContext`. `sslSocketFactory(..)` and `x509HostnameVerifier(..)`, which took Apache HttpClient 4 types, are removed in REST Assured 7.0.0.
 
-## Param Config
+## Param config
 
-[ParamConfig](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/ParamConfig.html) allows you to configure how different parameter types should be updated on "collision". By default all parameters are merged so if you do:
+[ParamConfig](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/ParamConfig.html) allows you to configure how different parameter types should be updated on "collision". By default all parameters are merged so if you do:
 
 ```java
 given().queryParam("param1", "value1").queryParam("param1", "value2").when().get("/x"). ...
@@ -320,11 +320,11 @@ REST Assured will now replace `param1` with `value2` (since it's written last) i
 given().config(config().paramConfig(paramConfig().replaceAllParameters())). ..
 ```
 
-This is also supported in the [Spring Mock Mvc Module](/docs/spring/mock-mvc/) (but the config there is called [MockMvcParamConfig](http://static.javadoc.io/io.restassured/spring-mock-mvc/%REST_ASSURED_VERSION%/io/restassured/module/mockmvc/config/MockMvcParamConfig.html)).
+This is also supported in the [Spring Mock Mvc Module](/docs/spring/mock-mvc/) (but the config there is called [MockMvcParamConfig](https://static.javadoc.io/io.rest-assured/spring-mock-mvc/%REST_ASSURED_VERSION%/io/restassured/module/mockmvc/config/MockMvcParamConfig.html)).
 
-## Failure Config
+## Failure config
 
-Added in version 3.3.0 the [FailureConfig](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/FailureConfig.html) can be used to get callbacks when REST Assured validation fails. This is useful if you want to do some custom logging or store data available in the request/response specification or in the response itself somewhere. For example let's say that you want to be notified by email when the following test case fails because the status code is not 200:
+The [FailureConfig](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/FailureConfig.html) can be used to get callbacks when REST Assured validation fails. This is useful if you want to do some custom logging or store data available in the request/response specification or in the response itself somewhere. For example let's say that you want to be notified by email when the following test case fails because the status code is not 200:
 
 ```java
 given().
@@ -335,7 +335,7 @@ then().
     statusCode(200);
 ```
 
-You can then implement a [ResponseValidationFailureListener](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/listener/ResponseValidationFailureListener.html) and add it to the [FailureConfig](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/FailureConfig.html):
+You can then implement a [ResponseValidationFailureListener](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/listener/ResponseValidationFailureListener.html) and add it to the [FailureConfig](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/FailureConfig.html):
 
 ```java
 ResponseValidationFailureListener emailOnFailure = (reqSpec, respSpec, resp) -> emailService.sendEmail("email@gmail.com", "Important test failed! Status code was: " + resp.statusCode());
@@ -349,7 +349,7 @@ then().
     statusCode(200);
 ```
 
-## Matcher Config
+## Matcher config
 
 When a check fails, REST Assured writes its own, shorter version of the Hamcrest message. Usually that's easier to read. But it leaves out the quotes, and sometimes the quotes are exactly what you need. Say the service returns `"Jane "`, with a space at the end:
 
@@ -359,7 +359,7 @@ Expected: Jane
   Actual: Jane 
 ```
 
-The two values look the same. The [MatcherConfig](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/MatcherConfig.html) can switch to the plain Hamcrest messages:
+The two values look the same. The [MatcherConfig](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/MatcherConfig.html) can switch to the plain Hamcrest messages:
 
 ```java
 RestAssured.config = RestAssured.config().matcherConfig(matcherConfig().errorDescriptionType(HAMCREST));
@@ -376,9 +376,9 @@ Expected: "Jane"
 
 The same goes for a number that you expected as a string. The Hamcrest message shows `Expected: "1"` and `Actual: was <1>`, so you see that the service sent the number 1 and not the text "1". `matcherConfig()` and `HAMCREST` are statically imported from `io.restassured.config.MatcherConfig` and `io.restassured.config.MatcherConfig.ErrorDescriptionType`.
 
-## CSRF Config
+## CSRF config
 
-Added in version 5.2.0 the [CsrfConfig](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/CsrfConfig.html) can be used to configure REST Assured to support CSRF. It provides more fine-grained control that is not available in the normal [DSL](/docs/usage/authentication/#csrf).
+The [CsrfConfig](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/CsrfConfig.html) can be used to configure REST Assured to support CSRF. It provides more fine-grained control that is not available in the normal [DSL](/docs/usage/authentication/#csrf).
 
 ```java
 given().

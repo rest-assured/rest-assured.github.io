@@ -19,11 +19,11 @@ RestAssured.authentication = basic("username", "password");
 
 or you can use a [specification](/docs/usage/specification-reuse/).
 
-## Basic Authentication
+## Basic authentication
 
 There are two types of basic authentication, preemptive and "challenged basic authentication".
 
-### Preemptive Basic Authentication
+### Preemptive basic authentication
 
 This will send the basic authentication credential even before the server gives an unauthorized response in certain situations, thus reducing the overhead of making an additional connection. This is typically what you want to use in most situations unless you're testing the servers ability to challenge. Example:
 
@@ -31,7 +31,7 @@ This will send the basic authentication credential even before the server gives 
 given().auth().preemptive().basic("username", "password").when().get("/secured/hello").then().statusCode(200);
 ```
 
-### Challenged Basic Authentication
+### Challenged basic authentication
 
 When using "challenged basic authentication" REST Assured will not supply the credentials unless the server has explicitly asked for it. This means that REST Assured will make an additional request to the server in order to be challenged and then follow up with the same request once more but this time setting the basic credentials in the header.
 
@@ -39,7 +39,7 @@ When using "challenged basic authentication" REST Assured will not supply the cr
 given().auth().basic("username", "password").when().get("/secured/hello").then().statusCode(200);
 ```
 
-## Digest Authentication
+## Digest authentication
 
 Currently only "challenged digest authentication" is supported. Example:
 
@@ -47,7 +47,7 @@ Currently only "challenged digest authentication" is supported. Example:
 given().auth().digest("username", "password").when().get("/secured"). ..
 ```
 
-## Form Authentication
+## Form authentication
 
 [Form authentication](https://en.wikipedia.org/wiki/Form-based_authentication) is very popular on the internet. It's typically associated with a user filling out his credentials (username and password) on a webpage and then pressing a login button of some sort. A very simple HTML page that provide the basis for form authentication may look like this:
 
@@ -112,7 +112,7 @@ Today it's common for the server to supply a [CSRF](https://en.wikipedia.org/wik
 
 REST Assured supports two ways of providing CSRF tokens to the server, either by submitting the CSRF token in a form, or as a header.
 
-#### CSRF Form Token
+#### CSRF form token
 
 Consider that we have a simple website that adds a user:
 
@@ -192,7 +192,7 @@ A relative path of the page with the CSRF token, as in `csrf("/users/form")` or 
 
 The request for the page with the CSRF token uses the config and the proxy of your request, so for example `relaxedHTTPSValidation()` or a proxy set on the request also applies to it. Before REST Assured 7.0.0, it was sent without them, except with form authentication.
 
-#### CSRF Header Token
+#### CSRF header token
 
 Besides sending CSRF tokens in forms, REST Assured also support sending a CSRF token in a header. For example, if you have a login page at `/login` that looks like this:
 
@@ -245,7 +245,7 @@ then().
 
 REST Assured will now send the CSRF token in a header called `MyHeader` instead of the default, `X-CSRF-TOKEN`.
 
-#### CSRF and Authentication
+#### CSRF and authentication
 
 The page you GET to extract the CSRF token might be protected by authentication. REST Assured automatically applies authentication to the CSRF resource as well if defined in the DSL. For example, let's say that the `/users` (see above) resources requires basic authentication for both GET and POST. You can then specify authentication as you normally would and this would be applied to the CSRF request as well:
 
@@ -261,7 +261,7 @@ then().
         statusCode(200);
 ```
 
-#### CSRF Prioritization
+#### CSRF prioritization
 
 If the page you use to get the CSRF token both contains a header token _and_ a (different) CSRF form token you can instruct REST Assured which one to prioritize:
 
@@ -271,7 +271,7 @@ given().config(RestAssuredConfig.config().csrfConfig(csrfConfig().csrfPrioritiza
 
 Change `CsrfPrioritization.HEADER` to `CsrfPrioritization.FORM` to prioritize form tokens instead.
 
-#### CSRF Cookie Propagation
+#### CSRF cookie propagation
 
 As of version 5.5.3, REST Assured automatically forwards the cookies from the GET request that returns the CSRF token and applies them to the "actual" request. These cookies will also be applied to the `CookieFilter` automatically (if configured) and [SessionFilter](/docs/usage/sessions/#session-filter) (if configured). For example:
 
@@ -320,7 +320,7 @@ when().
 
 ## OAuth
 
-Since REST Assured 7.0.0, OAuth 1 and OAuth 2 need no other dependency. Before, OAuth 1, and OAuth 2 with the token in the query string, needed [scribejava](https://github.com/scribejava/scribejava) (`com.github.scribejava:scribejava-apis`) on the classpath. You can remove it from your build if you added it for REST Assured. If you're using version 2.1.0 or older of REST Assured then please refer to the [legacy](/docs/legacy/usage/#oauth) documentation.
+Since REST Assured 7.0.0, OAuth 1 and OAuth 2 need no other dependency. Before, OAuth 1, and OAuth 2 with the token in the query string, needed [scribejava](https://github.com/scribejava/scribejava) (`com.github.scribejava:scribejava-apis`) on the classpath. You can remove it from your build if you added it for REST Assured.
 
 ### OAuth 1
 
@@ -338,7 +338,7 @@ given().auth().oauth(consumerKey, consumerSecret, accessToken, secretToken, OAut
 
 ### OAuth 2
 
-Since version `2.5.0` you can use OAuth 2 authentication without depending on scribejava:
+OAuth 2 authentication works without any other dependency:
 
 ```java
 given().auth().oauth2(accessToken). ..
@@ -356,9 +356,9 @@ There reason why `given().auth().oauth2(..)` still exists is for backward compat
 given().auth().oauth2(accessToken, OAuthSignature.QUERY_STRING). ..
 ```
 
-## Custom Authentication
+## Custom authentication
 
-Rest Assured allows you to create custom authentication providers. You do this by implementing the `io.restassured.spi.AuthFilter` interface (preferably) and apply it as a [filter](/docs/usage/filters/). For example let's say that your security consists of adding together two headers together in a new header called "AUTH" (this is of course not secure). Then you can do that like this (Java 8 syntax):
+Rest Assured allows you to create custom authentication providers. You do this by implementing the `io.restassured.spi.AuthFilter` interface (preferably) and apply it as a [filter](/docs/usage/filters/). For example let's say that your security consists of adding together two headers together in a new header called "AUTH" (this is of course not secure). Then you can do that like this:
 
 ```java
 given().

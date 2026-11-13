@@ -5,7 +5,7 @@ sidebar:
   order: 2
 ---
 
-REST Assured 3.2.0 introduced support for testing components of the [Spring Reactive Web](https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html) stack using the `spring-web-test-client` module. This means that you can unit test reactive Spring (Webflux) Controllers. For example let's say that the server defines a controller that returns JSON using this DTO:
+REST Assured supports testing components of the [Spring Reactive Web](https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html) stack using the `spring-web-test-client` module. This means that you can unit test reactive Spring (Webflux) Controllers. For example let's say that the server defines a controller that returns JSON using this DTO:
 
 ```java
 public class Greeting {
@@ -44,7 +44,7 @@ public class GreetingController {
 }
 ```
 
-you can test it using [RestAssuredWebTestClient](http://static.javadoc.io/io.restassured/spring-web-test-client/%REST_ASSURED_VERSION%/io/restassured/module/webtestclient/RestAssuredWebTestClient.html) like this:
+you can test it using [RestAssuredWebTestClient](https://static.javadoc.io/io.rest-assured/spring-web-test-client/%REST_ASSURED_VERSION%/io/restassured/module/webtestclient/RestAssuredWebTestClient.html) like this:
 
 ```java
 package io.restassured.module.webtestclient;
@@ -124,9 +124,9 @@ then().
         body("content", equalTo("Hello, Johan!"));  
 ```
 
-## Spring Web Test Client Specifications
+## Spring Web Test Client specifications
 
-Just as with standard Rest Assured you can use [specifications](/docs/usage/specification-reuse/) to allow for better re-use. Note that the request specification builder for RestAssuredWebTestClient is called [WebTestClientRequestSpecBuilder](http://static.javadoc.io/io.restassured/spring-web-test-client/%REST_ASSURED_VERSION%/io/restassured/module/webtestclient/specification/WebTestClientRequestSpecBuilder.html). The same [ResponseSpecBuilder](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/builder/ResponseSpecBuilder.html) can be used in RestAssuredWebTestClient as well though. Specifications can be defined statically as well just as with standard Rest Assured. For example:
+Just as with standard Rest Assured you can use [specifications](/docs/usage/specification-reuse/) to allow for better re-use. Note that the request specification builder for RestAssuredWebTestClient is called [WebTestClientRequestSpecBuilder](https://static.javadoc.io/io.rest-assured/spring-web-test-client/%REST_ASSURED_VERSION%/io/restassured/module/webtestclient/specification/WebTestClientRequestSpecBuilder.html). The same [ResponseSpecBuilder](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/builder/ResponseSpecBuilder.html) can be used in RestAssuredWebTestClient as well though. Specifications can be defined statically as well just as with standard Rest Assured. For example:
 
 ```java
 RestAssuredWebTestClient.requestSpecification = new WebTestClientRequestSpecBuilder().addQueryParam("name", "Johan").build();
