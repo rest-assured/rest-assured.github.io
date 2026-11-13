@@ -24,7 +24,7 @@ The build fails on a broken internal link. `check` also fails if a wiki page, an
 ## Where things are
 
 * `src/pages/index.astro` is the landing page. Its sections keep the ids of the old one-page site (`#intro`, `#news`, `#release-notes`, `#docs`, `#documentation`, `#who`), so old links still land on the right section.
-* `src/content/docs/` holds the docs and release notes, one Markdown or MDX file per page. The sidebar is in `astro.config.mjs`. Most pages are converted from the wiki (see below), so change those on the wiki until the wiki pages are replaced by links. `/docs/`, `/docs/usage/` and `/release-notes/` are written for the site.
+* `src/content/docs/` holds the docs and release notes, one Markdown or MDX file per page. The sidebar is in `astro.config.mjs`. Edit the docs here: the wiki pages only link to the site now.
 * `src/content/news/` holds one file per news item. `/news/` lists them all and the landing page shows the latest three.
 * `src/version.mjs` holds the current version. Write `%REST_ASSURED_VERSION%` in a docs page and the build puts the version in.
 * `src/styles/theme.css` and the `expressiveCode` settings in `astro.config.mjs` give the docs the same colours as the landing page.
@@ -38,12 +38,15 @@ The site keeps every address the old Jekyll site served. `/intro`, `/who` and th
 ## After a release
 
 1. Set the new version in `src/version.mjs`.
-2. Add a news file to `src/content/news/`, named `YYYY-MM-DD-<version>.md` with a `title` and `date`.
-3. For a major or minor release, add its release notes page to `src/content/docs/release-notes/`.
+2. Set the next snapshot version in `src/content/docs/docs/snapshots.md`.
+3. Add a news file to `src/content/news/`, named `YYYY-MM-DD-<version>.md` with a `title` and `date`.
+4. For a major or minor release, add its release notes page to `src/content/docs/release-notes/`.
 
 ## The move from the wiki
 
-`scripts/convert.mjs` writes the docs pages from a clone of the wiki. It cuts each wiki page at its headings, puts each part on the page that `data/move-map.json` names, points wiki links to the new addresses and writes the current version as `%REST_ASSURED_VERSION%` in code and link URLs. The text is otherwise copied as it is. To pick up wiki edits:
+The docs moved here from the wiki in November 2026, and the wiki pages were replaced by stubs that link here. The scripts below did the move. They're kept as a record and for the checks in `npm run check`. Don't convert again: the wiki pages are stubs, and `convert` refuses them.
+
+`scripts/convert.mjs` wrote the docs pages from a clone of the wiki. It cuts each wiki page at its headings, puts each part on the page that `data/move-map.json` names, points wiki links to the new addresses and writes the current version as `%REST_ASSURED_VERSION%` in code and link URLs. The text is otherwise copied as it is. Before the stubs, wiki edits were picked up like this:
 
 ```bash
 git clone https://github.com/rest-assured/rest-assured.wiki.git /tmp/wiki
