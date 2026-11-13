@@ -5,17 +5,20 @@ sidebar:
   order: 1
 ---
 
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
 Not sure which modules you need? See [Which module do I need](/docs/modules/).
 
 ## Maven / Gradle users
 
-Add the following dependency to your pom.xml:
+Add the dependencies you need to your `pom.xml` or `build.gradle`. Pick Maven or Gradle in any of the tabs below and every page shows that one.
 
 ### REST Assured
 
 Since REST Assured 7.0.0, `rest-assured` doesn't include a path engine. If your tests use paths, such as `body("lotto.lottoId", equalTo(5))`, `path(..)` or `jsonPath()`, also add [JsonPath](/docs/getting-started/#jsonpath), and [XmlPath](/docs/getting-started/#xmlpath) for paths on XML and HTML. See [Path engines](/docs/usage/setup/#path-engines).
 
-Maven:
+<Tabs syncKey="build-tool">
+<TabItem label="Maven">
 
 ```xml
 <dependency>
@@ -26,11 +29,15 @@ Maven:
 </dependency>
 ```
 
-Gradle:
+</TabItem>
+<TabItem label="Gradle">
 
 ```groovy
 testImplementation 'io.rest-assured:rest-assured:%REST_ASSURED_VERSION%'
 ```
+
+</TabItem>
+</Tabs>
 
 Notes
 
@@ -42,7 +49,8 @@ Notes
 
 JsonPath, GPath for JSON. REST Assured uses it to evaluate paths on JSON bodies, and it makes it easy to parse JSON documents on its own. Called `json-path` before 7.0.0. Note that this JsonPath implementation uses <a href='http://groovy-lang.org/processing-xml.html#_gpath'>Groovy's GPath</a> syntax and is not to be confused with Kalle Stenflo's <a href='https://github.com/json-path/JsonPath'>JsonPath</a> implementation.
 
-Maven:
+<Tabs syncKey="build-tool">
+<TabItem label="Maven">
 
 ```xml
 <dependency>
@@ -53,17 +61,22 @@ Maven:
 </dependency>
 ```
 
-Gradle:
+</TabItem>
+<TabItem label="Gradle">
 
 ```groovy
 testImplementation 'io.rest-assured:json-path-gpath:%REST_ASSURED_VERSION%'
 ```
 
+</TabItem>
+</Tabs>
+
 ### XmlPath
 
 XmlPath, GPath for XML and HTML. REST Assured uses it to evaluate paths on XML and HTML bodies, and it makes it easy to parse XML documents on its own. Called `xml-path` before 7.0.0.
 
-Maven:
+<Tabs syncKey="build-tool">
+<TabItem label="Maven">
 
 ```xml
 <dependency>
@@ -74,17 +87,22 @@ Maven:
 </dependency>
 ```
 
-Gradle:
+</TabItem>
+<TabItem label="Gradle">
 
 ```groovy
 testImplementation 'io.rest-assured:xml-path-gpath:%REST_ASSURED_VERSION%'
 ```
 
+</TabItem>
+</Tabs>
+
 ### JSONPath with Jayway
 
 Since REST Assured 7.0.0, you can write JSON paths in [JSONPath](https://www.rfc-editor.org/rfc/rfc9535), such as `$.store.book[?(@.price < 10)].title`, evaluated by Jayway JsonPath, instead of GPath. It's for JSON only and doesn't need Groovy. See [JSONPath with Jayway](/docs/usage/setup/#jsonpath-with-jayway).
 
-Maven:
+<Tabs syncKey="build-tool">
+<TabItem label="Maven">
 
 ```xml
 <dependency>
@@ -95,17 +113,22 @@ Maven:
 </dependency>
 ```
 
-Gradle:
+</TabItem>
+<TabItem label="Gradle">
 
 ```groovy
 testImplementation 'io.rest-assured:json-path-jayway:%REST_ASSURED_VERSION%'
 ```
 
+</TabItem>
+</Tabs>
+
 ### Apache HttpClient 5
 
 Since REST Assured 7.0.0, REST Assured sends the requests with the JDK's HTTP client. Add `http-client-apache5` to send them with Apache HttpClient 5 instead, for example for NTLM authentication or the `Host` header, which the JDK client can't send. REST Assured uses it when it's on the classpath. See [The HTTP client](/release-notes/7-0/#the-http-client).
 
-Maven:
+<Tabs syncKey="build-tool">
+<TabItem label="Maven">
 
 ```xml
 <dependency>
@@ -116,17 +139,22 @@ Maven:
 </dependency>
 ```
 
-Gradle:
+</TabItem>
+<TabItem label="Gradle">
 
 ```groovy
 testImplementation 'io.rest-assured:http-client-apache5:%REST_ASSURED_VERSION%'
 ```
 
+</TabItem>
+</Tabs>
+
 ### JSON Schema validation
 
 If you want to validate that a JSON response conforms to a [Json Schema](http://json-schema.org/) you can use the `json-schema-validator` module:
 
-Maven:
+<Tabs syncKey="build-tool">
+<TabItem label="Maven">
 
 ```xml
 <dependency>
@@ -137,21 +165,26 @@ Maven:
 </dependency>
 ```
 
-Gradle:
+</TabItem>
+<TabItem label="Gradle">
 
 ```groovy
 testImplementation 'io.rest-assured:json-schema-validator:%REST_ASSURED_VERSION%'
 ```
 
-Since REST Assured 7.0.0, the module brings Jackson 3. To validate draft-03 schemas or use a `JsonSchemaFactory`, also add `com.github.java-json-tools:json-schema-validator`, see [The java-json-tools validator](/docs/usage/examples/#the-java-json-tools-validator).
+</TabItem>
+</Tabs>
 
-Refer to the [documentation](/docs/usage/examples/#json-schema-validation) for more info.
+Since REST Assured 7.0.0, the module brings Jackson 3. To validate draft-03 schemas or use a `JsonSchemaFactory`, also add `com.github.java-json-tools:json-schema-validator`, see [The java-json-tools validator](/docs/usage/json-schema/#the-java-json-tools-validator).
+
+Refer to the [documentation](/docs/usage/json-schema/) for more info.
 
 ### Spring Mock Mvc
 
 If you're using Spring Mvc you can now unit test your controllers using the [RestAssuredMockMvc](https://static.javadoc.io/io.rest-assured/spring-mock-mvc/%REST_ASSURED_VERSION%/io/restassured/module/mockmvc/RestAssuredMockMvc.html) API in the [spring-mock-mvc](/docs/spring/mock-mvc/) module. For this to work you need to depend on the `spring-mock-mvc` module:
 
-Maven:
+<Tabs syncKey="build-tool">
+<TabItem label="Maven">
 
 ```xml
 <dependency>
@@ -162,11 +195,15 @@ Maven:
 </dependency>
 ```
 
-Gradle:
+</TabItem>
+<TabItem label="Gradle">
 
 ```groovy
 testImplementation 'io.rest-assured:spring-mock-mvc:%REST_ASSURED_VERSION%'
 ```
+
+</TabItem>
+</Tabs>
 
 Using Kotlin? Refer to the [documentation](/docs/kotlin/#kotlin-extension-module-for-spring-mockmvc) for Kotlin extension functions that makes it nicer to work with the [Spring Mock Mvc module](/docs/spring/mock-mvc/).
 
@@ -174,7 +211,8 @@ Using Kotlin? Refer to the [documentation](/docs/kotlin/#kotlin-extension-module
 
 If you're using Spring Webflux you can now unit test your reactive controllers using the [RestAssuredWebTestClient](https://static.javadoc.io/io.rest-assured/spring-web-test-client/%REST_ASSURED_VERSION%/io/restassured/module/webtestclient/RestAssuredWebTestClient.html) API in the [spring-web-test-client](/docs/spring/web-test-client/) module. For this to work you need to depend on the `spring-web-test-client` module:
 
-Maven:
+<Tabs syncKey="build-tool">
+<TabItem label="Maven">
 
 ```xml
 <dependency>
@@ -185,11 +223,15 @@ Maven:
 </dependency>
 ```
 
-Gradle:
+</TabItem>
+<TabItem label="Gradle">
 
 ```groovy
 testImplementation 'io.rest-assured:spring-web-test-client:%REST_ASSURED_VERSION%'
 ```
+
+</TabItem>
+</Tabs>
 
 ### Scala support
 
@@ -201,7 +243,8 @@ SBT:
 libraryDependencies += "io.rest-assured" % "scala-support" % "%REST_ASSURED_VERSION%"
 ```
 
-Maven:
+<Tabs syncKey="build-tool">
+<TabItem label="Maven">
 
 ```xml
 <dependency>
@@ -212,11 +255,15 @@ Maven:
 </dependency>
 ```
 
-Gradle:
+</TabItem>
+<TabItem label="Gradle">
 
 ```groovy
 testImplementation 'io.rest-assured:scala-support:%REST_ASSURED_VERSION%'
 ```
+
+</TabItem>
+</Tabs>
 
 For Scala 3, use the [scala-extensions](/docs/scala/#scala-extension-module) module instead.
 
@@ -224,7 +271,8 @@ For Scala 3, use the [scala-extensions](/docs/scala/#scala-extension-module) mod
 
 If you're using Kotlin then it's highly recommended to use the [Kotlin Extension Module](/docs/kotlin/#kotlin-extension-module). This modules provides some useful extension functions when working with REST Assured from Kotlin.
 
-Maven:
+<Tabs syncKey="build-tool">
+<TabItem label="Maven">
 
 ```xml
 <dependency>
@@ -235,11 +283,15 @@ Maven:
 </dependency>
 ```
 
-Gradle:
+</TabItem>
+<TabItem label="Gradle">
 
 ```groovy
 testImplementation 'io.rest-assured:kotlin-extensions:%REST_ASSURED_VERSION%'
 ```
+
+</TabItem>
+</Tabs>
 
 Then import `Given` from the `io.restassured.module.kotlin.extensions` package.
 
@@ -249,7 +301,8 @@ If you're using the [Spring MockMvc module](/docs/spring/mock-mvc/) see [Kotlin 
 
 To keep all REST Assured modules on the same version, import `rest-assured-bom` and leave the versions out of the REST Assured dependencies:
 
-Maven:
+<Tabs syncKey="build-tool">
+<TabItem label="Maven">
 
 ```xml
 <dependencyManagement>
@@ -265,11 +318,15 @@ Maven:
 </dependencyManagement>
 ```
 
-Gradle:
+</TabItem>
+<TabItem label="Gradle">
 
 ```groovy
 testImplementation platform('io.rest-assured:rest-assured-bom:%REST_ASSURED_VERSION%')
 ```
+
+</TabItem>
+</Tabs>
 
 With Spring Boot 3, set the `rest-assured.version` property instead. See [Keep the versions in line](/docs/modules/#keep-the-versions-in-line) and [Spring Boot](/docs/modules/#spring-boot).
 

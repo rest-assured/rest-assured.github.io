@@ -5,6 +5,8 @@ sidebar:
   order: 20
 ---
 
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
 Detailed configuration is provided by the [RestAssuredConfig](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/RestAssuredConfig.html) instance with which you can configure the parameters of [HTTP Client](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/HttpClientConfig.html) as well as [Redirect](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/RedirectConfig.html), [Log](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/LogConfig.html), [Encoder](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/EncoderConfig.html), [Decoder](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/DecoderConfig.html), [Session](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/SessionConfig.html), [ObjectMapper](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/ObjectMapperConfig.html), [Connection](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/ConnectionConfig.html), [SSL](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/SSLConfig.html) and [ParamConfig](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/ParamConfig.html) settings. Examples:
 
 For a specific request:
@@ -125,7 +127,8 @@ Lets you configure the HTTP client that REST Assured sends the requests with. Si
 
 To send the requests with Apache HttpClient 5 instead, which behaves more like Apache HttpClient 4 that REST Assured used before 7.0.0, add `http-client-apache5` to your test dependencies:
 
-Maven:
+<Tabs syncKey="build-tool">
+<TabItem label="Maven">
 
 ```xml
 <dependency>
@@ -136,11 +139,15 @@ Maven:
 </dependency>
 ```
 
-Gradle:
+</TabItem>
+<TabItem label="Gradle">
 
 ```groovy
 testImplementation 'io.rest-assured:http-client-apache5:%REST_ASSURED_VERSION%'
 ```
+
+</TabItem>
+</Tabs>
 
 REST Assured then uses it. You can still pick the client for all requests, or for one:
 

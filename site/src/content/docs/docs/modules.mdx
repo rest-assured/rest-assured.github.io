@@ -5,13 +5,16 @@ sidebar:
   order: 2
 ---
 
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
 REST Assured is split into modules. Every test project needs `rest-assured`. What else you add depends on what your tests do. All modules have the group id `io.rest-assured`, and they must all have the same version, so [keep the versions in line](/docs/modules/#keep-the-versions-in-line).
 
 ## Always
 
 `rest-assured` is the DSL: `given()`, `when()` and `then()`, status codes, headers, cookies, object mapping, authentication, logging and specifications. It brings `rest-assured-common`, which the other modules share, and `http-client-jdk`, the default HTTP client.
 
-Maven:
+<Tabs syncKey="build-tool">
+<TabItem label="Maven">
 
 ```xml
 <dependency>
@@ -22,11 +25,15 @@ Maven:
 </dependency>
 ```
 
-Gradle:
+</TabItem>
+<TabItem label="Gradle">
 
 ```kotlin
 testImplementation("io.rest-assured:rest-assured:%REST_ASSURED_VERSION%")
 ```
+
+</TabItem>
+</Tabs>
 
 ## Paths
 
@@ -62,7 +69,7 @@ With `http-client-apache5` on the classpath, REST Assured uses it. See [Picking 
 | `kotlin-extensions` | `Given { }`, `When { }` and `Then { }` in Kotlin 2.2 or later, see [Kotlin](/docs/kotlin/#kotlin-extension-module) |
 | `scala-extensions` | `Given(..)`, `When(..)` and `Then(..)` in Scala 3, see [Scala](/docs/scala/#scala-extension-module) |
 | `scala-support` | `Then()` instead of `then()` in Scala 2.13, see [Scala](/docs/scala/#scala-support-module) |
-| `json-schema-validator` | Validating a JSON body against a JSON Schema, see [JSON Schema validation](/docs/usage/examples/#json-schema-validation). It brings Jackson 3. For draft-03 schemas, also add `com.github.java-json-tools:json-schema-validator`, see [The java-json-tools validator](/docs/usage/examples/#the-java-json-tools-validator) |
+| `json-schema-validator` | Validating a JSON body against a JSON Schema, see [JSON Schema validation](/docs/usage/json-schema/). It brings Jackson 3. For draft-03 schemas, also add `com.github.java-json-tools:json-schema-validator`, see [The java-json-tools validator](/docs/usage/json-schema/#the-java-json-tools-validator) |
 
 The Spring modules are built and tested on Spring Framework 7, and also tested on Spring Framework 6.2 (Spring Boot 3.5).
 
@@ -82,7 +89,8 @@ The Spring modules don't bring Spring itself, so add `spring-test` and `spring-w
 
 Every REST Assured module must have the same version as `rest-assured`. Import `rest-assured-bom`, and then leave the versions out of the REST Assured dependencies.
 
-Maven:
+<Tabs syncKey="build-tool">
+<TabItem label="Maven">
 
 ```xml
 <dependencyManagement>
@@ -111,7 +119,8 @@ Maven:
 </dependencies>
 ```
 
-Gradle (Kotlin DSL):
+</TabItem>
+<TabItem label="Gradle (Kotlin)">
 
 ```kotlin
 dependencies {
@@ -121,7 +130,8 @@ dependencies {
 }
 ```
 
-Gradle (Groovy DSL):
+</TabItem>
+<TabItem label="Gradle">
 
 ```groovy
 dependencies {
@@ -130,6 +140,9 @@ dependencies {
     testImplementation 'io.rest-assured:json-path-gpath'
 }
 ```
+
+</TabItem>
+</Tabs>
 
 REST Assured checks that `rest-assured-common`, the path engines and the HTTP client modules have the same major and minor version as `rest-assured`, and fails with a message such as:
 

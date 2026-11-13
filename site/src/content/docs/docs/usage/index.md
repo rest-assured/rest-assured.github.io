@@ -12,6 +12,7 @@ REST Assured is a Java DSL for testing REST services. It sends GET, POST, PUT, P
 - [Getting response data](/docs/usage/response-data/): Extract values, headers, cookies and status from a response.
 - [Specifying request data](/docs/usage/request-data/): Parameters, headers, cookies, content type and body of a request.
 - [Verifying response data](/docs/usage/verifying-responses/): Check the body, status, headers, cookies and response time.
+- [JSON Schema validation](/docs/usage/json-schema/): Check that a JSON response matches a JSON Schema.
 - [Authentication](/docs/usage/authentication/): Basic, digest, form, OAuth and custom authentication, and CSRF.
 - [Multi-part form data](/docs/usage/multi-part/): Upload files and other data as multi-part form data.
 - [Object mapping](/docs/usage/object-mapping/): Serialize and deserialize Java objects with Jackson, Gson, JSON-B or JAXB.
