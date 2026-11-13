@@ -55,7 +55,7 @@
       "address": "https://github.com/rest-assured/rest-assured/blob/master/doc/how-to-release.md",
       "anchors": {
         "from-master": "https://github.com/rest-assured/rest-assured/blob/master/doc/how-to-release.md#from-master",
-        "from-branch": "https://github.com/rest-assured/rest-assured/blob/master/doc/how-to-release.md#from-branch"
+        "from-branch": "https://github.com/rest-assured/rest-assured/blob/master/doc/how-to-release.md#from-a-branch"
       }
     },
     "Kotlin": {
