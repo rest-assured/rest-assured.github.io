@@ -13,7 +13,7 @@ byte[] byteArray = get("/lotto").asByteArray();
 String json = get("/lotto").asString();
 ```
 
-## Extracting values from the Response after validation
+## Extracting values from the response after validation
 
 You can extract values from the response or return the response instance itself after you've done validating the response by using the `extract` method. This is useful for example if you want to use values from the response in sequent requests. For example given that a resource called `title` returns the following JSON
 
@@ -65,7 +65,7 @@ String headerValue = response.header("headerName");
 
 ## JSON (using JsonPath)
 
-Once we have the response body we can then use the [JsonPath](http://static.javadoc.io/io.rest-assured/json-path-gpath/%REST_ASSURED_VERSION%/io/restassured/path/json/JsonPath.html) to get data from the response body:
+Once we have the response body we can then use the [JsonPath](https://static.javadoc.io/io.rest-assured/json-path-gpath/%REST_ASSURED_VERSION%/io/restassured/path/json/JsonPath.html) to get data from the response body:
 
 ```java
 int lottoId = from(json).getInt("lotto.lottoId");
@@ -82,7 +82,7 @@ List<Integer> winnerIds = jsonPath.get("winners.winnderId");
 
 Note that you can use `JsonPath` standalone without depending on REST Assured, see [getting started guide](/docs/getting-started/) for more info on this.
 
-### JsonPath Configuration
+### JsonPath configuration
 
 You can configure object de-serializers etc for JsonPath by configuring it, for example:
 
@@ -112,7 +112,7 @@ Note that the JsonPath implementation uses <a href='http://groovy-lang.org/proce
 
 ## XML (using XmlPath)
 
-You also have the corresponding functionality for XML using  [XmlPath](http://static.javadoc.io/io.rest-assured/xml-path-gpath/%REST_ASSURED_VERSION%/io/restassured/path/xml/XmlPath.html):
+You also have the corresponding functionality for XML using  [XmlPath](https://static.javadoc.io/io.rest-assured/xml-path-gpath/%REST_ASSURED_VERSION%/io/restassured/path/xml/XmlPath.html):
 
 ```java
 String xml = post("/greetXML?firstName=John&lastName=Doe").andReturn().asString();
@@ -128,7 +128,7 @@ String lastName = xmlPath.get("lastName");
 
 Note that you can use `XmlPath` standalone without depending on REST Assured, see [getting started guide](/docs/getting-started/) for more info on this.
 
-### XmlPath Configuration
+### XmlPath configuration
 
 You can configure object de-serializers and charset for XmlPath by configuring it, for example:
 
@@ -148,7 +148,7 @@ You can read more about XmlPath at [this blog](http://www.jayway.com/2013/04/12/
 
 ### Parsing HTML with XmlPath
 
-By configuring XmlPath with [compatibility mode](http://static.javadoc.io/io.rest-assured/xml-path-gpath/%REST_ASSURED_VERSION%/io/restassured/path/xml/XmlPath.CompatibilityMode.html) `HTML` you can also use the XmlPath syntax (Gpath) to parse HTML pages. For example if you want to extract the title of this HTML document:
+By configuring XmlPath with [compatibility mode](https://static.javadoc.io/io.rest-assured/xml-path-gpath/%REST_ASSURED_VERSION%/io/restassured/path/xml/XmlPath.CompatibilityMode.html) `HTML` you can also use the XmlPath syntax (Gpath) to parse HTML pages. For example if you want to extract the title of this HTML document:
 
 ```html
 <html>
@@ -225,17 +225,17 @@ A header and a cookie can contain several values for the same name.
 
 ### Multi-value headers
 
-To get all values for a header you need to first get the [Headers](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/http/Headers.html) object from the [Response](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/response/Response.html) object. From the `Headers` instance you can get all values using the [Headers.getValues(<header name>)](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/http/Headers.html#getValues(java.lang.String)) method which returns a `List` with all header values.
+To get all values for a header you need to first get the [Headers](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/http/Headers.html) object from the [Response](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/response/Response.html) object. From the `Headers` instance you can get all values using the [Headers.getValues(<header name>)](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/http/Headers.html#getValues(java.lang.String)) method which returns a `List` with all header values.
 
 ### Multi-value cookies
 
-To get all values for a cookie you need to first get the [Cookies](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/http/Cookies.html) object from the [Response](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/response/Response.html) object. From the `Cookies` instance you can get all values using the [Cookies.getValues(<cookie name>)](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/http/Cookies.html#getValues(java.lang.String)) method which returns a `List` with all cookie values.
+To get all values for a cookie you need to first get the [Cookies](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/http/Cookies.html) object from the [Response](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/response/Response.html) object. From the `Cookies` instance you can get all values using the [Cookies.getValues(<cookie name>)](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/http/Cookies.html#getValues(java.lang.String)) method which returns a `List` with all cookie values.
 
-## Detailed Cookies
+## Detailed cookies
 
-If you need to get e.g. the comment, path or expiry date etc from a cookie you need get a [detailed cookie](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/http/Cookie.html) from REST Assured. To do this you can use the [Response.getDetailedCookie(java.lang.String)](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/response/ResponseOptions.html#getDetailedCookie-java.lang.String-) method. The detailed cookie then contains all attributes from the cookie.
+If you need to get e.g. the comment, path or expiry date etc from a cookie you need get a [detailed cookie](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/http/Cookie.html) from REST Assured. To do this you can use the [Response.getDetailedCookie(java.lang.String)](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/response/ResponseOptions.html#getDetailedCookie-java.lang.String-) method. The detailed cookie then contains all attributes from the cookie.
 
-You can also get all detailed response [cookies](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/http/Cookies.html) using the [Response.getDetailedCookies()](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/response/ResponseOptions.html#getDetailedCookies--) method.
+You can also get all detailed response [cookies](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/http/Cookies.html) using the [Response.getDetailedCookies()](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/response/ResponseOptions.html#getDetailedCookies--) method.
 
 ## Printing the response
 

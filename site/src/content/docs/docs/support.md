@@ -5,11 +5,11 @@ sidebar:
   order: 2
 ---
 
-For more information refer to the [javadoc](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/index.html):
+For more information refer to the [javadoc](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/index.html):
 
-  * [RestAssured](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/RestAssured.html)
-  * [RestAssuredMockMvc Javadoc](http://static.javadoc.io/io.restassured/spring-mock-mvc/%REST_ASSURED_VERSION%/io/restassured/module/mockmvc/RestAssuredMockMvc.html)
-  * [Specification package](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/specification/package-summary.html)
+  * [RestAssured](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/RestAssured.html)
+  * [RestAssuredMockMvc Javadoc](https://static.javadoc.io/io.rest-assured/spring-mock-mvc/%REST_ASSURED_VERSION%/io/restassured/module/mockmvc/RestAssuredMockMvc.html)
+  * [Specification package](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/specification/package-summary.html)
 
 You can also have a look at some code examples:
 

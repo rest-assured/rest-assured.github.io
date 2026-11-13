@@ -7,7 +7,7 @@ sidebar:
 
 Not sure which modules you need? See [Which module do I need](/docs/modules/).
 
-## Maven / Gradle Users
+## Maven / Gradle users
 
 Add the following dependency to your pom.xml:
 
@@ -122,7 +122,7 @@ Gradle:
 testImplementation 'io.rest-assured:http-client-apache5:%REST_ASSURED_VERSION%'
 ```
 
-### JSON Schema Validation
+### JSON Schema validation
 
 If you want to validate that a JSON response conforms to a [Json Schema](http://json-schema.org/) you can use the `json-schema-validator` module:
 
@@ -149,7 +149,7 @@ Refer to the [documentation](/docs/usage/examples/#json-schema-validation) for m
 
 ### Spring Mock Mvc
 
-If you're using Spring Mvc you can now unit test your controllers using the [RestAssuredMockMvc](http://static.javadoc.io/io.rest-assured/spring-mock-mvc/%REST_ASSURED_VERSION%/io/restassured/module/mockmvc/RestAssuredMockMvc.html) API in the [spring-mock-mvc](/docs/spring/mock-mvc/) module. For this to work you need to depend on the `spring-mock-mvc` module:
+If you're using Spring Mvc you can now unit test your controllers using the [RestAssuredMockMvc](https://static.javadoc.io/io.rest-assured/spring-mock-mvc/%REST_ASSURED_VERSION%/io/restassured/module/mockmvc/RestAssuredMockMvc.html) API in the [spring-mock-mvc](/docs/spring/mock-mvc/) module. For this to work you need to depend on the `spring-mock-mvc` module:
 
 Maven:
 
@@ -172,7 +172,7 @@ Using Kotlin? Refer to the [documentation](/docs/kotlin/#kotlin-extension-module
 
 ### Spring Web Test Client
 
-If you're using Spring Webflux you can now unit test your reactive controllers using the [RestAssuredWebTestClient](http://static.javadoc.io/io.rest-assured/spring-web-test-client/%REST_ASSURED_VERSION%/io/restassured/module/webtestclient/RestAssuredWebTestClient.html) API in the [spring-web-test-client](/docs/spring/web-test-client/) module. For this to work you need to depend on the `spring-web-test-client` module:
+If you're using Spring Webflux you can now unit test your reactive controllers using the [RestAssuredWebTestClient](https://static.javadoc.io/io.rest-assured/spring-web-test-client/%REST_ASSURED_VERSION%/io/restassured/module/webtestclient/RestAssuredWebTestClient.html) API in the [spring-web-test-client](/docs/spring/web-test-client/) module. For this to work you need to depend on the `spring-web-test-client` module:
 
 Maven:
 
@@ -191,7 +191,7 @@ Gradle:
 testImplementation 'io.rest-assured:spring-web-test-client:%REST_ASSURED_VERSION%'
 ```
 
-### Scala Support
+### Scala support
 
 If you're using Scala you may leverage the [scala-support](/docs/scala/#scala-support-module) module. For this to work you need to depend on the `scala-support` module:
 
@@ -243,7 +243,7 @@ testImplementation 'io.rest-assured:kotlin-extensions:%REST_ASSURED_VERSION%'
 
 Then import `Given` from the `io.restassured.module.kotlin.extensions` package.
 
-If you're using the [Spring MockMvc module](/docs/spring/mock-mvc/) please refer to the documentation [here](/docs/kotlin/#kotlin-extension-module-for-spring-mockmvc) on how to use custom Kotlin extension functions for this module.
+If you're using the [Spring MockMvc module](/docs/spring/mock-mvc/) see [Kotlin extension module for Spring MockMvc](/docs/kotlin/#kotlin-extension-module-for-spring-mockmvc) for how to use custom Kotlin extension functions for this module.
 
 ### BOM
 
@@ -314,7 +314,7 @@ io.restassured.module.jsv.JsonSchemaValidator.*
 
 Refer to [Json Schema Validation](/docs/getting-started/#json-schema-validation) section for more info.
 
-If you're using Spring MVC you can use the [spring-mock-mvc](/docs/spring/mock-mvc/) module to unit test your Spring Controllers using the Rest Assured DSL. To do this statically import the methods from [RestAssuredMockMvc](http://static.javadoc.io/io.rest-assured/spring-mock-mvc/%REST_ASSURED_VERSION%/io/restassured/module/mockmvc/RestAssuredMockMvc.html) _instead_ of importing the methods from `io.rest-assured.RestAssured` and `io.rest-assured.matcher.RestAssuredMatchers`:
+If you're using Spring MVC you can use the [spring-mock-mvc](/docs/spring/mock-mvc/) module to unit test your Spring Controllers using the Rest Assured DSL. To do this statically import the methods from [RestAssuredMockMvc](https://static.javadoc.io/io.rest-assured/spring-mock-mvc/%REST_ASSURED_VERSION%/io/restassured/module/mockmvc/RestAssuredMockMvc.html) _instead_ of importing the methods from `io.rest-assured.RestAssured` and `io.rest-assured.matcher.RestAssuredMatchers`:
 
 ```java
 io.restassured.module.mockmvc.RestAssuredMockMvc.*
@@ -339,4 +339,4 @@ REST Assured no longer publishes distribution zip files, and Bintray, where they
 
 ### Legacy versions
 
-If you're looking for legacy versions of REST Assured (version 2.2.0 and below) have a look in the old  <a href='https://code.google.com/p/rest-assured/downloads/list?can=1&q=&colspec=Filename+Summary+Uploaded+ReleaseDate+Size+DownloadCount'>download page</a>.
+Versions 2.2.0 and older are in the [Google Code archive](https://code.google.com/archive/p/rest-assured/downloads).

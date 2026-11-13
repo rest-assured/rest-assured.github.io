@@ -5,7 +5,7 @@ sidebar:
   order: 19
 ---
 
-Starting from version 2.3.2 REST Assured has better support for proxies. For example if you have a proxy at localhost port 8888 you can do:
+If you have a proxy at localhost port 8888 you can do:
 
 ```java
 given().proxy("localhost", 8888). .. 
@@ -25,19 +25,19 @@ given().proxy(host("localhost").withScheme("https")). ..
 
 where `host` is statically imported from `io.restassured.specification.ProxySpecification`. Since REST Assured 7.0.0 this needs Apache HttpClient 5 (`http-client-apache5`, see [HTTP Client Config](/docs/usage/configuration/#http-client-config)), which uses the SSL settings of the request for the proxy too. The JDK client, the default, can't connect to a proxy over TLS. An `https` URL goes through a proxy with the scheme `http` as well.
 
-Starting from version 2.7.0 you can also specify preemptive basic authentication for proxies. For example:
+You can also specify preemptive basic authentication for proxies. For example:
 
 ```
 given().proxy(auth("username", "password")).when() ..
 ```
 
-where `auth` is statically imported from [io.restassured.specification.ProxySpecification](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/specification/ProxySpecification.html). You can of course also combine authentication with a different host:
+where `auth` is statically imported from [io.restassured.specification.ProxySpecification](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/specification/ProxySpecification.html). You can of course also combine authentication with a different host:
 
 ```java
 given().proxy(host("http://myhost.org").withAuth("username", "password")). ..
 ```
 
-## Static Proxy Configuration
+## Static proxy configuration
 
 It's also possible to configure a proxy statically for all requests, for example:
 
@@ -51,7 +51,7 @@ or:
 RestAssured.proxy = host("localhost").withPort(8888);
 ```
 
-## Request Specification Proxy Configuration
+## Request specification proxy configuration
 
 You can also create a request specification and specify the proxy there:
 

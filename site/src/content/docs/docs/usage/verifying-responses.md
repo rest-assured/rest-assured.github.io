@@ -7,11 +7,11 @@ sidebar:
 
 You can also verify status code, status line, cookies, headers, content type and body.
 
-## Response Body
+## Response body
 
 See Usage examples, e.g. [JSON](/docs/usage/examples/#example-1---json) or [XML](/docs/usage/examples/#example-2---xml).
 
-You can also map a response body to a Java Object, click [here](/docs/usage/object-mapping/#deserialization) for details.
+You can also map a response body to a Java object, see [deserialization](/docs/usage/object-mapping/#deserialization).
 
 ## Cookies
 
@@ -99,7 +99,7 @@ get("/x").then().body("href", new ResponseAwareMatcher<Response>() {
                        });
 ```
 
-If you're using Java 8 you can use a lambda expression instead:
+A lambda expression is shorter:
 
 ```java
 get("/x").then().body("href", response -> equalTo("http://localhost:8080/" + response.path("userId"));
@@ -157,9 +157,9 @@ ResponseSpecification created = new ResponseSpecBuilder().
 post("/users").then().spec(created);
 ```
 
-## Measuring Response Time
+## Measuring response time
 
-As of version 2.8.0 REST Assured has support measuring response time. For example:
+REST Assured measures the response time. For example:
 
 ```java
 long timeInMs = get("/lotto").time()

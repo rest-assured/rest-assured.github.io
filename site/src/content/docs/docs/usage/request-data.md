@@ -9,7 +9,7 @@ Besides specifying request parameters you can also specify headers, cookies, bod
 
 ## Invoking HTTP resources
 
-You typically perform a request by calling any of the "HTTP methods" in the [request specification](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/specification/RequestSpecification.html). For example:
+You typically perform a request by calling any of the "HTTP methods" in the [request specification](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/specification/RequestSpecification.html). For example:
 
 ```java
 when().get("/x"). ..;
@@ -17,7 +17,7 @@ when().get("/x"). ..;
 
 Where `get` is the HTTP request method.
 
-As of REST Assured 3.0.0 you can use any HTTP verb with your request by making use of the [request](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/specification/RequestSpecification.html#request-java.lang.String-java.lang.String-) method.
+You can use any HTTP verb with your request by making use of the [request](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/specification/RequestSpecification.html#request-java.lang.String-java.lang.String-) method.
 
 ```java
 when().
@@ -155,7 +155,7 @@ then().
 
 Path parameters makes it easier to read the request path as well as enabling the request path to easily be re-usable in many tests with different parameter values.
 
-As of version 2.8.0 you can mix unnamed and named path parameters:
+You can mix unnamed and named path parameters:
 
 ```java
 given().
@@ -217,7 +217,7 @@ given().header("headerName", "value1", "value2"). ..
 
 This will create _two_ headers, `headerName: value1` and `headerName: value2`.
 
-#### Header Merging/Overwriting
+#### Header merging/overwriting
 
 By default headers are merged. So for example if you do like this:
 
@@ -225,7 +225,7 @@ By default headers are merged. So for example if you do like this:
 given().header("x", "1").header("x", "2"). ..
 ```
 
-The request will contain two headers, "x: 1" and "x: 2". You can change in this on a per header basis in the [HeaderConfig](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/HeaderConfig.html). For example:
+The request will contain two headers, "x: 1" and "x: 2". You can change in this on a per header basis in the [HeaderConfig](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/HeaderConfig.html). For example:
 
 ```java
 given().
@@ -239,7 +239,7 @@ when().
 
 This means that only one header, "x: 2", is sent to server.
 
-## Content Type
+## Content type
 
 ```java
 given().contentType(ContentType.TEXT). ..
@@ -254,7 +254,7 @@ given().noContentType(). ..
 
 With `noContentType()` no Content-Type header is sent, also for a binary body or when an expected response content type is set. A `String` body or form parameters are sent as text in the default content charset (see [Encoder Config](/docs/usage/configuration/#encoder-config)). Before REST Assured 6.2.0 a binary body got `Content-Type: */*`, and a `String` body failed unless an expected response content type was set.
 
-## Request Body
+## Request body
 
 ```java
 given().body("some body"). .. // Works for POST, PUT and DELETE requests
@@ -266,4 +266,4 @@ given().body(new byte[]{42}). .. // Works for POST, PUT and DELETE
 given().request().body(new byte[]{42}). .. // More explicit (optional)
 ```
 
-You can also serialize a Java object to JSON or XML. Click [here](/docs/usage/object-mapping/#serialization) for details.
+You can also serialize a Java object to JSON or XML. See [serialization](/docs/usage/object-mapping/#serialization) for details.

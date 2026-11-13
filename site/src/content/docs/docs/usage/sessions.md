@@ -50,9 +50,9 @@ It's also possible to get the session id from the response object:
 String sessionId = get("/something").sessionId();
 ```
 
-## Session Filter
+## Session filter
 
-As of version 2.0.0 you can use a [session filter](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/filter/session/SessionFilter.html) to automatically capture and apply the session, for example:
+You can use a [session filter](https://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/filter/session/SessionFilter.html) to automatically capture and apply the session, for example:
 
 ```java
 SessionFilter sessionFilter = new SessionFilter();
