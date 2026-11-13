@@ -28,6 +28,7 @@ import { visit } from "unist-util-visit";
 
 const parser = unified().use(remarkParse).use(remarkGfm);
 export const VERSION_TOKEN = "%REST_ASSURED_VERSION%";
+export const STUB_START = "> **This page has moved to ";
 const WIKI_URL = /^(?:https?:\/\/github\.com)?\/rest-assured\/rest-assured\/wiki\/?/i;
 const TABLE_OF_CONTENTS = /^(contents|table of contents|menu)$/i;
 
@@ -196,6 +197,8 @@ export function convert(wikiDir, siteDir, { moveMap, version }) {
     for (const [page, entry] of Object.entries(moveMap.pages)) {
         if (entry.skip || !entry.address || !isLocal(entry.address)) continue;
         const markdown = readFileSync(join(wikiDir, `${page}.md`), "utf8");
+        // Once a page is a stub (scripts/wiki-stubs.mjs), the site is where its content lives.
+        if (markdown.startsWith(STUB_START)) throw new Error(`${page} on the wiki is a stub now. Edit the site instead of converting it.`);
         for (const piece of splitPage(markdown, { page, moveMap, version })) {
             // A page's own content comes before content that other wiki pages add to it, such as Downloads under
             // Getting started.

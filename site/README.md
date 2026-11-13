@@ -71,3 +71,16 @@ npm run verify
 ```
 
 The second argument is the version the wiki documents. If `verify` then reports an anchor without a new address, a heading was added or renamed on the wiki. Add it to `data/move-map.json`.
+
+## Replace the wiki pages with stubs
+
+GitHub wikis can't redirect. `scripts/wiki-stubs.mjs` replaces each wiki page with a stub that keeps every heading and `<a name>`, with the same ids, and links each one to its new address, so old links such as `wiki/Usage#cookies-1` land on a heading that points to the right section. It also replaces `_Sidebar` and adds a `_Footer` that point to rest-assured.io.
+
+```bash
+git clone https://github.com/rest-assured/rest-assured.wiki.git /tmp/wiki
+npm run wiki-stubs -- /tmp/wiki Usage   # one page, or leave out the page for all of them
+cd /tmp/wiki && git diff                # then commit and push
+```
+
+It refuses to stub a page that changed on the wiki since it was converted, so those edits aren't lost. Once a page is a stub, `npm run convert` refuses to convert it, and the site is where you edit it.
+
