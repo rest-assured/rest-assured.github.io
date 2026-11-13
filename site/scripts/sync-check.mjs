@@ -1,17 +1,13 @@
-// Finds what changed at the old sources after the move, so it can be moved over too:
-//
-// * wiki pages edited since the wiki commit that data/move-map.json records for them, and wiki pages the map doesn't
-//   have at all;
-// * news items on the old Jekyll site (_posts/ in the repository root) without a news file in src/content/news.
+// Finds what changed on the wiki after the move, so it can be moved over too: wiki pages edited since the wiki commit
+// that data/move-map.json records for them, and wiki pages the map doesn't have at all.
 //
 //   git clone https://github.com/rest-assured/rest-assured.wiki.git /tmp/wiki
 //   npm run sync-check -- /tmp/wiki      (from site/)
 //
-// It exits with 1 when something needs moving. For a wiki page, run npm run convert again and redo any hand edits; for
-// a news item, add the file by hand.
+// It exits with 1 when something needs moving. Then run npm run convert again.
 
 import { execFileSync } from "node:child_process";
-import { existsSync, readdirSync, readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -35,16 +31,6 @@ export function wikiChanges(wikiDir, moveMap) {
     return problems;
 }
 
-// The old site lists news as "* 2026-11-12: REST Assured 7.0.0-RC1 is released. ..." in a _posts file.
-export function newsChanges(postsText, newsFiles) {
-    const dates = new Set(newsFiles.map((name) => name.slice(0, "YYYY-MM-DD".length)));
-    const problems = [];
-    for (const [, date, text] of postsText.matchAll(/^\* (\d{4}-\d{2}-\d{2}): (.{0,60})/gm)) {
-        if (!dates.has(date)) problems.push(`the news item of ${date} ("${text}...") has no file in src/content/news`);
-    }
-    return problems;
-}
-
 const isMain = process.argv[1] === fileURLToPath(import.meta.url);
 if (isMain) {
     const [wikiDir] = process.argv.slice(2);
@@ -55,12 +41,7 @@ if (isMain) {
     const site = join(dirname(fileURLToPath(import.meta.url)), "..");
     const moveMap = JSON.parse(readFileSync(join(site, "data/move-map.json"), "utf8"));
     const problems = wikiChanges(wikiDir, moveMap);
-    const posts = join(site, "../_posts");
-    if (existsSync(posts)) {
-        const text = readdirSync(posts).filter((name) => name.endsWith("-news.md")).map((name) => readFileSync(join(posts, name), "utf8")).join("\n");
-        problems.push(...newsChanges(text, readdirSync(join(site, "src/content/news"))));
-    }
     for (const problem of problems) console.error(problem);
-    if (problems.length === 0) console.log("Nothing changed on the wiki or the old site since the move.");
+    if (problems.length === 0) console.log("Nothing changed on the wiki since the move.");
     else process.exitCode = 1;
 }

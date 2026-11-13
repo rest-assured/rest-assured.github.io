@@ -1,16 +1,10 @@
-# Builds the new site in site/ and publishes it to GitHub Pages. For now it only runs when started by hand from the
-# Actions tab, so merging changes nothing on rest-assured.io. To go live:
-#
-#   1. Settings > Pages > Build and deployment > Source: "GitHub Actions".
-#   2. Actions > Deploy site > Run workflow, on master.
-#   3. Check that Settings > Pages still shows rest-assured.io with HTTPS, and open https://rest-assured.io.
-#
-# To roll back, set the source back to "Deploy from a branch" (master, / (root)). The Jekyll site is still there.
-# Once the new site has run for a few days, a follow-up change removes the Jekyll files and makes this workflow run on
-# every push to master.
+# Builds the site in site/, runs the same check as on pull requests, and publishes it to GitHub Pages on every push to
+# master. You can also start it by hand from the Actions tab. Settings > Pages > Source must be "GitHub Actions".
 name: Deploy site
 
 on:
+  push:
+    branches: [master]
   workflow_dispatch:
 
 permissions:
