@@ -85,7 +85,7 @@ In this example REST Assured will serialize the object to JSON since the request
   1. XML using Jakarta EE
   1. XML using JAXB
 
-Since REST Assured 7.0.0, the [json-schema-validator](/docs/usage/examples/#json-schema-validation) module brings Jackson 3. So with that module on the classpath, REST Assured uses Jackson 3 for JSON, also when your project uses Jackson 2. That includes `response.jsonPath().getObject(..)`. To use Jackson 2 for all requests:
+Since REST Assured 7.0.0, the [json-schema-validator](/docs/usage/json-schema/) module brings Jackson 3. So with that module on the classpath, REST Assured uses Jackson 3 for JSON, also when your project uses Jackson 2. That includes `response.jsonPath().getObject(..)`. To use Jackson 2 for all requests:
 
 ```java
 RestAssured.config = RestAssuredConfig.config().objectMapperConfig(objectMapperConfig().defaultObjectMapperType(ObjectMapperType.JACKSON_2));

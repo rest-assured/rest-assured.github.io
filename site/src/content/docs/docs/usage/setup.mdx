@@ -5,6 +5,8 @@ sidebar:
   order: 1
 ---
 
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
 ## Path engines
 
 Since REST Assured 7.0.0, REST Assured doesn't include a path engine, and so no Groovy either. If your tests use paths, such as `body("lotto.lottoId", equalTo(5))`, `path(..)` or `extract().path(..)`, add GPath, the path syntax used throughout this page, or, for JSON, [JSONPath with Jayway](/docs/usage/setup/#jsonpath-with-jayway). It comes in two modules, `json-path-gpath` for JSON and `xml-path-gpath` for XML and HTML:
@@ -15,11 +17,12 @@ Since REST Assured 7.0.0, REST Assured doesn't include a path engine, and so no 
 | A path on an XML or HTML body | `xml-path-gpath` |
 | `jsonPath()` or [JsonPath](/docs/usage/response-data/#json-using-jsonpath) | `json-path-gpath` |
 | `xmlPath()`, `htmlPath()` or [XmlPath](/docs/usage/response-data/#xml-using-xmlpath) | `xml-path-gpath` |
-| Anything else, such as `statusCode(..)`, headers, cookies, `body(containsString(..))`, `hasXPath(..)`, [JSON Schema validation](/docs/usage/examples/#json-schema-validation) or deserialization with `as(..)` | Nothing |
+| Anything else, such as `statusCode(..)`, headers, cookies, `body(containsString(..))`, `hasXPath(..)`, [JSON Schema validation](/docs/usage/json-schema/) or deserialization with `as(..)` | Nothing |
 
 The same goes for `RestAssuredMockMvc`, `RestAssuredWebTestClient` and the Kotlin and Scala extensions.
 
-Maven:
+<Tabs syncKey="build-tool">
+<TabItem label="Maven">
 
 ```xml
 <dependency>
@@ -36,12 +39,16 @@ Maven:
 </dependency>
 ```
 
-Gradle:
+</TabItem>
+<TabItem label="Gradle">
 
 ```groovy
 testImplementation 'io.rest-assured:json-path-gpath:%REST_ASSURED_VERSION%'
 testImplementation 'io.rest-assured:xml-path-gpath:%REST_ASSURED_VERSION%'
 ```
+
+</TabItem>
+</Tabs>
 
 Without a path engine, the first path fails with a message that names the dependency to add. `rest-assured-all` already contains both modules. Before 7.0.0, `rest-assured` includes them under their old names, `json-path` and `xml-path`, and `json-path-gpath` and `xml-path-gpath` resolve to those. See the [release notes](/release-notes/7-0/#upgrading-to-70) for how to upgrade, and [Which module do I need](/docs/modules/) for the other modules.
 
@@ -49,7 +56,8 @@ Without a path engine, the first path fails with a message that names the depend
 
 Since REST Assured 7.0.0, you can also write JSON paths in [JSONPath](https://www.rfc-editor.org/rfc/rfc9535) instead, evaluated by [Jayway JsonPath](https://github.com/json-path/JsonPath), with `json-path-jayway`. It's for JSON only and doesn't need Groovy:
 
-Maven:
+<Tabs syncKey="build-tool">
+<TabItem label="Maven">
 
 ```xml
 <dependency>
@@ -60,11 +68,15 @@ Maven:
 </dependency>
 ```
 
-Gradle:
+</TabItem>
+<TabItem label="Gradle">
 
 ```groovy
 testImplementation 'io.rest-assured:json-path-jayway:%REST_ASSURED_VERSION%'
 ```
+
+</TabItem>
+</Tabs>
 
 ```java
 get("/lotto").then().body("$.lotto.winners[*].winnerId", hasItems(23, 54));
@@ -99,7 +111,7 @@ If you want to use [Json Schema](http://json-schema.org/) validation you should 
 io.restassured.module.jsv.JsonSchemaValidator.*
 ```
 
-Refer to [Json Schema Validation](/docs/usage/examples/#json-schema-validation) section for more info.
+See [JSON Schema validation](/docs/usage/json-schema/) for more.
 
 If you're using Spring MVC you can use the [spring-mock-mvc](/docs/spring/mock-mvc/) module to unit test your Spring Controllers using the Rest Assured DSL. To do this statically import the methods from [RestAssuredMockMvc](https://static.javadoc.io/io.rest-assured/spring-mock-mvc/%REST_ASSURED_VERSION%/io/restassured/module/mockmvc/RestAssuredMockMvc.html) _instead_ of importing the methods from `io.restassured.RestAssured`:
 

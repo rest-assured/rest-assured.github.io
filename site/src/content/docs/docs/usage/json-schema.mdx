@@ -1,0 +1,227 @@
+---
+title: "JSON Schema validation"
+description: "Check that a JSON response matches a JSON Schema, with the json-schema-validator module."
+sidebar:
+  order: 5.5
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+REST Assured can validate a response against a [JSON Schema](https://json-schema.org/). For example given the following schema located in the classpath as `products-schema.json`:
+
+```javascript
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Product set",
+    "type": "array",
+    "items": {
+        "title": "Product",
+        "type": "object",
+        "properties": {
+            "id": {
+                "description": "The unique identifier for a product",
+                "type": "number"
+            },
+            "name": {
+                "type": "string"
+            },
+            "price": {
+                "type": "number",
+                "minimum": 0,
+                "exclusiveMinimum": true
+            },
+            "tags": {
+                "type": "array",
+                "items": {
+                    "type": "string"
+                },
+                "minItems": 1,
+                "uniqueItems": true
+            },
+            "dimensions": {
+                "type": "object",
+                "properties": {
+                    "length": {"type": "number"},
+                    "width": {"type": "number"},
+                    "height": {"type": "number"}
+                },
+                "required": ["length", "width", "height"]
+            },
+            "warehouseLocation": {
+                "description": "Coordinates of the warehouse with the product",
+                "$ref": "http://json-schema.org/geo"
+            }
+        },
+        "required": ["id", "name", "price"]
+    }
+}
+```
+
+you can validate that a resource (`/products`) conforms with the schema:
+
+```java
+get("/products").then().assertThat().body(matchesJsonSchemaInClasspath("products-schema.json"));
+```
+
+`matchesJsonSchemaInClasspath` is statically imported from `io.restassured.module.jsv.JsonSchemaValidator` and it's recommended to statically import all methods from this class. However in order to use it you need to depend on the `json-schema-validator` module by adding the following dependency:
+
+<Tabs syncKey="build-tool">
+<TabItem label="Maven">
+
+```xml
+<dependency>
+    <groupId>io.rest-assured</groupId>
+    <artifactId>json-schema-validator</artifactId>
+    <version>%REST_ASSURED_VERSION%</version>
+</dependency>
+```
+
+</TabItem>
+<TabItem label="Gradle">
+
+```groovy
+testImplementation 'io.rest-assured:json-schema-validator:%REST_ASSURED_VERSION%'
+```
+
+</TabItem>
+</Tabs>
+
+Since REST Assured 7.0.0, the module validates with the [networknt json-schema-validator](https://github.com/networknt/json-schema-validator), which is built on Jackson 3, so the module brings Jackson 3 (`tools.jackson`). REST Assured prefers Jackson 3 for [object mapping](/docs/usage/object-mapping/) when it's on the classpath, so if your tests use Jackson 2 to serialize and deserialize objects, pick it with `objectMapperConfig().defaultObjectMapperType(ObjectMapperType.JACKSON_2)`. See the [release notes](/release-notes/7-0/#json-schema-validation-and-jackson-3).
+
+## The java-json-tools validator
+
+Draft-06, draft-07, 2019-09 and 2020-12 schemas are validated by the networknt json-schema-validator. Draft-04 schemas, and schemas without `$schema`, are validated by the [java-json-tools json-schema-validator](https://github.com/java-json-tools/json-schema-validator) if it's on the classpath, as before REST Assured 7.0.0, and otherwise by the networknt json-schema-validator, as draft-04. Draft-03 schemas, a `JsonSchemaFactory` and checked validation need the java-json-tools json-schema-validator. Since REST Assured 7.0.0 it's optional, so add it yourself:
+
+<Tabs syncKey="build-tool">
+<TabItem label="Maven">
+
+```xml
+<dependency>
+    <groupId>com.github.java-json-tools</groupId>
+    <artifactId>json-schema-validator</artifactId>
+    <version>2.2.14</version>
+    <scope>test</scope>
+</dependency>
+```
+
+</TabItem>
+<TabItem label="Gradle">
+
+```groovy
+testImplementation 'com.github.java-json-tools:json-schema-validator:2.2.14'
+```
+
+</TabItem>
+</Tabs>
+
+It brings Jackson 2 and Guava. Without it, a draft-03 schema fails with a `JsonSchemaValidationException` whose message says which dependency to add.
+
+## JSON Schema validation settings
+
+The java-json-tools json-schema-validator, which continues Francis Galiegue's `fge` library (its packages still start with `com.github.fge`), can be configured with a `JsonSchemaFactory`. This needs it on the classpath (see [The java-json-tools validator](/docs/usage/json-schema/#the-java-json-tools-validator)), and applies only to the schemas that it validates. For example:
+
+```java
+// Given
+JsonSchemaFactory jsonSchemaFactory = JsonSchemaFactory.newBuilder().setValidationConfiguration(ValidationConfiguration.newBuilder().setDefaultVersion(DRAFTV4).freeze()).freeze();
+
+// When
+get("/products").then().assertThat().body(matchesJsonSchemaInClasspath("products-schema.json").using(jsonSchemaFactory));
+```
+
+The `using` method allows you to pass in a `jsonSchemaFactory` instance that REST Assured will use during validation. This allows fine-grained configuration for the validation.
+
+The java-json-tools json-schema-validator also allows the validation to be `checked` or `unchecked`, which the networknt json-schema-validator ignores. By default REST Assured uses `checked` validation but if you want to change this you can supply an instance of [JsonSchemaValidatorSettings](https://static.javadoc.io/io.rest-assured/json-schema-validator/%REST_ASSURED_VERSION%/io/restassured/module/jsv/JsonSchemaValidatorSettings.html) to the matcher. For example:
+
+```java
+get("/products").then().assertThat().body(matchesJsonSchemaInClasspath("products-schema.json").using(settings().with().checkedValidation(false)));
+```
+
+Where the `settings` method is statically imported from the [JsonSchemaValidatorSettings](https://static.javadoc.io/io.rest-assured/json-schema-validator/%REST_ASSURED_VERSION%/io/restassured/module/jsv/JsonSchemaValidatorSettings.html) class.
+
+## Choosing the JSON Schema version
+
+As of REST Assured 6.1.0 the json-schema-validator module supports JSON Schema draft-06, draft-07, 2019-09 and 2020-12, alongside draft-03 and draft-04. Since REST Assured 7.0.0, draft-03 needs the [java-json-tools json-schema-validator](/docs/usage/json-schema/#the-java-json-tools-validator). You don't need to change anything to use the others. The module reads the `$schema` keyword in your schema and validates with that draft:
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "status": { "const": "active" }
+  },
+  "required": ["status"]
+}
+```
+
+```java
+get("/accounts/1").then().assertThat().body(matchesJsonSchemaInClasspath("account-schema.json"));
+```
+
+Schemas that declare draft-04, or don't declare `$schema` at all, are validated as draft-04: by the java-json-tools json-schema-validator if it's on the classpath, as before, and otherwise by the networknt json-schema-validator. If your schemas leave out `$schema` and you want a newer draft, say which one:
+
+```java
+get("/accounts/1").then().body(matchesJsonSchemaInClasspath("account-schema.json").using(JsonSchemaVersion.DRAFT_2020_12));
+```
+
+or for all validations:
+
+```java
+JsonSchemaValidator.settings = settings().with().schemaVersion(JsonSchemaVersion.DRAFT_7);
+```
+
+A `$schema` declared in the schema always takes precedence over the configured version.
+
+A few things to know:
+
+* If a schema already declared draft-06 or later, older REST Assured versions quietly validated it with draft-04 rules and ignored newer keywords such as `const` and `if`/`then`/`else`. Those keywords are now checked, so a test that passed before can start failing because the response really doesn't match the schema.
+* A custom `JsonSchemaFactory` and `checkedValidation` only apply to the schemas that the java-json-tools json-schema-validator validates: draft-03, and, when it's on the classpath, draft-04 and schemas without `$schema`.
+* The two validators word their messages differently, so the message of a failed draft-04 validation changes when you add or remove the java-json-tools json-schema-validator.
+* In 2019-09 and 2020-12, `format` (for example `"format": "email"`) is an annotation and isn't validated, as those specifications require.
+* Relative `$ref`s work for schemas loaded from the classpath, a `File`, a URL or a URI. A schema passed as a String, InputStream or Reader has no location to resolve them against.
+
+## JSON Schema validation with static configuration
+
+Now imagine that you always want to use `unchecked` validation as well as setting the default json schema version to version 3. Instead of supplying this to all matchers throughout your code you can define it statically. For example:
+
+```java
+JsonSchemaValidator.settings = settings().with().jsonSchemaFactory(
+        JsonSchemaFactory.newBuilder().setValidationConfiguration(ValidationConfiguration.newBuilder().setDefaultVersion(DRAFTV3).freeze()).freeze()).
+        and().with().checkedValidation(false);
+
+get("/products").then().assertThat().body(matchesJsonSchemaInClasspath("products-schema.json"));
+```
+
+Now any `matcher` method imported from [JsonSchemaValidator](https://static.javadoc.io/io.rest-assured/json-schema-validator/%REST_ASSURED_VERSION%/io/restassured/module/jsv/JsonSchemaValidatorSettings.html) will use `DRAFTV3` as default version and unchecked validation. Both settings need the [java-json-tools json-schema-validator](/docs/usage/json-schema/#the-java-json-tools-validator).
+
+`JsonSchemaValidator.settings` is a standalone setting, shared by all threads. Neither the config of a request nor a [RestAssuredClient](/docs/usage/parallel-tests/#restassuredclient) changes it. To use other settings for one matcher, use `using(..)`, as in [JSON Schema Validation Settings](/docs/usage/json-schema/#json-schema-validation-settings).
+
+To reset the `JsonSchemaValidator` to its default settings simply call the `reset` method:
+
+```java
+JsonSchemaValidator.reset();
+```
+
+## JSON Schema validation without REST Assured
+
+You can also use the `json-schema-validator` module without depending on REST Assured. As long as you have a JSON document represented as a `String` you can do like this:
+
+```java
+import org.junit.Test;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import static org.hamcrest.MatcherAssert.assertThat;
+ 
+public class JsonSchemaValidatorWithoutRestAssuredTest {
+ 
+ 
+    @Test public void
+    validates_schema_in_classpath() {
+        // Given
+        String json = ... // Greeting response
+ 
+        // Then
+        assertThat(json, matchesJsonSchemaInClasspath("greeting-schema.json"));
+    }
+}
+```
+
+Refer to the [getting started](/docs/getting-started/) page for more info on this.
