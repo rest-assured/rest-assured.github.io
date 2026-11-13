@@ -187,7 +187,7 @@ RestAssured.config = RestAssured.config().httpClient(httpClientConfig()
 
 These replace the HttpClient 4 parameters, such as `setParam(CoreConnectionPNames.CONNECTION_TIMEOUT, 5000)`, which are deprecated and removed in REST Assured 8.0.0. A parameter without a replacement fails the request. See [Preparing for REST Assured 7.0](/docs/upgrading/preparing-for-7-0/#httpclient-4-parameters) for the full list. `httpClientFactory(..)`, which supplied your own HttpClient 4 instance, is removed in REST Assured 7.0.0.
 
-### When the JDK client isn't enough
+### Host header, NTLM and proxy TLS
 
 The JDK client covers most tests, but there are a few things it can't do. If your tests need one of these, add `http-client-apache5` as shown above and they work:
 
@@ -215,7 +215,7 @@ As the message says, for the `Host`, `Connection` and `Upgrade` headers you can 
 </plugin>
 ```
 
-The property has to be set before the JDK client is first used, so setting it with `System.setProperty(..)` in a test usually comes too late. See [What the JDK client can't do](/release-notes/7-0/#what-the-jdk-client-cant-do) in the release notes for the full list.
+The property has to be set before the JDK client is first used, so setting it with `System.setProperty(..)` in a test usually comes too late. See [JDK client limitations](/release-notes/7-0/#jdk-client-limitations) in the release notes for the full list.
 
 ### Writing your own HTTP client
 
@@ -359,7 +359,7 @@ Expected: Jane
   Actual: Jane 
 ```
 
-That's a fun one to stare at. The [MatcherConfig](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/MatcherConfig.html) can switch to the plain Hamcrest messages:
+The two values look the same. The [MatcherConfig](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/MatcherConfig.html) can switch to the plain Hamcrest messages:
 
 ```java
 RestAssured.config = RestAssured.config().matcherConfig(matcherConfig().errorDescriptionType(HAMCREST));

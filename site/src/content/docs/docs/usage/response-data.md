@@ -237,7 +237,7 @@ If you need to get e.g. the comment, path or expiry date etc from a cookie you n
 
 You can also get all detailed response [cookies](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/http/Cookies.html) using the [Response.getDetailedCookies()](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/response/ResponseOptions.html#getDetailedCookies--) method.
 
-## Looking at the response while you write a test
+## Printing the response
 
 When you're writing a test against an API you don't know well, you mostly want to see what comes back. `prettyPeek()` prints the status line, the headers and the pretty-printed body, and then hands you the response so the test carries on as if nothing happened:
 

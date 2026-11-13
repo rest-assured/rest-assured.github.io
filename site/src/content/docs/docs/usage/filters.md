@@ -19,7 +19,7 @@ There are a couple of filters provided by REST Assured that are ready to use:
 
 A logging filter created without a pretty-print argument, such as `new ResponseLoggingFilter()` or `new RequestLoggingFilter(LogDetail.BODY, stream)`, pretty prints the body if the log config of the request has pretty printing enabled (`logConfig().enablePrettyPrinting(..)`, enabled by default) when it logs. That's the log config of `given().config(..)`, of the [client](/docs/usage/parallel-tests/#restassuredclient) of the request, or `RestAssured.config`. Before REST Assured 7.0.0, `ResponseLoggingFilter` and `ErrorLoggingFilter` took the setting of `RestAssured.config` when they were created, and `RequestLoggingFilter` always pretty printed.
 
-## Writing your own filter
+## Custom filters
 
 A filter gets the request before it's sent, passes it on with `ctx.next(..)`, and gets the response back. Here's one that adds a trace id to every request and prints what happened, which is handy when you're hunting a flaky test in the server logs:
 
@@ -39,7 +39,7 @@ given().filter(traceId). ..
 
 Anything you change on `requestSpec` before `ctx.next(..)` goes into the request. Whatever you return is what your `then()` checks, so to change the response, return a new one built with the [Response Builder](/docs/usage/filters/#response-builder).
 
-## Filters for every request
+## Global filters
 
 To use a filter in every test, add it once, for example in a `@BeforeAll` method:
 
@@ -49,7 +49,7 @@ RestAssured.filters(traceId);
 
 `RestAssured.replaceFiltersWith(..)` swaps out the ones you added before, and `RestAssured.reset()` removes them along with the rest of the static settings.
 
-## Skipping filters for one request
+## Removing filters
 
 Sometimes one request shouldn't go through the filters you set up for everything, for example a test that checks what happens without your authentication filter. Remove them for that request:
 

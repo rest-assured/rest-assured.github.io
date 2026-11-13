@@ -13,11 +13,11 @@ get("/login").then().statusCode(200); // the response from /dashboard
 
 Most of the time that's what you want. This page is for the times it isn't.
 
-## Which redirects are followed
+## Default behaviour
 
 By default REST Assured only follows redirects of `GET` and `HEAD` requests. That covers the status codes `301`, `302`, `307` and `308`. A `303 See Other` is the exception: it's always followed, whatever the method, and the next request is a `GET`.
 
-This trips people up with forms. A `POST` that answers with `302` is **not** followed, so you get the `302` back:
+With forms this matters. A `POST` that answers with `302` is **not** followed, so you get the `302` back:
 
 ```java
 post("/login").then().statusCode(302).header("Location", "/dashboard");
@@ -31,7 +31,7 @@ RestAssured.config = RestAssured.config().redirect(redirectConfig().followRedire
 
 What the next request looks like depends on the status code. A `307` or `308` sends the same method and the same body again. Any other redirect turns the request into a `GET` without a body, which is what browsers do.
 
-## Testing the redirect itself
+## Not following redirects
 
 Sometimes the redirect is the thing you want to test, for example that an old URL points to the new one. Turn off following for that request and check the status code and the `Location` header:
 
@@ -51,7 +51,7 @@ To turn it off for every request:
 RestAssured.config = RestAssured.config().redirect(redirectConfig().followRedirects(false));
 ```
 
-## Loops and long chains
+## Circular redirects and max redirects
 
 REST Assured stops a redirect loop for you. If a redirect leads back to a URL the request has already been to, the request fails with a `java.net.ProtocolException`:
 
@@ -81,7 +81,7 @@ given().redirects().rejectRelative(true). ..
 
 and the request fails with `Relative redirect location 'dashboard' not allowed`.
 
-## Your credentials stay on your host
+## Cross-host redirects
 
 When a redirect leads to another host, REST Assured drops the `Authorization` and `Cookie` headers before it follows it, so your password or session doesn't leak to a host you didn't send it to. "Another host" means the scheme, the host or the port is different from the request you started with. So `http://localhost:8080` to `http://127.0.0.1:8080` counts, and so does `http` to `https`. The `Proxy-Authorization` header is kept, since it's for the proxy and not for the host.
 
@@ -92,7 +92,7 @@ RestAssured.config = RestAssured.config()
         .redirect(redirectConfig().stripSensitiveHeadersOnCrossHostRedirect(false));
 ```
 
-## Cookies set during a redirect
+## Cookies and redirects
 
 A response that redirects can set cookies, typically a session cookie after a login. By default REST Assured doesn't send those cookies along when it follows the redirect. To keep them:
 
@@ -102,7 +102,7 @@ RestAssured.config = RestAssured.config().httpClient(httpClientConfig().keepResp
 
 For keeping a session across several requests of your own, see [Sessions](/docs/usage/sessions/).
 
-## All the settings in one place
+## Redirect settings
 
 The `redirects()` DSL sets them for one request:
 
