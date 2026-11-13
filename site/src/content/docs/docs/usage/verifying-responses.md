@@ -21,6 +21,32 @@ get("/x").then().assertThat().cookies("cookieName1", "cookieValue1", "cookieName
 get("/x").then().assertThat().cookies("cookieName1", "cookieValue1", "cookieName2", containsString("Value2")). ..
 ```
 
+To check only that a cookie is there, whatever its value, leave out the value:
+
+```java
+get("/x").then().assertThat().cookie("session"). ..
+```
+
+### Cookie attributes
+
+A cookie is more than a name and a value. A session cookie should usually be `Secure` and `HttpOnly`, and maybe have a `SameSite` setting and an expiry. Those attributes are easy to break without anyone noticing, so they're worth a test. Use `detailedCookie()` and list what you expect:
+
+```java
+get("/login").then().assertThat().cookie("session", detailedCookie().
+        value("abc123").
+        path("/").
+        secured(true).
+        httpOnly(true).
+        sameSite("Lax").
+        maxAge(3600));
+```
+
+You only list the attributes you care about. Each one also takes a Hamcrest matcher, for example `value(not(emptyString()))` when the value is random or `expiryDate(greaterThan(new Date()))`. The other attributes are `domain`, `comment` and `version`. `detailedCookie()` is statically imported from `io.restassured.matcher.RestAssuredMatchers`.
+
+If an attribute doesn't match, the failure message ends with the one that was off, such as `property 'secured' was <true>`.
+
+To read the attributes instead of checking them, see [Detailed Cookies](/docs/usage/response-data/#detailed-cookies).
+
 ## Status
 
 ```java
@@ -85,13 +111,34 @@ There are some predefined matchers that you can use defined in the `io.restassur
 get("/x").then().body("href", endsWithPath("userId"));
 ```
 
+There are a few of these, and they all take a path to another value in the same response:
+
+| Matcher | Passes when the value |
+|---|---|
+| `equalToPath("playerId")` | is equal to the value at `playerId` |
+| `startsWithPath("baseUri")` | starts with the value at `baseUri` |
+| `endsWithPath("userId")` | ends with the value at `userId` |
+| `containsPath("userId")` | contains the value at `userId` |
+
+So for a response like `{ "userId" : "my-id", "playerId" : "my-id" }`, you check that the two ids are the same without writing the id in your test:
+
+```java
+get("/x").then().body("userId", equalToPath("playerId"));
+```
+
 `ResponseAwareMatchers` can also be composed, either with another `ResponseAwareMatcher` or with a Hamcrest Matcher. For example:
 
 ```java
 get("/x").then().body("href", and(startsWith("http:/localhost:8080/"), endsWithPath("userId")));
 ```
 
-The `and` method is statically imported from `io.restassured.matcher.ResponseAwareMatcherComposer`.
+There's an `or` too, for when either one is fine:
+
+```java
+get("/x").then().body("owner", or(equalTo("admin"), equalToPath("userId")));
+```
+
+The `and` and `or` methods are statically imported from `io.restassured.matcher.ResponseAwareMatcherComposer`.
 
 You can use a `ResponseAwareMatcher` for headers too. For example, to check that the `Location` header of a newly created resource ends with the id in the response body:
 

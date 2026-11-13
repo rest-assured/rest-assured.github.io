@@ -236,3 +236,42 @@ To get all values for a cookie you need to first get the [Cookies](http://static
 If you need to get e.g. the comment, path or expiry date etc from a cookie you need get a [detailed cookie](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/http/Cookie.html) from REST Assured. To do this you can use the [Response.getDetailedCookie(java.lang.String)](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/response/ResponseOptions.html#getDetailedCookie-java.lang.String-) method. The detailed cookie then contains all attributes from the cookie.
 
 You can also get all detailed response [cookies](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/http/Cookies.html) using the [Response.getDetailedCookies()](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/response/ResponseOptions.html#getDetailedCookies--) method.
+
+## Printing the response
+
+When you're writing a test against an API you don't know well, you mostly want to see what comes back. `prettyPeek()` prints the status line, the headers and the pretty-printed body, and then hands you the response so the test carries on as if nothing happened:
+
+```java
+String name = get("/users/1").
+        prettyPeek().
+        then().statusCode(200).
+        extract().path("name");
+```
+
+prints
+
+```
+HTTP/1.1 200 OK
+content-length: 94
+content-type: application/json
+date: Fri, 13 Nov 2026 13:34:32 GMT
+
+{
+    "userId": "my-id",
+    "playerId": "my-id",
+    "href": "http://localhost:8080/users/my-id",
+    "name": "Jane"
+}
+```
+
+There are a few of these:
+
+| Method | Prints | Gives back |
+|---|---|---|
+| `peek()` | status line, headers and body as it came | the response |
+| `prettyPeek()` | status line, headers and pretty-printed body | the response |
+| `print()` | the body as it came | the body as a `String` |
+| `prettyPrint()` | the pretty-printed body | the pretty-printed body as a `String` |
+| `asPrettyString()` | nothing | the pretty-printed body as a `String` |
+
+They're meant for while you work on a test. Once it's done, take them out, or use [`log().ifValidationFails()`](/docs/usage/logging/#log-if-validation-fails) so you only see the response when the test fails.

@@ -22,6 +22,7 @@ REST Assured is a Java DSL for testing REST services. It sends GET, POST, PUT, P
 - [Logging](/docs/usage/logging/): Log requests and responses, always or when a check fails.
 - [Root path and path arguments](/docs/usage/root-path/): Shorten paths with a root path and path arguments.
 - [Sessions](/docs/usage/sessions/): Keep a session across requests.
+- [Redirects](/docs/usage/redirects/): Which redirects are followed, testing the redirect itself, and the limits that stop a loop.
 - [SSL](/docs/usage/ssl/): Test HTTPS services, with or without valid certificates.
 - [URL encoding](/docs/usage/url-encoding/): How REST Assured encodes URLs, and how to turn it off.
 - [Proxy](/docs/usage/proxy/): Send requests through a proxy.
