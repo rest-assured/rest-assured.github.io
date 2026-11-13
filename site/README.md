@@ -15,7 +15,7 @@ npm run dev       # http://localhost:4321, reloads as you edit
 To check the whole site the way it will be deployed:
 
 ```bash
-npm run check     # tests the scripts, builds the site into dist/ and checks every wiki address
+npm run check     # tests the scripts, builds the site into dist/, checks links, old addresses and every wiki address
 npm run preview   # serves dist/ at http://localhost:4321
 ```
 
@@ -28,6 +28,12 @@ The build fails on a broken internal link. `check` also fails if a wiki page, an
 * `src/content/news/` holds one file per news item. `/news/` lists them all and the landing page shows the latest three.
 * `src/version.mjs` holds the current version. Write `%REST_ASSURED_VERSION%` in a docs page and the build puts the version in.
 * `src/styles/theme.css` and the `expressiveCode` settings in `astro.config.mjs` give the docs the same colours as the landing page.
+
+## Deploy
+
+`.github/workflows/deploy-site.yml` builds the site, runs `npm run check` and publishes `dist/` to GitHub Pages. Until the switch from the Jekyll site, it only runs when started by hand. The steps to go live and to roll back are at the top of the workflow.
+
+The new site keeps every address the old one served. `/intro`, `/who` and the `.html` forms are small pages in `public/` that point to where the content moved, and the front page keeps the old section ids. `npm run check-links` fails if one goes missing, if a link points to a page that isn't built, or if `CNAME` no longer names rest-assured.io.
 
 ## After a release
 
