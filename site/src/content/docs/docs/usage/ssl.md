@@ -2,7 +2,7 @@
 title: "SSL"
 description: "Test HTTPS services, with or without valid certificates."
 sidebar:
-  order: 16
+  order: 17
 ---
 
 In most situations SSL should just work out of the box. There are however some cases where you'll run into trouble. You may for example run into an SSLException if the server is using an invalid certificate. The easiest way to workaround this is to use "relaxed HTTPs validation". For example:

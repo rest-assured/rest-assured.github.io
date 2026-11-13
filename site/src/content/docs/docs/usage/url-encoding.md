@@ -2,7 +2,7 @@
 title: "URL encoding"
 description: "How REST Assured encodes URLs, and how to turn it off."
 sidebar:
-  order: 17
+  order: 18
 ---
 
 Usually you don't have to think about URL encoding since Rest Assured provides this automatically out of the box. In some cases though it may be useful to turn URL Encoding off. One reason may be that you already the have some parameters encoded before you supply them to Rest Assured. To prevent double URL encoding you need to tell Rest Assured to disable it's URL encoding. E.g.

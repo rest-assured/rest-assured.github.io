@@ -2,7 +2,7 @@
 title: "Detailed configuration"
 description: "Every configuration option REST Assured has."
 sidebar:
-  order: 19
+  order: 20
 ---
 
 Detailed configuration is provided by the [RestAssuredConfig](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/RestAssuredConfig.html) instance with which you can configure the parameters of [HTTP Client](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/HttpClientConfig.html) as well as [Redirect](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/RedirectConfig.html), [Log](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/LogConfig.html), [Encoder](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/EncoderConfig.html), [Decoder](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/DecoderConfig.html), [Session](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/SessionConfig.html), [ObjectMapper](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/ObjectMapperConfig.html), [Connection](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/ConnectionConfig.html), [SSL](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/SSLConfig.html) and [ParamConfig](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/ParamConfig.html) settings. Examples:
@@ -89,11 +89,7 @@ Redirect configuration can also be specified using the DSL. E.g.
 given().redirects().max(12).and().redirects().follow(true).when(). .. 
 ```
 
-By default only redirects of GET and HEAD requests are followed. Since REST Assured 6.3.0 you can follow redirects of POST, PUT, DELETE and other requests too:
-
-```java
-RestAssured.config = RestAssured.config().redirect(redirectConfig().followRedirectsForAllMethods(true));
-```
+See [Redirects](/docs/usage/redirects/) for which redirects REST Assured follows, how to test the redirect itself, and every redirect setting.
 
 ## Connection Config
 
@@ -114,6 +110,14 @@ RestAssured.config = RestAssured.config().jsonConfig(jsonConfig().numberReturnTy
 ```
 
 Import `NumberReturnType` from `io.restassured.common.config`. `JsonPathConfig.NumberReturnType` is deprecated since REST Assured 6.3.0.
+
+REST Assured refuses a JSON number that's longer than 1000 characters. Nobody writes numbers like that by hand. The limit is there because turning a huge number into a `BigInteger` or `BigDecimal` can take a lot of CPU and memory, so a broken or hostile service could stall your test run. If your service really sends numbers that long, raise the limit, or turn it off with a negative value:
+
+```java
+RestAssured.config = RestAssured.config().jsonConfig(jsonConfig().numberLengthLimit(5000));
+```
+
+`JsonPathConfig` has the same setting, for when you use `JsonPath` on its own.
 
 ## HTTP Client Config
 
@@ -182,6 +186,36 @@ RestAssured.config = RestAssured.config().httpClient(httpClientConfig()
 `keepResponseCookies(true)` sends the cookies a response sets in the requests that follow it, for example when a redirect is followed (by default they're not kept). `cookieDatePatterns(..)` sets the date formats for reading a non-standard `expires` attribute of those cookies, `expectContinue(true)` sends `Expect: 100-continue`, and `multipartMode(..)` sets how multipart requests are encoded.
 
 These replace the HttpClient 4 parameters, such as `setParam(CoreConnectionPNames.CONNECTION_TIMEOUT, 5000)`, which are deprecated and removed in REST Assured 8.0.0. A parameter without a replacement fails the request. See [Preparing for REST Assured 7.0](/docs/upgrading/preparing-for-7-0/#httpclient-4-parameters) for the full list. `httpClientFactory(..)`, which supplied your own HttpClient 4 instance, is removed in REST Assured 7.0.0.
+
+### When the JDK client isn't enough
+
+The JDK client covers most tests, but there are a few things it can't do. If your tests need one of these, add `http-client-apache5` as shown above and they work:
+
+* Set the `Host`, `Connection` or `Upgrade` header yourself. A typical case is testing virtual hosts: `given().header("Host", "shop.example.com")`.
+* Send an `Expect` header other than `100-continue`.
+* Log in with NTLM (`auth().ntlm(..)`).
+* Talk to the proxy over TLS (`ProxySpecification.withScheme("https")`).
+
+You don't have to guess which one you hit. The request fails with an `UnsupportedOperationException` that says what to do, for example:
+
+```
+The JDK HTTP client (the default module, http-client-jdk) can't send a Host header. Add io.rest-assured:http-client-apache5
+to your test dependencies and REST Assured uses it, or start the JVM with -Djdk.httpclient.allowRestrictedHeaders=host.
+```
+
+As the message says, for the `Host`, `Connection` and `Upgrade` headers you can also keep the JDK client and start the JVM with the system property `jdk.httpclient.allowRestrictedHeaders`. With Maven, put it in the Surefire configuration:
+
+```xml
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-surefire-plugin</artifactId>
+    <configuration>
+        <argLine>-Djdk.httpclient.allowRestrictedHeaders=host</argLine>
+    </configuration>
+</plugin>
+```
+
+The property has to be set before the JDK client is first used, so setting it with `System.setProperty(..)` in a test usually comes too late. See [What the JDK client can't do](/release-notes/7-0/#what-the-jdk-client-cant-do) in the release notes for the full list.
 
 ### Writing your own HTTP client
 
@@ -314,6 +348,33 @@ when().
 then().
     statusCode(200);
 ```
+
+## Matcher Config
+
+When a check fails, REST Assured writes its own, shorter version of the Hamcrest message. Usually that's easier to read. But it leaves out the quotes, and sometimes the quotes are exactly what you need. Say the service returns `"Jane "`, with a space at the end:
+
+```
+JSON path name doesn't match.
+Expected: Jane
+  Actual: Jane 
+```
+
+That's a fun one to stare at. The [MatcherConfig](http://static.javadoc.io/io.rest-assured/rest-assured/%REST_ASSURED_VERSION%/io/restassured/config/MatcherConfig.html) can switch to the plain Hamcrest messages:
+
+```java
+RestAssured.config = RestAssured.config().matcherConfig(matcherConfig().errorDescriptionType(HAMCREST));
+```
+
+and now the space is easy to spot:
+
+```
+JSON path name doesn't match.
+
+Expected: "Jane"
+  Actual: was "Jane "
+```
+
+The same goes for a number that you expected as a string. The Hamcrest message shows `Expected: "1"` and `Actual: was <1>`, so you see that the service sent the number 1 and not the text "1". `matcherConfig()` and `HAMCREST` are statically imported from `io.restassured.config.MatcherConfig` and `io.restassured.config.MatcherConfig.ErrorDescriptionType`.
 
 ## CSRF Config
 

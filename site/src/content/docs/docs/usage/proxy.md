@@ -2,7 +2,7 @@
 title: "Proxy"
 description: "Send requests through a proxy."
 sidebar:
-  order: 18
+  order: 19
 ---
 
 Starting from version 2.3.2 REST Assured has better support for proxies. For example if you have a proxy at localhost port 8888 you can do:
