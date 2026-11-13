@@ -1,0 +1,54 @@
+# Runs on every pull request. The live site is still built by classic GitHub Pages from master, so the jekyll job
+# builds it the same way and fails if it no longer serves exactly the files it did, for example because site/ leaked
+# in. The site job runs the same check as you do locally: it tests the migration scripts in site/, builds the new site
+# (which fails on a broken internal link), and checks that every wiki page, anchor and code block has a place on
+# the new site.
+name: Check
+
+on:
+  pull_request:
+  # The live site publishes straight from master, so pushes there get the same check.
+  push:
+    branches: [master]
+
+jobs:
+  jekyll:
+    runs-on: ubuntu-latest
+    env:
+      BUNDLE_GEMFILE: ${{ github.workspace }}/.github/jekyll/Gemfile
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Build the live site
+        run: bundle exec jekyll build
+
+      - name: Check that the live site serves the same files as before
+        run: node site/scripts/old-addresses.mjs _site --check
+
+  site:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+
+      - run: npm ci
+
+      - name: Test the scripts, build the site and check every wiki address
+        run: npm run check

@@ -1,0 +1,805 @@
+{
+  "wikiSha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+  "pages": {
+    "Downloads": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/docs/getting-started/#downloads",
+      "anchors": {
+        "downloads": "/docs/getting-started/#downloads",
+        "legacy-versions": "/docs/getting-started/#legacy-versions"
+      }
+    },
+    "FAQ": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/docs/faq/",
+      "anchors": {
+        "faq": "/docs/faq/",
+        "1-q-im-running-into-exceptions-like-the-one-below-after-having-upgraded-to-rest-assured-18": "/docs/faq/#1-q-im-running-into-exceptions-like-the-one-below-after-having-upgraded-to-rest-assured-18",
+        "2-q-how-can-i-determine-if-a-json-response-path-exists-or-doesnt-exist": "/docs/faq/#2-q-how-can-i-determine-if-a-json-response-path-exists-or-doesnt-exist",
+        "3-issues-with-rest-assured-and-grape": "/docs/faq/#3-issues-with-rest-assured-and-grape",
+        "4-logging-rest-assured-logs-to-disk": "/docs/faq/#4-logging-rest-assured-logs-to-disk",
+        "5-split-packages-in-java-9": "/docs/faq/#5-split-packages-in-java-9"
+      }
+    },
+    "GettingStarted": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/docs/getting-started/",
+      "anchors": {
+        "contents": "/docs/getting-started/",
+        "maven--gradle-users": "/docs/getting-started/#maven--gradle-users",
+        "rest-assured": "/docs/getting-started/#rest-assured",
+        "jsonpath": "/docs/getting-started/#jsonpath",
+        "xmlpath": "/docs/getting-started/#xmlpath",
+        "jsonpath-with-jayway": "/docs/getting-started/#jsonpath-with-jayway",
+        "apache-httpclient-5": "/docs/getting-started/#apache-httpclient-5",
+        "json-schema-validation": "/docs/getting-started/#json-schema-validation",
+        "spring-mock-mvc": "/docs/getting-started/#spring-mock-mvc",
+        "spring-web-test-client": "/docs/getting-started/#spring-web-test-client",
+        "scala-support": "/docs/getting-started/#scala-support",
+        "kotlin": "/docs/getting-started/#kotlin",
+        "bom": "/docs/getting-started/#bom",
+        "java-9": "/docs/getting-started/#java-9",
+        "non-maven-users": "/docs/getting-started/#non-maven-users",
+        "static-imports": "/docs/getting-started/#static-imports",
+        "version-2x": "/docs/getting-started/#version-2x",
+        "documentation": "/docs/getting-started/#documentation"
+      }
+    },
+    "Home": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/docs/",
+      "anchors": {}
+    },
+    "How_to_release": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "https://github.com/rest-assured/rest-assured/blob/master/doc/how-to-release.md",
+      "anchors": {
+        "from-master": "https://github.com/rest-assured/rest-assured/blob/master/doc/how-to-release.md#from-master",
+        "from-branch": "https://github.com/rest-assured/rest-assured/blob/master/doc/how-to-release.md#from-branch"
+      }
+    },
+    "Kotlin": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/docs/kotlin/",
+      "anchors": {
+        "kotlin": "/docs/kotlin/",
+        "contents": "/docs/kotlin/",
+        "avoid-escaping-when-keyword": "/docs/kotlin/#avoid-escaping-when-keyword",
+        "kotlin-extension-module": "/docs/kotlin/#kotlin-extension-module",
+        "kotlin-extension-module-for-spring-mockmvc": "/docs/kotlin/#kotlin-extension-module-for-spring-mockmvc",
+        "kotlin-extension-module-for-spring-webtest": "/docs/kotlin/#kotlin-extension-module-for-spring-webtest"
+      }
+    },
+    "Modules": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/docs/modules/",
+      "anchors": {
+        "which-module-do-i-need": "/docs/modules/",
+        "contents": "/docs/modules/",
+        "always": "/docs/modules/#always",
+        "paths": "/docs/modules/#paths",
+        "http-client": "/docs/modules/#http-client",
+        "frameworks-and-languages": "/docs/modules/#frameworks-and-languages",
+        "others": "/docs/modules/#others",
+        "keep-the-versions-in-line": "/docs/modules/#keep-the-versions-in-line",
+        "spring-boot": "/docs/modules/#spring-boot",
+        "typical-setups": "/docs/modules/#typical-setups"
+      }
+    },
+    "OldNews": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/news/",
+      "anchors": {}
+    },
+    "PreparingFor70": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/docs/upgrading/preparing-for-7-0/",
+      "anchors": {
+        "preparing-for-rest-assured-70": "/docs/upgrading/preparing-for-7-0/",
+        "contents": "/docs/upgrading/preparing-for-7-0/",
+        "let-openrewrite-do-it": "/docs/upgrading/preparing-for-7-0/#let-openrewrite-do-it",
+        "use-the-new-artifact-names": "/docs/upgrading/preparing-for-7-0/#use-the-new-artifact-names",
+        "httpclient-4-parameters": "/docs/upgrading/preparing-for-7-0/#httpclient-4-parameters",
+        "methods-that-take-httpclient-4-types": "/docs/upgrading/preparing-for-7-0/#methods-that-take-httpclient-4-types",
+        "custom-authentication-schemes": "/docs/upgrading/preparing-for-7-0/#custom-authentication-schemes",
+        "object-mapper-factories-and-numberreturntype": "/docs/upgrading/preparing-for-7-0/#object-mapper-factories-and-numberreturntype",
+        "jackson-1": "/docs/upgrading/preparing-for-7-0/#jackson-1",
+        "root-path-methods-deprecated-since-40": "/docs/upgrading/preparing-for-7-0/#root-path-methods-deprecated-since-40",
+        "jackson-2-and-jackson-3": "/docs/upgrading/preparing-for-7-0/#jackson-2-and-jackson-3"
+      }
+    },
+    "ReleaseNotes": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/release-notes/",
+      "anchors": {
+        "menu": "/release-notes/"
+      }
+    },
+    "ReleaseNotes11": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/release-notes/1-1/",
+      "anchors": {
+        "release-notes-for-rest-assured-11": "/release-notes/1-1/",
+        "highlights": "/release-notes/1-1/#highlights",
+        "other-notable-changes": "/release-notes/1-1/#other-notable-changes",
+        "minor-changes": "/release-notes/1-1/#minor-changes"
+      }
+    },
+    "ReleaseNotes145": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/release-notes/1-4-5/",
+      "anchors": {
+        "release-notes-for-rest-assured-145": "/release-notes/1-4-5/",
+        "highlights": "/release-notes/1-4-5/#highlights",
+        "non-backward-compatible-changes": "/release-notes/1-4-5/#non-backward-compatible-changes",
+        "other-notable-changes": "/release-notes/1-4-5/#other-notable-changes",
+        "minor-changes": "/release-notes/1-4-5/#minor-changes"
+      }
+    },
+    "ReleaseNotes15": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/release-notes/1-5/",
+      "anchors": {
+        "release-notes-for-rest-assured-15": "/release-notes/1-5/",
+        "highlights": "/release-notes/1-5/#highlights",
+        "non-backward-compatible-changes": "/release-notes/1-5/#non-backward-compatible-changes",
+        "other-notable-changes": "/release-notes/1-5/#other-notable-changes",
+        "minor-changes": "/release-notes/1-5/#minor-changes"
+      }
+    },
+    "ReleaseNotes16": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/release-notes/1-6/",
+      "anchors": {
+        "release-notes-for-rest-assured-16": "/release-notes/1-6/",
+        "highlights": "/release-notes/1-6/#highlights",
+        "non-backward-compatible-changes": "/release-notes/1-6/#non-backward-compatible-changes",
+        "other-notable-changes": "/release-notes/1-6/#other-notable-changes",
+        "minor-changes": "/release-notes/1-6/#minor-changes"
+      }
+    },
+    "ReleaseNotes17": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/release-notes/1-7/",
+      "anchors": {
+        "release-notes-for-rest-assured-17": "/release-notes/1-7/",
+        "highlights": "/release-notes/1-7/#highlights",
+        "non-backward-compatible-changes": "/release-notes/1-7/#non-backward-compatible-changes",
+        "deprecations": "/release-notes/1-7/#deprecations",
+        "other-notable-changes": "/release-notes/1-7/#other-notable-changes",
+        "minor-changes": "/release-notes/1-7/#minor-changes"
+      }
+    },
+    "ReleaseNotes18": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/release-notes/1-8/",
+      "anchors": {
+        "release-notes-for-rest-assured-180": "/release-notes/1-8/",
+        "highlights": "/release-notes/1-8/#highlights",
+        "non-backward-compatible-changes": "/release-notes/1-8/#non-backward-compatible-changes",
+        "other-notable-changes": "/release-notes/1-8/#other-notable-changes",
+        "minor-changes": "/release-notes/1-8/#minor-changes"
+      }
+    },
+    "ReleaseNotes19": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/release-notes/1-9/",
+      "anchors": {
+        "release-notes-for-rest-assured-190": "/release-notes/1-9/",
+        "highlights": "/release-notes/1-9/#highlights",
+        "non-backward-compatible-changes": "/release-notes/1-9/#non-backward-compatible-changes",
+        "other-notable-changes": "/release-notes/1-9/#other-notable-changes",
+        "dependency-upgrades": "/release-notes/1-9/#dependency-upgrades",
+        "minor-changes": "/release-notes/1-9/#minor-changes"
+      }
+    },
+    "ReleaseNotes20": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/release-notes/2-0/",
+      "anchors": {
+        "release-notes-for-rest-assured-200": "/release-notes/2-0/",
+        "highlights": "/release-notes/2-0/#highlights",
+        "other-notable-changes": "/release-notes/2-0/#other-notable-changes",
+        "minor-changes": "/release-notes/2-0/#minor-changes"
+      }
+    },
+    "ReleaseNotes21": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/release-notes/2-1/",
+      "anchors": {
+        "release-notes-for-rest-assured-210": "/release-notes/2-1/",
+        "highlights": "/release-notes/2-1/#highlights",
+        "non-backward-compatible-changes": "/release-notes/2-1/#non-backward-compatible-changes",
+        "deprecations": "/release-notes/2-1/#deprecations",
+        "minor-changes": "/release-notes/2-1/#minor-changes"
+      }
+    },
+    "ReleaseNotes22": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/release-notes/2-2/",
+      "anchors": {
+        "release-notes-for-rest-assured-220": "/release-notes/2-2/",
+        "highlights": "/release-notes/2-2/#highlights",
+        "non-backward-compatible-changes": "/release-notes/2-2/#non-backward-compatible-changes",
+        "minor-changes": "/release-notes/2-2/#minor-changes"
+      }
+    },
+    "ReleaseNotes23": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/release-notes/2-3/",
+      "anchors": {
+        "release-notes-for-rest-assured-230": "/release-notes/2-3/",
+        "highlights": "/release-notes/2-3/#highlights",
+        "non-backward-compatible-changes": "/release-notes/2-3/#non-backward-compatible-changes",
+        "minor-changes": "/release-notes/2-3/#minor-changes"
+      }
+    },
+    "ReleaseNotes24": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/release-notes/2-4/",
+      "anchors": {
+        "release-notes-for-rest-assured-240": "/release-notes/2-4/",
+        "highlights": "/release-notes/2-4/#highlights",
+        "other-notable-changes": "/release-notes/2-4/#other-notable-changes",
+        "non-backward-compatible-changes": "/release-notes/2-4/#non-backward-compatible-changes",
+        "deprecations": "/release-notes/2-4/#deprecations",
+        "minor-changes": "/release-notes/2-4/#minor-changes"
+      }
+    },
+    "ReleaseNotes25": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/release-notes/2-5/",
+      "anchors": {
+        "release-notes-for-rest-assured-250": "/release-notes/2-5/",
+        "contents": "/release-notes/2-5/",
+        "rest-assured": "/release-notes/2-5/#rest-assured",
+        "highlights": "/release-notes/2-5/#highlights",
+        "other-notable-changes": "/release-notes/2-5/#other-notable-changes",
+        "non-backward-compatible-changes": "/release-notes/2-5/#non-backward-compatible-changes",
+        "spring-mock-mvc-module": "/release-notes/2-5/#spring-mock-mvc-module",
+        "highlights-1": "/release-notes/2-5/#highlights-1",
+        "other-notable-changes-1": "/release-notes/2-5/#other-notable-changes-1",
+        "non-backward-compatible-changes-1": "/release-notes/2-5/#non-backward-compatible-changes-1",
+        "minor-changes": "/release-notes/2-5/#minor-changes"
+      }
+    },
+    "ReleaseNotes26": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/release-notes/2-6/",
+      "anchors": {
+        "release-notes-for-rest-assured-260": "/release-notes/2-6/",
+        "contents": "/release-notes/2-6/",
+        "highlights": "/release-notes/2-6/#highlights",
+        "other-notable-changes": "/release-notes/2-6/#other-notable-changes",
+        "non-backward-compatible-changes": "/release-notes/2-6/#non-backward-compatible-changes",
+        "minor-changes": "/release-notes/2-6/#minor-changes"
+      }
+    },
+    "ReleaseNotes27": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/release-notes/2-7/",
+      "anchors": {
+        "release-notes-for-rest-assured-270": "/release-notes/2-7/",
+        "contents": "/release-notes/2-7/",
+        "highlights": "/release-notes/2-7/#highlights",
+        "other-notable-changes": "/release-notes/2-7/#other-notable-changes",
+        "non-backward-compatible-changes": "/release-notes/2-7/#non-backward-compatible-changes",
+        "deprecations": "/release-notes/2-7/#deprecations",
+        "minor-changes": "/release-notes/2-7/#minor-changes"
+      }
+    },
+    "ReleaseNotes28": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/release-notes/2-8/",
+      "anchors": {
+        "release-notes-for-rest-assured-280": "/release-notes/2-8/",
+        "contents": "/release-notes/2-8/",
+        "highlights": "/release-notes/2-8/#highlights",
+        "non-backward-compatible-changes": "/release-notes/2-8/#non-backward-compatible-changes",
+        "deprecations": "/release-notes/2-8/#deprecations",
+        "minor-changes": "/release-notes/2-8/#minor-changes"
+      }
+    },
+    "ReleaseNotes29": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/release-notes/2-9/",
+      "anchors": {
+        "release-notes-for-rest-assured-290": "/release-notes/2-9/",
+        "contents": "/release-notes/2-9/",
+        "highlights": "/release-notes/2-9/#highlights",
+        "non-backward-compatible-changes": "/release-notes/2-9/#non-backward-compatible-changes",
+        "deprecations": "/release-notes/2-9/#deprecations",
+        "minor-changes": "/release-notes/2-9/#minor-changes"
+      }
+    },
+    "ReleaseNotes30": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/release-notes/3-0/",
+      "anchors": {
+        "release-notes-for-rest-assured-300": "/release-notes/3-0/",
+        "contents": "/release-notes/3-0/",
+        "highlights": "/release-notes/3-0/#highlights",
+        "other-notable-changes": "/release-notes/3-0/#other-notable-changes",
+        "non-backward-compatible-changes": "/release-notes/3-0/#non-backward-compatible-changes",
+        "deprecations": "/release-notes/3-0/#deprecations",
+        "removed-deprecations": "/release-notes/3-0/#removed-deprecations",
+        "upgrading": "/release-notes/3-0/#upgrading",
+        "minor-changes": "/release-notes/3-0/#minor-changes"
+      }
+    },
+    "ReleaseNotes31": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/release-notes/3-1/",
+      "anchors": {
+        "release-notes-for-rest-assured-310": "/release-notes/3-1/",
+        "contents": "/release-notes/3-1/",
+        "highlights": "/release-notes/3-1/#highlights",
+        "other-notable-changes": "/release-notes/3-1/#other-notable-changes",
+        "non-backward-compatible-changes": "/release-notes/3-1/#non-backward-compatible-changes",
+        "minor-changes": "/release-notes/3-1/#minor-changes"
+      }
+    },
+    "ReleaseNotes32": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/release-notes/3-2/",
+      "anchors": {
+        "release-notes-for-rest-assured-320": "/release-notes/3-2/",
+        "contents": "/release-notes/3-2/",
+        "highlights": "/release-notes/3-2/#highlights",
+        "non-backward-compatible-changes": "/release-notes/3-2/#non-backward-compatible-changes",
+        "minor-changes": "/release-notes/3-2/#minor-changes"
+      }
+    },
+    "ReleaseNotes33": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/release-notes/3-3/",
+      "anchors": {
+        "release-notes-for-rest-assured-330": "/release-notes/3-3/",
+        "contents": "/release-notes/3-3/",
+        "highlights": "/release-notes/3-3/#highlights",
+        "minor-changes": "/release-notes/3-3/#minor-changes"
+      }
+    },
+    "ReleaseNotes40": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/release-notes/4-0/",
+      "anchors": {
+        "release-notes-for-rest-assured-400": "/release-notes/4-0/",
+        "contents": "/release-notes/4-0/",
+        "highlights": "/release-notes/4-0/#highlights",
+        "non-backward-compatible-changes": "/release-notes/4-0/#non-backward-compatible-changes",
+        "deprecations": "/release-notes/4-0/#deprecations",
+        "minor-changes": "/release-notes/4-0/#minor-changes"
+      }
+    },
+    "ReleaseNotes42": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/release-notes/4-2/",
+      "anchors": {
+        "release-notes-for-rest-assured-420": "/release-notes/4-2/",
+        "contents": "/release-notes/4-2/",
+        "highlights": "/release-notes/4-2/#highlights",
+        "minor-changes": "/release-notes/4-2/#minor-changes"
+      }
+    },
+    "ReleaseNotes45": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/release-notes/4-5/",
+      "anchors": {
+        "release-notes-for-rest-assured-450": "/release-notes/4-5/",
+        "contents": "/release-notes/4-5/",
+        "highlights": "/release-notes/4-5/#highlights",
+        "minor-changes": "/release-notes/4-5/#minor-changes"
+      }
+    },
+    "ReleaseNotes50": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/release-notes/5-0/",
+      "anchors": {
+        "release-notes-for-rest-assured-500": "/release-notes/5-0/",
+        "contents": "/release-notes/5-0/",
+        "highlights": "/release-notes/5-0/#highlights",
+        "minor-changes": "/release-notes/5-0/#minor-changes"
+      }
+    },
+    "ReleaseNotes52": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/release-notes/5-2/",
+      "anchors": {
+        "release-notes-for-rest-assured-520": "/release-notes/5-2/",
+        "contents": "/release-notes/5-2/",
+        "highlights": "/release-notes/5-2/#highlights",
+        "non-backward-compatible-changes": "/release-notes/5-2/#non-backward-compatible-changes",
+        "minor-changes": "/release-notes/5-2/#minor-changes"
+      }
+    },
+    "ReleaseNotes60": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/release-notes/6-0/",
+      "anchors": {
+        "release-notes-for-rest-assured-600": "/release-notes/6-0/",
+        "contents": "/release-notes/6-0/",
+        "highlights": "/release-notes/6-0/#highlights",
+        "other-changes": "/release-notes/6-0/#other-changes"
+      }
+    },
+    "ReleaseNotes61": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/release-notes/6-1/",
+      "anchors": {
+        "release-notes-for-rest-assured-610": "/release-notes/6-1/",
+        "contents": "/release-notes/6-1/",
+        "highlights": "/release-notes/6-1/#highlights",
+        "non-backward-compatible-changes": "/release-notes/6-1/#non-backward-compatible-changes",
+        "other-changes": "/release-notes/6-1/#other-changes"
+      }
+    },
+    "ReleaseNotes62": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/release-notes/6-2/",
+      "anchors": {
+        "release-notes-for-rest-assured-620": "/release-notes/6-2/",
+        "contents": "/release-notes/6-2/",
+        "highlights": "/release-notes/6-2/#highlights",
+        "non-backward-compatible-changes": "/release-notes/6-2/#non-backward-compatible-changes",
+        "request-bodies-and-content-types": "/release-notes/6-2/#request-bodies-and-content-types",
+        "form-authentication": "/release-notes/6-2/#form-authentication",
+        "ssl-and-certificates": "/release-notes/6-2/#ssl-and-certificates",
+        "specifications-and-merging": "/release-notes/6-2/#specifications-and-merging",
+        "custom-extensions-written-against-internal-or-groovy-types": "/release-notes/6-2/#custom-extensions-written-against-internal-or-groovy-types",
+        "responses": "/release-notes/6-2/#responses",
+        "other-changes": "/release-notes/6-2/#other-changes"
+      }
+    },
+    "ReleaseNotes63": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/release-notes/6-3/",
+      "anchors": {
+        "release-notes-for-rest-assured-630": "/release-notes/6-3/",
+        "contents": "/release-notes/6-3/",
+        "highlights": "/release-notes/6-3/#highlights",
+        "preparing-for-700": "/release-notes/6-3/#preparing-for-700",
+        "non-backward-compatible-changes": "/release-notes/6-3/#non-backward-compatible-changes",
+        "other-changes": "/release-notes/6-3/#other-changes"
+      }
+    },
+    "ReleaseNotes70": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/release-notes/7-0/",
+      "anchors": {
+        "release-notes-for-rest-assured-700": "/release-notes/7-0/",
+        "contents": "/release-notes/7-0/",
+        "whats-new-in-70": "/release-notes/7-0/#whats-new-in-70",
+        "upgrading-to-70": "/release-notes/7-0/#upgrading-to-70",
+        "add-a-path-engine": "/release-notes/7-0/#add-a-path-engine",
+        "the-new-artifact-names": "/release-notes/7-0/#the-new-artifact-names",
+        "spring-boot-3": "/release-notes/7-0/#spring-boot-3",
+        "spring-boot-4": "/release-notes/7-0/#spring-boot-4",
+        "let-openrewrite-do-it": "/release-notes/7-0/#let-openrewrite-do-it",
+        "code-that-no-longer-compiles": "/release-notes/7-0/#code-that-no-longer-compiles",
+        "mocks-of-response": "/release-notes/7-0/#mocks-of-response",
+        "path-engines": "/release-notes/7-0/#path-engines",
+        "gpath": "/release-notes/7-0/#gpath",
+        "groovy-versions": "/release-notes/7-0/#groovy-versions",
+        "jsonpath-with-jayway": "/release-notes/7-0/#jsonpath-with-jayway",
+        "picking-the-engine": "/release-notes/7-0/#picking-the-engine",
+        "how-jayway-differs-from-gpath": "/release-notes/7-0/#how-jayway-differs-from-gpath",
+        "osgi": "/release-notes/7-0/#osgi",
+        "the-http-client": "/release-notes/7-0/#the-http-client",
+        "apache-httpclient-5": "/release-notes/7-0/#apache-httpclient-5",
+        "picking-the-client": "/release-notes/7-0/#picking-the-client",
+        "customizing-the-client": "/release-notes/7-0/#customizing-the-client",
+        "how-the-jdk-client-differs-from-httpclient-4": "/release-notes/7-0/#how-the-jdk-client-differs-from-httpclient-4",
+        "what-the-jdk-client-cant-do": "/release-notes/7-0/#what-the-jdk-client-cant-do",
+        "how-apache-httpclient-5-differs-from-the-jdk-client": "/release-notes/7-0/#how-apache-httpclient-5-differs-from-the-jdk-client",
+        "what-apache-httpclient-5-cant-do": "/release-notes/7-0/#what-apache-httpclient-5-cant-do",
+        "content-length-and-transfer-encoding-headers": "/release-notes/7-0/#content-length-and-transfer-encoding-headers",
+        "jvm-properties": "/release-notes/7-0/#jvm-properties",
+        "exceptions": "/release-notes/7-0/#exceptions",
+        "removed-apis": "/release-notes/7-0/#removed-apis",
+        "httpclient-4-parameters": "/release-notes/7-0/#httpclient-4-parameters",
+        "osgi-and-the-http-client": "/release-notes/7-0/#osgi-and-the-http-client",
+        "clients-for-parallel-tests": "/release-notes/7-0/#clients-for-parallel-tests",
+        "specifications-no-longer-change-when-sent-or-validated": "/release-notes/7-0/#specifications-no-longer-change-when-sent-or-validated",
+        "where-requests-get-their-settings": "/release-notes/7-0/#where-requests-get-their-settings",
+        "spec-builders-no-longer-copy-the-static-settings": "/release-notes/7-0/#spec-builders-no-longer-copy-the-static-settings",
+        "what-a-builder-computes-while-building": "/release-notes/7-0/#what-a-builder-computes-while-building",
+        "the-spring-specification-builders": "/release-notes/7-0/#the-spring-specification-builders",
+        "givenrequestspecification-responsespecification": "/release-notes/7-0/#givenrequestspecification-responsespecification",
+        "merging-a-response-specification": "/release-notes/7-0/#merging-a-response-specification",
+        "equal-headers-and-cookies-are-added-once": "/release-notes/7-0/#equal-headers-and-cookies-are-added-once",
+        "the-page-with-the-csrf-token": "/release-notes/7-0/#the-page-with-the-csrf-token",
+        "certificatecerturl-password": "/release-notes/7-0/#certificatecerturl-password",
+        "logging": "/release-notes/7-0/#logging",
+        "json-schema-validation-and-jackson-3": "/release-notes/7-0/#json-schema-validation-and-jackson-3",
+        "jsonpath-prefers-jackson-3": "/release-notes/7-0/#jsonpath-prefers-jackson-3",
+        "oauth-1-without-scribejava": "/release-notes/7-0/#oauth-1-without-scribejava",
+        "non-backward-compatible-changes": "/release-notes/7-0/#non-backward-compatible-changes",
+        "other-changes": "/release-notes/7-0/#other-changes"
+      }
+    },
+    "Scala": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/docs/scala/",
+      "anchors": {
+        "contents": "/docs/scala/",
+        "scala-extension-module": "/docs/scala/#scala-extension-module",
+        "sbt": "/docs/scala/#sbt",
+        "maven": "/docs/scala/#maven",
+        "gradle": "/docs/scala/#gradle",
+        "scala-support-module": "/docs/scala/#scala-support-module",
+        "sbt-1": "/docs/scala/#sbt-1",
+        "maven-1": "/docs/scala/#maven-1",
+        "gradle-1": "/docs/scala/#gradle-1"
+      }
+    },
+    "Spring": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/docs/spring/mock-mvc/",
+      "anchors": {
+        "spring-support": "/docs/spring/mock-mvc/",
+        "contents": "/docs/spring/mock-mvc/",
+        "spring-mock-mvc-module": "/docs/spring/mock-mvc/",
+        "bootstrapping-restassuredmockmvc": "/docs/spring/mock-mvc/#bootstrapping-restassuredmockmvc",
+        "asynchronous-requests": "/docs/spring/mock-mvc/#asynchronous-requests",
+        "adding-request-post-processors": "/docs/spring/mock-mvc/#adding-request-post-processors",
+        "adding-result-handlers": "/docs/spring/mock-mvc/#adding-result-handlers",
+        "using-result-matchers": "/docs/spring/mock-mvc/#using-result-matchers",
+        "interceptors": "/docs/spring/mock-mvc/#interceptors",
+        "spring-mock-mvc-specifications": "/docs/spring/mock-mvc/#spring-mock-mvc-specifications",
+        "resetting-restassuredmockmvc": "/docs/spring/mock-mvc/#resetting-restassuredmockmvc",
+        "parallel-tests-with-restassuredmockmvc": "/docs/spring/mock-mvc/#parallel-tests-with-restassuredmockmvc",
+        "spring-mvc-authentication": "/docs/spring/mock-mvc/#spring-mvc-authentication",
+        "using-spring-security-test": "/docs/spring/mock-mvc/#using-spring-security-test",
+        "injecting-a-user": "/docs/spring/mock-mvc/#injecting-a-user",
+        "spring-web-test-client-module": "/docs/spring/web-test-client/",
+        "bootstrapping-restassuredwebtestclient": "/docs/spring/web-test-client/#bootstrapping-restassuredwebtestclient",
+        "spring-web-test-client-specifications": "/docs/spring/web-test-client/#spring-web-test-client-specifications",
+        "resetting-restassuredwebtestclient": "/docs/spring/web-test-client/#resetting-restassuredwebtestclient",
+        "parallel-tests-with-restassuredwebtestclient": "/docs/spring/web-test-client/#parallel-tests-with-restassuredwebtestclient",
+        "common-spring-module-documentation": "/docs/spring/mock-mvc/#common-spring-module-documentation",
+        "note-on-parameters": "/docs/spring/mock-mvc/#note-on-parameters",
+        "specifications": "/docs/spring/mock-mvc/#spring-mock-mvc-specifications"
+      }
+    },
+    "Usage": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/docs/usage/",
+      "anchors": {
+        "contents": "/docs/usage/",
+        "path-engines": "/docs/usage/setup/#path-engines",
+        "jsonpath-with-jayway": "/docs/usage/setup/#jsonpath-with-jayway",
+        "static-imports": "/docs/usage/setup/#static-imports",
+        "examples": "/docs/usage/examples/",
+        "example-1---json": "/docs/usage/examples/#example-1---json",
+        "returning-floats-and-doubles-as-bigdecimal": "/docs/usage/examples/#returning-floats-and-doubles-as-bigdecimal",
+        "json-schema-validation": "/docs/usage/examples/#json-schema-validation",
+        "the-java-json-tools-validator": "/docs/usage/examples/#the-java-json-tools-validator",
+        "json-schema-validation-settings": "/docs/usage/examples/#json-schema-validation-settings",
+        "choosing-the-json-schema-version": "/docs/usage/examples/#choosing-the-json-schema-version",
+        "json-schema-validation-with-static-configuration": "/docs/usage/examples/#json-schema-validation-with-static-configuration",
+        "json-schema-validation-without-rest-assured": "/docs/usage/examples/#json-schema-validation-without-rest-assured",
+        "anonymous-json-root-validation": "/docs/usage/examples/#anonymous-json-root-validation",
+        "example-2---xml": "/docs/usage/examples/#example-2---xml",
+        "xml-namespaces": "/docs/usage/examples/#xml-namespaces",
+        "xpath": "/docs/usage/examples/#xpath",
+        "schema-and-dtd-validation": "/docs/usage/examples/#schema-and-dtd-validation",
+        "xsd-example": "/docs/usage/examples/#xsd-example",
+        "dtd-example": "/docs/usage/examples/#dtd-example",
+        "example-3---complex-parsing-and-validation": "/docs/usage/examples/#example-3---complex-parsing-and-validation",
+        "xml-example": "/docs/usage/examples/#xml-example",
+        "depth-first-search": "/docs/usage/examples/#depth-first-search",
+        "json-example": "/docs/usage/examples/#json-example",
+        "example-1": "/docs/usage/examples/#example-1",
+        "example-2": "/docs/usage/examples/#example-2",
+        "deserialization-with-generics": "/docs/usage/examples/#deserialization-with-generics",
+        "additional-examples": "/docs/usage/examples/#additional-examples",
+        "note-on-floats-and-doubles": "/docs/usage/examples/#note-on-floats-and-doubles",
+        "note-on-syntax": "/docs/usage/examples/#note-on-syntax",
+        "syntactic-sugar": "/docs/usage/examples/#syntactic-sugar",
+        "getting-response-data": "/docs/usage/response-data/",
+        "extracting-values-from-the-response-after-validation": "/docs/usage/response-data/#extracting-values-from-the-response-after-validation",
+        "json-using-jsonpath": "/docs/usage/response-data/#json-using-jsonpath",
+        "jsonpath-configuration": "/docs/usage/response-data/#jsonpath-configuration",
+        "xml-using-xmlpath": "/docs/usage/response-data/#xml-using-xmlpath",
+        "xmlpath-configuration": "/docs/usage/response-data/#xmlpath-configuration",
+        "parsing-html-with-xmlpath": "/docs/usage/response-data/#parsing-html-with-xmlpath",
+        "single-path": "/docs/usage/response-data/#single-path",
+        "headers-cookies-status-etc": "/docs/usage/response-data/#headers-cookies-status-etc",
+        "multi-value-headers-and-cookies": "/docs/usage/response-data/#multi-value-headers-and-cookies",
+        "multi-value-headers": "/docs/usage/response-data/#multi-value-headers",
+        "multi-value-cookies": "/docs/usage/response-data/#multi-value-cookies",
+        "detailed-cookies": "/docs/usage/response-data/#detailed-cookies",
+        "specifying-request-data": "/docs/usage/request-data/",
+        "invoking-http-resources": "/docs/usage/request-data/#invoking-http-resources",
+        "parameters": "/docs/usage/request-data/#parameters",
+        "parameter-values-that-arent-strings": "/docs/usage/request-data/#parameter-values-that-arent-strings",
+        "multi-value-parameter": "/docs/usage/request-data/#multi-value-parameter",
+        "no-value-parameter": "/docs/usage/request-data/#no-value-parameter",
+        "path-parameters": "/docs/usage/request-data/#path-parameters",
+        "cookies": "/docs/usage/request-data/#cookies",
+        "headers": "/docs/usage/request-data/#headers",
+        "header-mergingoverwriting": "/docs/usage/request-data/#header-mergingoverwriting",
+        "content-type": "/docs/usage/request-data/#content-type",
+        "request-body": "/docs/usage/request-data/#request-body",
+        "verifying-response-data": "/docs/usage/verifying-responses/",
+        "response-body": "/docs/usage/verifying-responses/#response-body",
+        "cookies-1": "/docs/usage/verifying-responses/#cookies",
+        "status": "/docs/usage/verifying-responses/#status",
+        "headers-1": "/docs/usage/verifying-responses/#headers",
+        "content-type-1": "/docs/usage/verifying-responses/#content-type",
+        "full-bodycontent-matching": "/docs/usage/verifying-responses/#full-bodycontent-matching",
+        "use-the-response-to-verify-other-parts-of-the-response": "/docs/usage/verifying-responses/#use-the-response-to-verify-other-parts-of-the-response",
+        "measuring-response-time": "/docs/usage/verifying-responses/#measuring-response-time",
+        "authentication": "/docs/usage/authentication/",
+        "basic-authentication": "/docs/usage/authentication/#basic-authentication",
+        "preemptive-basic-authentication": "/docs/usage/authentication/#preemptive-basic-authentication",
+        "challenged-basic-authentication": "/docs/usage/authentication/#challenged-basic-authentication",
+        "digest-authentication": "/docs/usage/authentication/#digest-authentication",
+        "form-authentication": "/docs/usage/authentication/#form-authentication",
+        "csrf": "/docs/usage/authentication/#csrf",
+        "csrf-form-token": "/docs/usage/authentication/#csrf-form-token",
+        "csrf-header-token": "/docs/usage/authentication/#csrf-header-token",
+        "csrf-and-authentication": "/docs/usage/authentication/#csrf-and-authentication",
+        "csrf-prioritization": "/docs/usage/authentication/#csrf-prioritization",
+        "csrf-cookie-propagation": "/docs/usage/authentication/#csrf-cookie-propagation",
+        "oauth": "/docs/usage/authentication/#oauth",
+        "oauth-1": "/docs/usage/authentication/#oauth-1",
+        "oauth-2": "/docs/usage/authentication/#oauth-2",
+        "custom-authentication": "/docs/usage/authentication/#custom-authentication",
+        "multi-part-form-data": "/docs/usage/multi-part/",
+        "object-mapping": "/docs/usage/object-mapping/",
+        "jakarta-ee": "/docs/usage/object-mapping/#jakarta-ee",
+        "jaxb": "/docs/usage/object-mapping/#jaxb",
+        "serialization": "/docs/usage/object-mapping/#serialization",
+        "content-type-based-serialization": "/docs/usage/object-mapping/#content-type-based-serialization",
+        "create-json-from-a-hashmap": "/docs/usage/object-mapping/#create-json-from-a-hashmap",
+        "using-an-explicit-serializer": "/docs/usage/object-mapping/#using-an-explicit-serializer",
+        "deserialization": "/docs/usage/object-mapping/#deserialization",
+        "content-type-based-deserialization": "/docs/usage/object-mapping/#content-type-based-deserialization",
+        "custom-content-type-deserialization": "/docs/usage/object-mapping/#custom-content-type-deserialization",
+        "using-an-explicit-deserializer": "/docs/usage/object-mapping/#using-an-explicit-deserializer",
+        "configuration": "/docs/usage/object-mapping/#configuration",
+        "custom": "/docs/usage/object-mapping/#custom",
+        "custom-parsers": "/docs/usage/parsers-and-defaults/",
+        "default-parser": "/docs/usage/parsers-and-defaults/#default-parser",
+        "default-values": "/docs/usage/parsers-and-defaults/#default-values",
+        "specification-re-use": "/docs/usage/specification-reuse/",
+        "specifications-and-the-static-settings": "/docs/usage/specification-reuse/#specifications-and-the-static-settings",
+        "querying-requestspecification": "/docs/usage/specification-reuse/#querying-requestspecification",
+        "parallel-tests": "/docs/usage/parallel-tests/",
+        "requests-on-other-threads": "/docs/usage/parallel-tests/#requests-on-other-threads",
+        "junit-5": "/docs/usage/parallel-tests/#junit-5",
+        "kotlin-and-scala": "/docs/usage/parallel-tests/#kotlin-and-scala",
+        "restassuredclient": "/docs/usage/parallel-tests/#restassuredclient",
+        "creating-a-client": "/docs/usage/parallel-tests/#creating-a-client",
+        "connections-and-cookies": "/docs/usage/parallel-tests/#connections-and-cookies",
+        "clients-and-specifications": "/docs/usage/parallel-tests/#clients-and-specifications",
+        "form-authentication-and-csrf-with-a-client": "/docs/usage/parallel-tests/#form-authentication-and-csrf-with-a-client",
+        "filters": "/docs/usage/filters/",
+        "ordered-filters": "/docs/usage/filters/#ordered-filters",
+        "response-builder": "/docs/usage/filters/#response-builder",
+        "logging": "/docs/usage/logging/",
+        "request-logging": "/docs/usage/logging/#request-logging",
+        "response-logging": "/docs/usage/logging/#response-logging",
+        "log-if-validation-fails": "/docs/usage/logging/#log-if-validation-fails",
+        "blacklist-headers-from-logging": "/docs/usage/logging/#blacklist-headers-from-logging",
+        "root-path": "/docs/usage/root-path/",
+        "path-arguments": "/docs/usage/root-path/#path-arguments",
+        "session-support": "/docs/usage/sessions/",
+        "session-filter": "/docs/usage/sessions/#session-filter",
+        "ssl": "/docs/usage/ssl/",
+        "ssl-invalid-hostname": "/docs/usage/ssl/#ssl-invalid-hostname",
+        "url-encoding": "/docs/usage/url-encoding/",
+        "proxy-configuration": "/docs/usage/proxy/",
+        "static-proxy-configuration": "/docs/usage/proxy/#static-proxy-configuration",
+        "request-specification-proxy-configuration": "/docs/usage/proxy/#request-specification-proxy-configuration",
+        "detailed-configuration": "/docs/usage/configuration/",
+        "encoder-config": "/docs/usage/configuration/#encoder-config",
+        "avoid-adding-the-charset-to-content-type-header-automatically": "/docs/usage/configuration/#avoid-adding-the-charset-to-content-type-header-automatically",
+        "decoder-config": "/docs/usage/configuration/#decoder-config",
+        "session-config": "/docs/usage/configuration/#session-config",
+        "redirect-dsl": "/docs/usage/configuration/#redirect-dsl",
+        "connection-config": "/docs/usage/configuration/#connection-config",
+        "json-config": "/docs/usage/configuration/#json-config",
+        "http-client-config": "/docs/usage/configuration/#http-client-config",
+        "writing-your-own-http-client": "/docs/usage/configuration/#writing-your-own-http-client",
+        "ssl-config": "/docs/usage/configuration/#ssl-config",
+        "param-config": "/docs/usage/configuration/#param-config",
+        "failure-config": "/docs/usage/configuration/#failure-config",
+        "csrf-config": "/docs/usage/configuration/#csrf-config",
+        "more-info": "/docs/support/"
+      }
+    },
+    "Usage_Legacy": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/docs/legacy/usage/",
+      "anchors": {
+        "usage-for-rest-assured-version-190-and-earlier": "/docs/legacy/usage/",
+        "static-imports": "/docs/legacy/usage/#static-imports",
+        "example-1---json": "/docs/legacy/usage/#example-1---json",
+        "returning-floats-and-doubles-as-bigdecimal": "/docs/legacy/usage/#returning-floats-and-doubles-as-bigdecimal",
+        "example-2---xml": "/docs/legacy/usage/#example-2---xml",
+        "xml-namespaces": "/docs/legacy/usage/#xml-namespaces",
+        "xpath": "/docs/legacy/usage/#xpath",
+        "schema-and-dtd-validation": "/docs/legacy/usage/#schema-and-dtd-validation",
+        "example-3---complex-parsing-and-validation": "/docs/legacy/usage/#example-3---complex-parsing-and-validation",
+        "additional-examples": "/docs/legacy/usage/#additional-examples",
+        "note-on-floats-and-doubles": "/docs/legacy/usage/#note-on-floats-and-doubles",
+        "getting-response-data": "/docs/legacy/usage/#getting-response-data",
+        "json-using-jsonpath": "/docs/legacy/usage/#json-using-jsonpath",
+        "jsonpath-configuration": "/docs/legacy/usage/#jsonpath-configuration",
+        "xml-using-xmlpath": "/docs/legacy/usage/#xml-using-xmlpath",
+        "xmlpath-configuration": "/docs/legacy/usage/#xmlpath-configuration",
+        "single-path": "/docs/legacy/usage/#single-path",
+        "headers-cookies-status-etc": "/docs/legacy/usage/#headers-cookies-status-etc",
+        "multi-value-headers-and-cookies": "/docs/legacy/usage/#multi-value-headers-and-cookies",
+        "multi-value-headers": "/docs/legacy/usage/#multi-value-headers",
+        "multi-value-cookies": "/docs/legacy/usage/#multi-value-cookies",
+        "detailed-cookies": "/docs/legacy/usage/#detailed-cookies",
+        "specifying-request-data": "/docs/legacy/usage/#specifying-request-data",
+        "parameters": "/docs/legacy/usage/#parameters",
+        "multi-value-parameter": "/docs/legacy/usage/#multi-value-parameter",
+        "no-value-parameter": "/docs/legacy/usage/#no-value-parameter",
+        "path-parameters": "/docs/legacy/usage/#path-parameters",
+        "cookies": "/docs/legacy/usage/#cookies",
+        "headers": "/docs/legacy/usage/#headers",
+        "content-type": "/docs/legacy/usage/#content-type",
+        "request-body": "/docs/legacy/usage/#request-body",
+        "verifying-response-data": "/docs/legacy/usage/#verifying-response-data",
+        "response-body": "/docs/legacy/usage/#response-body",
+        "cookies-1": "/docs/legacy/usage/#cookies-1",
+        "status": "/docs/legacy/usage/#status",
+        "headers-1": "/docs/legacy/usage/#headers-1",
+        "content-type-1": "/docs/legacy/usage/#content-type-1",
+        "full-bodycontent-matching": "/docs/legacy/usage/#full-bodycontent-matching",
+        "authentication": "/docs/legacy/usage/#authentication",
+        "oauth": "/docs/legacy/usage/#oauth",
+        "multi-part-form-data": "/docs/legacy/usage/#multi-part-form-data",
+        "object-mapping": "/docs/legacy/usage/#object-mapping",
+        "serialization": "/docs/legacy/usage/#serialization",
+        "content-type-based-serialization": "/docs/legacy/usage/#content-type-based-serialization",
+        "using-an-explicit-serializer": "/docs/legacy/usage/#using-an-explicit-serializer",
+        "deserialization": "/docs/legacy/usage/#deserialization",
+        "content-type-based-deserialization": "/docs/legacy/usage/#content-type-based-deserialization",
+        "custom-content-type-deserialization": "/docs/legacy/usage/#custom-content-type-deserialization",
+        "using-an-explicit-deserializer": "/docs/legacy/usage/#using-an-explicit-deserializer",
+        "configuration": "/docs/legacy/usage/#configuration",
+        "custom": "/docs/legacy/usage/#custom",
+        "custom-parsers": "/docs/legacy/usage/#custom-parsers",
+        "default-parser": "/docs/legacy/usage/#default-parser",
+        "default-values": "/docs/legacy/usage/#default-values",
+        "specification-re-use": "/docs/legacy/usage/#specification-re-use",
+        "filters": "/docs/legacy/usage/#filters",
+        "response-builder": "/docs/legacy/usage/#response-builder",
+        "logging": "/docs/legacy/usage/#logging",
+        "request-logging": "/docs/legacy/usage/#request-logging",
+        "response-logging": "/docs/legacy/usage/#response-logging",
+        "root-path": "/docs/legacy/usage/#root-path",
+        "path-arguments": "/docs/legacy/usage/#path-arguments",
+        "session-support": "/docs/legacy/usage/#session-support",
+        "session-filter": "/docs/legacy/usage/#session-filter",
+        "ssl": "/docs/legacy/usage/#ssl",
+        "url-encoding": "/docs/legacy/usage/#url-encoding",
+        "detailed-configuration": "/docs/legacy/usage/#detailed-configuration",
+        "encoder-config": "/docs/legacy/usage/#encoder-config",
+        "decoder-config": "/docs/legacy/usage/#decoder-config",
+        "session-config": "/docs/legacy/usage/#session-config",
+        "redirect-dsl": "/docs/legacy/usage/#redirect-dsl",
+        "connection-config": "/docs/legacy/usage/#connection-config",
+        "json-config": "/docs/legacy/usage/#json-config",
+        "http-client-config": "/docs/legacy/usage/#http-client-config",
+        "more-info": "/docs/legacy/usage/#more-info"
+      }
+    },
+    "_Sidebar": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "skip": "Wiki navigation. The new site's sidebar replaces it."
+    },
+    "snapshot": {
+      "sha": "6c42288f77df74526b4e0e44e489e88ddf5b7a42",
+      "address": "/docs/snapshots/",
+      "anchors": {}
+    }
+  }
+}

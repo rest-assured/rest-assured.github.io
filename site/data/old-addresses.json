@@ -1,0 +1,27 @@
+{
+  "addresses": [
+    "/",
+    "/docs",
+    "/docs.html",
+    "/favicon.ico",
+    "/img/bgnoise.png",
+    "/img/logo-transparent.png",
+    "/img/name-transparent.png",
+    "/intro",
+    "/intro.html",
+    "/news",
+    "/news.html",
+    "/release-notes",
+    "/release-notes.html",
+    "/who",
+    "/who.html"
+  ],
+  "anchorsOnFrontPage": [
+    "docs",
+    "documentation",
+    "intro",
+    "news",
+    "release-notes",
+    "who"
+  ]
+}
