@@ -26,8 +26,7 @@ post("/login").then().statusCode(302).header("Location", "/dashboard");
 If you'd rather have REST Assured follow redirects of `POST`, `PUT`, `DELETE` and the rest too (since REST Assured 6.3.0):
 
 ```java
-RestAssured.config = RestAssured.config()
-        .redirect(redirectConfig().followRedirectsForAllMethods(true));
+RestAssured.config = RestAssured.config().redirect(redirectConfig().followRedirectsForAllMethods(true));
 ```
 
 What the next request looks like depends on the status code. A `307` or `308` sends the same method and the same body again. Any other redirect turns the request into a `GET` without a body, which is what browsers do.
