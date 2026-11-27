@@ -198,7 +198,7 @@ These replace the HttpClient 4 parameters, such as `setParam(CoreConnectionPName
 
 The JDK client covers most tests, but there are a few things it can't do. If your tests need one of these, add `http-client-apache5` as shown above and they work:
 
-* Set the `Host`, `Connection` or `Upgrade` header yourself. A typical case is testing virtual hosts: `given().header("Host", "shop.example.com")`.
+* Set the `Host`, `Connection` or `Upgrade` header yourself. A typical case is testing virtual hosts: `given().header("Host", "shop.example.com")`. A `Host` header with the host and port of the URL works with the JDK client too, because the JDK client sends that one anyway.
 * Send an `Expect` header other than `100-continue`.
 * Log in with NTLM (`auth().ntlm(..)`).
 * Talk to the proxy over TLS (`ProxySpecification.withScheme("https")`).
